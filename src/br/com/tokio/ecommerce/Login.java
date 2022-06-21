@@ -5,11 +5,11 @@ import java.awt.*;
 
 public class Login extends JFrame{
 	
-	private String  user = "Cliente";
+	private String  user = "Cliente", passworld, login;
 	private JTextField txEmail, txPassworld;
 	private JLabel lbEmail, lbPassworld, lbHello, imgLogo;
 	private JButton btSend, btRegister;
-	private JPanel pnLogin;
+	private JPanel pnLogin, pnRegister;
 	
 	/*public static void main(String Args[]) {
 		Login login= new Login();
@@ -20,7 +20,7 @@ public class Login extends JFrame{
 		componentes();
 		eventos();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setUndecorated(true);
 		this.setBounds(0,0,450,600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -77,11 +77,34 @@ public class Login extends JFrame{
 		btRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnLogin.add(btRegister);
 		
+		pnRegister = new JPanel();
+		pnRegister.setLayout(null);
+		
+		
 		
 		
 		getContentPane().add(pnLogin);		
 	}
 	public void eventos() {
 		
+		btSend.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent argse) {
+				
+				if(txEmail.getText().equals("")) {
+					txEmail.requestFocus();
+					
+				}else if(txPassworld.getText().equals("")) {
+					txPassworld.requestFocus();
+					
+				}else {
+					
+					login = txEmail.getText();
+					passworld = txPassworld.getText();
+					
+					System.out.println(login+" "+passworld);
+					
+				}
+			}
+		});
 	}
 }
