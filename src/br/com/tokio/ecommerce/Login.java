@@ -2,7 +2,6 @@ package br.com.tokio.ecommerce;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
-
 import java.awt.event.*;
 import java.text.ParseException;
 import java.awt.*;
@@ -100,7 +99,7 @@ public class Login extends JFrame {
 		lbHelloCorretor.setBounds(150, 230, 240, 30);
 		pnLoginCorretor.add(lbHelloCorretor);
 
-		lbLoginCorretor = new JLabel("Login:");
+		lbLoginCorretor = new JLabel("Email:");
 		lbLoginCorretor.setFont(new Font("", Font.BOLD, 27));
 		lbLoginCorretor.setBounds(50, 285, 100, 35);
 		pnLoginCorretor.add(lbLoginCorretor);
@@ -153,7 +152,7 @@ public class Login extends JFrame {
 		lbHelloCliente.setBounds(150, 230, 240, 30);
 		pnLoginCliente.add(lbHelloCliente);
 
-		lbLogin = new JLabel("Login:");
+		lbLogin = new JLabel("CPF:");
 		lbLogin.setFont(new Font("", Font.BOLD, 27));
 		lbLogin.setBounds(50, 285, 100, 35);
 		pnLoginCliente.add(lbLogin);
@@ -166,7 +165,6 @@ public class Login extends JFrame {
 		try {
 			txLogin = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 		} catch (ParseException e3) {
-			// TODO Auto-generated catch block
 			e3.printStackTrace();
 		}
 		txPassworld = new JPasswordField();
@@ -222,7 +220,6 @@ public class Login extends JFrame {
 		try {
 			txDtNasc = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		txDtNasc.setBounds(160, 155, 100, 30);
@@ -231,7 +228,6 @@ public class Login extends JFrame {
 		try {
 			txCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 		} catch (ParseException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
 		txCpf.setBounds(100, 203, 160, 30);
@@ -240,7 +236,6 @@ public class Login extends JFrame {
 		try {
 			txCep = new JFormattedTextField(new MaskFormatter("#####-###"));
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		txCep.setBounds(60, 250, 151, 30);
@@ -249,7 +244,6 @@ public class Login extends JFrame {
 		try {
 			txRg = new JFormattedTextField(new MaskFormatter("##.###.###-#"));
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		txRg.setBounds(309, 203, 111, 30);
@@ -276,7 +270,6 @@ public class Login extends JFrame {
 		try {
 			txTel = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		txTel.setBounds(296, 250, 124, 30);
@@ -405,6 +398,9 @@ public class Login extends JFrame {
 		});
 		btBackRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
+				txLogin.setText("");
+				txPassworld.setText("");
+				
 				pnRegister.setVisible(false);
 				pnLoginCliente.setVisible(true);
 				getContentPane().add(pnLoginCliente);
@@ -433,6 +429,9 @@ public class Login extends JFrame {
 		});
 		btBackCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
+				txLogin.setText("");
+				txPassworld.setText("");
+				
 				pnLoginCliente.setVisible(false);
 				pnMain.setVisible(true);
 				getContentPane().add(pnMain);
@@ -509,6 +508,9 @@ public class Login extends JFrame {
 								txEmail.setText("");
 								txPassworldRegister.setText("");
 								txPassworldConfirm.setText("");
+								
+								txLogin.setText("");
+								txPassworld.setText("");
 
 								pnRegister.setVisible(false);
 								pnLoginCliente.setVisible(true);
@@ -546,7 +548,7 @@ public class Login extends JFrame {
 					passworld = txPassworld.getText();
 
 					if (login.equals("451.161.738-44") && passworld.equals("senha")) { // fazer busca no banco de dados
-						
+
 						disabled();
 						InterfaceCliente cliente = new InterfaceCliente();
 						cliente.setEnabled(true);
@@ -557,7 +559,7 @@ public class Login extends JFrame {
 								enabled();
 							}
 						});
-						
+
 					} else {
 						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
 								JOptionPane.ERROR_MESSAGE);
@@ -589,8 +591,7 @@ public class Login extends JFrame {
 							public void actionPerformed(ActionEvent argse) {
 								corretor.close();
 								enabled();
-								
-								
+
 							}
 						});
 
@@ -613,6 +614,7 @@ public class Login extends JFrame {
 	public void disabled() {
 		this.setEnabled(false);
 	}
+
 	public void enabled() {
 		this.setEnabled(true);
 	}
@@ -620,6 +622,7 @@ public class Login extends JFrame {
 	public static void main(String Args[]) {
 		Login frame = new Login();
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setTitle("Login");
 		// frame.setUndecorated(true);
 		frame.setBounds(0, 0, 450, 600);
 		frame.setLocationRelativeTo(null);
