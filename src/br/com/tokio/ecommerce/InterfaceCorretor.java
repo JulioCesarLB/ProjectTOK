@@ -5,23 +5,30 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class InterfaceCorretor extends JFrame {
-	
+	public JButton close;
 	public InterfaceCorretor() {
 		componentes();
 		eventos();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setFocusableWindowState(true);
-		// setUndecorated(true);
-		setBounds(0, 0, 1000, 600);
-		setLocationRelativeTo(null);
-		setVisible(true);
-		setIconImage(new ImageIcon("images//icon.png").getImage());
+		this.setUndecorated(true);
+		this.setBounds(0, 0, 1000, 600);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		this.setIconImage(new ImageIcon("images//icon.png").getImage());
 	}
 	
 	public void componentes() {
-		
+		setLayout(null);
+		close = new JButton("close");
+		close.setBounds(100,100,100,100);
+		add(close);
 	}
 	public void eventos() {
+	}
+	public void close() {
 		
+		this.setVisible(false);
 	}
 }

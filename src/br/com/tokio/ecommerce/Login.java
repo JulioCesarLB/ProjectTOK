@@ -8,34 +8,36 @@ import java.text.ParseException;
 import java.awt.*;
 
 public class Login extends JFrame {
-	
-	
+
 	// panel principal
 	private JButton btCliente, btCorretor;
 	private JLabel lbHello, lbHelloTwo, imgLogoMain;
-	
+
 	// panel cliente
-	private String user = "Cliente", passworld, login;
+	private String passworld, login;
 	private JTextField txLogin, txPassworld;
 	private JLabel lbLogin, lbPassworld, lbHelloCliente, imgLogo;
 	private JButton btSend, btRegister, btBackCliente;
 	private JPanel pnLoginCliente, pnRegister, pnMain, pnLoginCorretor;
 
 	// panel register
-	private JTextField txName, txCpf, txDtNasc, txCep, txRg, txEmail, txJob, txRenda, txTel;
-	private JLabel lbTitleRegister, lbName, lbCpf, lbDtNasc, lbCep, lbRg, lbSexo, lbEmail, lbJob, lbRenda, lbTel;
+	private JTextField txName, txCpf, txDtNasc, txCep, txRg, txEmail, txJob, txRenda, txTel, txPassworldRegister,
+			txPassworldConfirm;
+	private JLabel lbTitleRegister, lbName, lbCpf, lbDtNasc, lbCep, lbRg, lbSexo, lbEmail, lbJob, lbRenda, lbTel,
+			lbPassworldRegister, lbPassworldConfirm;
 	private JComboBox cbSexo;
 	private String[] vetCbSexo = { "Masculino", "Feminino", "Outro" };
 	private JButton btRegisterDone, btBackRegister;
-	
+
 	// panel corretor
 	private JTextField txLoginCorretor, txPassworldCorretor;
 	private JLabel lbLoginCorretor, lbPassworldCorretor, lbHelloCorretor, imgLogoCorretor;
 	private JButton btSendCorretor, btBackCorretor;
-	
+
 	public Login() {
 		componentes();
 		eventos();
+
 	}
 
 	public void componentes() {
@@ -47,45 +49,42 @@ public class Login extends JFrame {
 		imgLogoMain = new JLabel(new ImageIcon("images//tokio-marine-sem-fundo190x168.png"));
 		imgLogoMain.setBounds(130, 30, 190, 168);
 		pnMain.add(imgLogoMain);
-		
+
 		lbHello = new JLabel("Seja bem vindo!!!");
 		lbHello.setBounds(100, 230, 300, 30);
 		lbHello.setFont(new Font("Dialog", Font.BOLD, 30));
 		lbHello.setForeground(Color.decode("#007256"));
 		pnMain.add(lbHello);
-		
+
 		lbHelloTwo = new JLabel("Qual área você deseja entrar???");
 		lbHelloTwo.setBounds(40, 270, 370, 30);
 		lbHelloTwo.setFont(new Font("Dialog", Font.BOLD, 23));
 		lbHelloTwo.setForeground(Color.decode("#007256"));
 		pnMain.add(lbHelloTwo);
-		
-		btCliente = new JButton("Area do Cliente");
-		btCliente.setBounds(50, 340, 150, 120);
+
+		btCliente = new JButton(new ImageIcon("images//logoCliente.jpg"));
+		btCliente.setBounds(50, 340, 150, 150);
 		btCliente.setFont(new Font("Dialog", Font.BOLD, 13));
-		btCliente.setBackground(Color.decode("#007256"));
-		btCliente.setForeground(Color.WHITE);
+
 		btCliente.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btCliente);
 
-		btCorretor = new JButton("Area do Corretor");
-		btCorretor.setBounds(240,340, 150, 120);
+		btCorretor = new JButton(new ImageIcon("images//logoCorretor.jpg"));
+		btCorretor.setBounds(240, 340, 150, 150);
 		btCorretor.setFont(new Font("Dialog", Font.BOLD, 13));
-		btCorretor.setBackground(Color.decode("#007256"));
-		btCorretor.setForeground(Color.WHITE);
 		btCorretor.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btCorretor);
-		
-		
-		////////////////////////////////////////////////////PN CORRETOR////////////////////////////////////////////
+
+		//////////////////////////////////////////////////// PN
+		//////////////////////////////////////////////////// CORRETOR////////////////////////////////////////////
 		pnLoginCorretor = new JPanel();
 		pnLoginCorretor.setLayout(null);
 		pnLoginCorretor.setVisible(false);
-		
+
 		imgLogoCorretor = new JLabel(new ImageIcon("images//tokio-marine-sem-fundo190x168.png"));
 		imgLogoCorretor.setBounds(130, 30, 190, 168);
 		pnLoginCorretor.add(imgLogoCorretor);
-		
+
 		btBackCorretor = new JButton("Voltar");
 		btBackCorretor.setBounds(10, 10, 60, 30);
 		btBackCorretor.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -129,14 +128,14 @@ public class Login extends JFrame {
 		btSendCorretor.setForeground(Color.WHITE);
 		btSendCorretor.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnLoginCorretor.add(btSendCorretor);
-		
-		
-		////////////////////////////////////////////////PN CLIENTE//////////////////////////////////////////
+
+		//////////////////////////////////////////////// PN
+		//////////////////////////////////////////////// CLIENTE//////////////////////////////////////////
 
 		pnLoginCliente = new JPanel();
 		pnLoginCliente.setLayout(null);
 		pnLoginCliente.setVisible(false);
-		
+
 		imgLogo = new JLabel(new ImageIcon("images//tokio-marine-sem-fundo190x168.png"));
 		imgLogo.setBounds(130, 30, 190, 168);
 		pnLoginCliente.add(imgLogo);
@@ -196,7 +195,8 @@ public class Login extends JFrame {
 		btRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnLoginCliente.add(btRegister);
 
-		//////////////////////////////////////////////////////PAINEL DE REGISTRO///////////////////////////////////////////////////////
+		////////////////////////////////////////////////////// PAINEL DE
+		////////////////////////////////////////////////////// REGISTRO///////////////////////////////////////////////////////
 		pnRegister = new JPanel();
 		pnRegister.setLayout(null);
 		pnRegister.setVisible(false);
@@ -216,7 +216,7 @@ public class Login extends JFrame {
 		pnRegister.add(btBackRegister);
 
 		txName = new JTextField();
-		txName.setBounds(100, 120, 320, 30);
+		txName.setBounds(100, 110, 320, 30);
 		pnRegister.add(txName);
 
 		try {
@@ -225,7 +225,7 @@ public class Login extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		txDtNasc.setBounds(160, 165, 100, 30);
+		txDtNasc.setBounds(160, 155, 100, 30);
 		pnRegister.add(txDtNasc);
 
 		try {
@@ -234,7 +234,7 @@ public class Login extends JFrame {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		txCpf.setBounds(100, 213, 160, 30);
+		txCpf.setBounds(100, 203, 160, 30);
 		pnRegister.add(txCpf);
 
 		try {
@@ -243,7 +243,7 @@ public class Login extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		txCep.setBounds(60, 260, 151, 30);
+		txCep.setBounds(60, 250, 151, 30);
 		pnRegister.add(txCep);
 
 		try {
@@ -252,25 +252,25 @@ public class Login extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		txRg.setBounds(309, 213, 111, 30);
+		txRg.setBounds(309, 203, 111, 30);
 		pnRegister.add(txRg);
 
 		// Combobox
 		cbSexo = new JComboBox(vetCbSexo);
-		cbSexo.setBounds(320, 165, 100, 30);
+		cbSexo.setBounds(320, 155, 100, 30);
 		cbSexo.setForeground(Color.decode("#007256"));
 		pnRegister.add(cbSexo);
 
 		txEmail = new JTextField();
-		txEmail.setBounds(70, 395, 350, 30);
+		txEmail.setBounds(70, 385, 350, 30);
 		pnRegister.add(txEmail);
 
 		txJob = new JTextField();
-		txJob.setBounds(100, 306, 320, 30);
+		txJob.setBounds(100, 296, 320, 30);
 		pnRegister.add(txJob);
 
 		txRenda = new JTextField();
-		txRenda.setBounds(221, 351, 121, 30);
+		txRenda.setBounds(221, 341, 121, 30);
 		pnRegister.add(txRenda);
 
 		try {
@@ -279,23 +279,33 @@ public class Login extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		txTel.setBounds(296, 260, 124, 30);
+		txTel.setBounds(296, 250, 124, 30);
 		pnRegister.add(txTel);
+
+		txPassworldRegister = new JPasswordField();
+		txPassworldRegister.setBounds(75, 427, 125, 30);
+		txPassworldRegister.setFont(new Font("", Font.BOLD, 20));
+		pnRegister.add(txPassworldRegister);
+
+		txPassworldConfirm = new JPasswordField();
+		txPassworldConfirm.setBounds(296, 427, 125, 30);
+		txPassworldConfirm.setFont(new Font("", Font.BOLD, 20));
+		pnRegister.add(txPassworldConfirm);
 
 		lbName = new JLabel("Nome: ");
 		lbName.setFont(new Font("", Font.BOLD, 22));
 		lbName.setForeground(Color.decode("#007256"));
-		lbName.setBounds(20, 120, 73, 23);
+		lbName.setBounds(20, 110, 73, 23);
 		pnRegister.add(lbName);
 
 		lbDtNasc = new JLabel("Data de nascimento: ");
 		lbDtNasc.setFont(new Font("", Font.BOLD, 13));
 		lbDtNasc.setForeground(Color.decode("#007256"));
-		lbDtNasc.setBounds(20, 168, 134, 23);
+		lbDtNasc.setBounds(20, 158, 134, 23);
 		pnRegister.add(lbDtNasc);
 
 		lbSexo = new JLabel("Sexo: ");
-		lbSexo.setBounds(272, 168, 49, 23);
+		lbSexo.setBounds(272, 158, 49, 23);
 		lbSexo.setFont(new Font("", Font.BOLD, 14));
 		lbSexo.setForeground(Color.decode("#007256"));
 		pnRegister.add(lbSexo);
@@ -303,41 +313,53 @@ public class Login extends JFrame {
 		lbCpf = new JLabel("CPF: ");
 		lbCpf.setFont(new Font("", Font.BOLD, 14));
 		lbCpf.setForeground(Color.decode("#007256"));
-		lbCpf.setBounds(20, 215, 77, 23);
+		lbCpf.setBounds(20, 205, 77, 23);
 		pnRegister.add(lbCpf);
 
 		lbRg = new JLabel("RG: ");
-		lbRg.setBounds(272, 215, 29, 23);
+		lbRg.setBounds(272, 205, 29, 23);
 		lbRg.setFont(new Font("", Font.BOLD, 14));
 		lbRg.setForeground(Color.decode("#007256"));
 		pnRegister.add(lbRg);
 
 		lbCep = new JLabel("CEP: ");
-		lbCep.setBounds(20, 262, 36, 23);
+		lbCep.setBounds(20, 252, 36, 23);
 		lbCep.setFont(new Font("", Font.BOLD, 14));
 		lbCep.setForeground(Color.decode("#007256"));
 		pnRegister.add(lbCep);
 
 		lbEmail = new JLabel("Email: ");
-		lbEmail.setBounds(20, 398, 49, 23);
+		lbEmail.setBounds(20, 388, 49, 23);
 		lbEmail.setFont(new Font("", Font.BOLD, 14));
 		lbEmail.setForeground(Color.decode("#007256"));
 		pnRegister.add(lbEmail);
 
 		lbJob = new JLabel("Profissão: ");
-		lbJob.setBounds(20, 308, 77, 23);
+		lbJob.setBounds(20, 298, 77, 23);
 		lbJob.setFont(new Font("", Font.BOLD, 14));
 		lbJob.setForeground(Color.decode("#007256"));
 		pnRegister.add(lbJob);
 
 		lbRenda = new JLabel("Renda Mensal: ");
-		lbRenda.setBounds(110, 353, 111, 23);
+		lbRenda.setBounds(110, 343, 111, 23);
 		lbRenda.setFont(new Font("", Font.BOLD, 14));
 		lbRenda.setForeground(Color.decode("#007256"));
 		pnRegister.add(lbRenda);
 
+		lbPassworldRegister = new JLabel("Senha: ");
+		lbPassworldRegister.setBounds(20, 430, 52, 23);
+		lbPassworldRegister.setFont(new Font("", Font.BOLD, 14));
+		lbPassworldRegister.setForeground(Color.decode("#007256"));
+		pnRegister.add(lbPassworldRegister);
+
+		lbPassworldConfirm = new JLabel("Confirmar: ");
+		lbPassworldConfirm.setBounds(217, 430, 77, 23);
+		lbPassworldConfirm.setFont(new Font("", Font.BOLD, 14));
+		lbPassworldConfirm.setForeground(Color.decode("#007256"));
+		pnRegister.add(lbPassworldConfirm);
+
 		lbTel = new JLabel("Tel: ");
-		lbTel.setBounds(261, 262, 29, 23);
+		lbTel.setBounds(261, 252, 29, 23);
 		lbTel.setFont(new Font("", Font.BOLD, 14));
 		lbTel.setForeground(Color.decode("#007256"));
 		pnRegister.add(lbTel);
@@ -347,7 +369,7 @@ public class Login extends JFrame {
 		btRegisterDone.setBackground(Color.decode("#007256"));
 		btRegisterDone.setForeground(Color.WHITE);
 		btRegisterDone.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btRegisterDone.setBounds(134, 458, 175, 60);
+		btRegisterDone.setBounds(134, 468, 175, 60);
 		pnRegister.add(btRegisterDone);
 
 		this.getContentPane().add(pnMain);
@@ -387,6 +409,18 @@ public class Login extends JFrame {
 				pnLoginCliente.setVisible(true);
 				getContentPane().add(pnLoginCliente);
 
+				txName.setText("");
+				txDtNasc.setText("");
+				txCpf.setText("");
+				txRg.setText("");
+				txCep.setText("");
+				txTel.setText("");
+				txJob.setText("");
+				txRenda.setText("");
+				txEmail.setText("");
+				txPassworldRegister.setText("");
+				txPassworldConfirm.setText("");
+
 			}
 		});
 		btBackCorretor.addActionListener(new ActionListener() {
@@ -410,15 +444,15 @@ public class Login extends JFrame {
 
 				if (txName.getText().equals("")) {
 					txName.requestFocus();
-				} else if (txDtNasc.getText().equals("")) {
+				} else if (txDtNasc.getText().equals("  /  /    ")) {
 					txDtNasc.requestFocus();
-				} else if (txCpf.getText().equals("")) {
+				} else if (txCpf.getText().equals("   .   .   -  ")) {
 					txCpf.requestFocus();
-				} else if (txRg.getText().equals("")) {
+				} else if (txRg.getText().equals("  .   .   - ")) {
 					txRg.requestFocus();
-				} else if (txCep.getText().equals("")) {
+				} else if (txCep.getText().equals("     -   ")) {
 					txCep.requestFocus();
-				} else if (txTel.getText().equals("")) {
+				} else if (txTel.getText().equals("(  )      -    ")) {
 					txTel.requestFocus();
 				} else if (txJob.getText().equals("")) {
 					txJob.requestFocus();
@@ -426,49 +460,81 @@ public class Login extends JFrame {
 					txRenda.requestFocus();
 				} else if (txEmail.getText().equals("")) {
 					txEmail.requestFocus();
+				} else if (txPassworldRegister.getText().equals("")) {
+					txPassworldRegister.requestFocus();
+				} else if (txPassworldConfirm.getText().equals("")) {
+					txPassworldConfirm.requestFocus();
 				} else {
-					String name = txName.getText();
-					String dtNasc = txDtNasc.getText();
-					String cpfCnpj = txCpf.getText();
-					String rg = txRg.getText();
-					String cep = txCep.getText();
-					String tel = txTel.getText();
-					String job = txJob.getText();
-					String renda = txRenda.getText();
-					String email = txEmail.getText();
-					String sexo = (String) cbSexo.getSelectedItem();
+					if (txPassworldRegister.getText().equals(txPassworldConfirm.getText())) {
 
-					// Validar dados (Tamanhos)
+						String name = txName.getText();
+						String dtNasc = txDtNasc.getText();
+						String cpf = txCpf.getText();
+						String rg = txRg.getText();
+						String cep = txCep.getText();
+						String tel = txTel.getText();
+						String job = txJob.getText();
+						String renda = txRenda.getText();
+						String email = txEmail.getText();
+						String sexo = (String) cbSexo.getSelectedItem();
+						String senha = txPassworldRegister.getText();
+						;
 
-					if (cpfCnpj.equals("451.161.738-44")) { // verificar se não existe ninguém cadastrado
-						JOptionPane.showMessageDialog(null,
-								"Parabéns, " + name + "! \nVocê foi cadastrado com sucesso ",
-								"Cadastrad0 com sucesso!!!!", JOptionPane.INFORMATION_MESSAGE);
-						txName.setText("");
-						txDtNasc.setText("");
-						txCpf.setText("");
-						txRg.setText("");
-						txCep.setText("");
-						txTel.setText("");
-						txJob.setText("");
-						txRenda.setText("");
-						txEmail.setText("");
+						// Validar dados (Tamanhos)
+
+						String[] options = { "Sim", "Não" };
+						if (JOptionPane.showOptionDialog(null,
+								"Confirma essas informações???" + "\n" + "\n Nome: " + name + "\n Data de nascimento: "
+										+ dtNasc + "\n Sexo: " + sexo + "\n CPF: " + cpf + "\n RG: " + rg + "\n CEP: "
+										+ cep + "\n TEL: " + tel + "\n Profissão: " + job + "\n Renda mensal: " + renda
+										+ "\n Email: " + email + "\n Senha: " + senha,
+								"Confirma essas informações?", JOptionPane.DEFAULT_OPTION,
+								JOptionPane.INFORMATION_MESSAGE, null, options, options[0]) == 0) {
+
+							if (cpf.equals("451.161.738-44")) { // verificar se não existe ninguém cadastrado
+
+								// cadastrar no banco de dados
+
+								JOptionPane.showMessageDialog(null,
+										"Parabéns, " + name + "! \nVocê foi cadastrado com sucesso ",
+										"Cadastrad0 com sucesso!!!!", JOptionPane.INFORMATION_MESSAGE);
+								txName.setText("");
+								txDtNasc.setText("");
+								txCpf.setText("");
+								txRg.setText("");
+								txCep.setText("");
+								txTel.setText("");
+								txJob.setText("");
+								txRenda.setText("");
+								txEmail.setText("");
+								txPassworldRegister.setText("");
+								txPassworldConfirm.setText("");
+
+								pnRegister.setVisible(false);
+								pnLoginCliente.setVisible(true);
+								getContentPane().add(pnLoginCliente);
+
+							} else {
+								JOptionPane.showMessageDialog(null, "Já existe alguém cadastrado com esse CPF",
+										"Inválido", JOptionPane.ERROR_MESSAGE);
+							}
+
+						} else {
+
+						}
 
 					} else {
-						System.out.println("Já existe alguém cadastrado com esse CPF");
+						JOptionPane.showMessageDialog(null, "As senhas digitadas não são iguais", "Inválido",
+								JOptionPane.ERROR_MESSAGE);
+						txPassworldConfirm.setText("");
 					}
-
 				}
-				pnRegister.setVisible(false);
-				pnLoginCliente.setVisible(true);
-				getContentPane().add(pnLoginCliente);
-
 			}
 		});
 		btSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 
-				if (txLogin.getText().equals("")) {
+				if (txLogin.getText().equals("   .   .   -  ")) {
 					txLogin.requestFocus();
 
 				} else if (txPassworld.getText().equals("")) {
@@ -478,12 +544,23 @@ public class Login extends JFrame {
 
 					login = txLogin.getText();
 					passworld = txPassworld.getText();
-					
-					if(login.equals("451.161.738-44") && passworld.equals("senha")) {
-						InterfaceCliente cliente = new InterfaceCliente();
+
+					if (login.equals("451.161.738-44") && passworld.equals("senha")) { // fazer busca no banco de dados
 						
-					}else {
-						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos","Inválido", JOptionPane.ERROR_MESSAGE);
+						disabled();
+						InterfaceCliente cliente = new InterfaceCliente();
+						cliente.setEnabled(true);
+
+						cliente.close.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent argse) {
+								cliente.close();
+								enabled();
+							}
+						});
+						
+					} else {
+						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
+								JOptionPane.ERROR_MESSAGE);
 					}
 
 				}
@@ -491,7 +568,6 @@ public class Login extends JFrame {
 		});
 		btSendCorretor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-
 				if (txLoginCorretor.getText().equals("")) {
 					txLoginCorretor.requestFocus();
 
@@ -502,21 +578,43 @@ public class Login extends JFrame {
 
 					login = txLoginCorretor.getText();
 					passworld = txPassworldCorretor.getText();
-					
-					if(login.equals("julio.lifeintech@gmail.com") && passworld.equals("senha")) {
+
+					if (login.equals("julio.lifeintech@gmail.com") && passworld.equals("senha")) { // fazer busca no
+																									// banco de dados
+						disabled();
 						InterfaceCorretor corretor = new InterfaceCorretor();
-						
-					}else {
-						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos","Inválido", JOptionPane.ERROR_MESSAGE);
+						corretor.setEnabled(true);
+
+						corretor.close.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent argse) {
+								corretor.close();
+								enabled();
+								
+								
+							}
+						});
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
+								JOptionPane.ERROR_MESSAGE);
 					}
 
 				}
+
 			}
 		});
+
 	}
 
 	public void close() {
 		System.exit(DISPOSE_ON_CLOSE);
+	}
+
+	public void disabled() {
+		this.setEnabled(false);
+	}
+	public void enabled() {
+		this.setEnabled(true);
 	}
 
 	public static void main(String Args[]) {
