@@ -11,6 +11,14 @@ public class InterfaceCliente extends JFrame {
 	//Painel principal de entrada
 	private JPanel pnMain;
 	private JButton btMainServices, btMyServices, btBuyServices, btHelpServices, btSeeSite;
+	
+	//Painel Ajuda
+	private int x=600;
+	private JPanel pnHelp;
+	private JLabel lbTitleHelp;
+	private JTextArea txaMessage;
+	private JButton btSend;
+	private JComboBox cbCorretores, cbServicos;
 
 	public InterfaceCliente() {
 		componentes();
@@ -69,6 +77,22 @@ public class InterfaceCliente extends JFrame {
 		btHelpServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btHelpServices);
 		
+		
+		//////////////////////////////////////////////////PN HELP////////////////////////////////////////
+		pnHelp = new JPanel();
+		pnHelp.setLayout(null);
+		pnHelp.setBounds(176,0,525,x);
+		pnHelp.setVisible(false);
+		
+		lbTitleHelp = new JLabel("Ajuda");
+		lbTitleHelp.setBounds(0,0,0,0);
+		lbTitleHelp.setFont(new Font("Dialog", Font.BOLD, 23));
+		lbTitleHelp.setForeground(Color.decode("#007256"));
+		pnHelp.add(lbTitleHelp);
+		
+		
+		
+		////////////////////////////////////////////////FIM PN HELP////////////////////////////////////////////
 		btSeeSite = new JButton("Visite o site");
 		btSeeSite.setBounds(0,364,175,40);
 		btSeeSite.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -81,7 +105,7 @@ public class InterfaceCliente extends JFrame {
 		
 		
 		getContentPane().add(close);
-		this.getContentPane().add(pnMain);
+		this.getContentPane().add(pnHelp);
 	}
 
 	public void eventos() {
