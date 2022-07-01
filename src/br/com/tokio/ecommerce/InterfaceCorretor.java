@@ -53,7 +53,7 @@ public JButton close;
 		btMyServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btMyServices);
 		
-		btBuyServices = new JButton("OcorrÃªncias");
+		btBuyServices = new JButton("Ocorrências");
 		btBuyServices.setBounds(0,284,175,40);
 		btBuyServices.setFont(new Font("Dialog", Font.PLAIN, 9));
 		btBuyServices.setBackground(Color.decode("#007256"));
@@ -69,7 +69,7 @@ public JButton close;
 		btHelpServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btHelpServices);
 		
-		btRelatorios = new JButton("RelÃ¡torios");
+		btRelatorios = new JButton("Relatórios");
 		btRelatorios.setBounds(0,364,175,40);
 		btRelatorios.setFont(new Font("Dialog", Font.PLAIN, 9));
 		btRelatorios.setBackground(Color.decode("#007256"));

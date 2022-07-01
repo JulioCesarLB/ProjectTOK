@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class Login extends JFrame {
 
+	BD bd = new BD();
 	// panel principal
 	private JButton btCliente, btCorretor;
 	private JLabel lbHello, lbHelloTwo, imgLogoMain;
@@ -36,6 +37,7 @@ public class Login extends JFrame {
 	public Login() {
 		componentes();
 		eventos();
+		bd.getConnection();
 
 	}
 
@@ -400,7 +402,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent argse) {
 				txLogin.setText("");
 				txPassworld.setText("");
-				
+
 				pnRegister.setVisible(false);
 				pnLoginCliente.setVisible(true);
 				getContentPane().add(pnLoginCliente);
@@ -431,7 +433,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent argse) {
 				txLogin.setText("");
 				txPassworld.setText("");
-				
+
 				pnLoginCliente.setVisible(false);
 				pnMain.setVisible(true);
 				getContentPane().add(pnMain);
@@ -508,7 +510,7 @@ public class Login extends JFrame {
 								txEmail.setText("");
 								txPassworldRegister.setText("");
 								txPassworldConfirm.setText("");
-								
+
 								txLogin.setText("");
 								txPassworld.setText("");
 
@@ -608,7 +610,9 @@ public class Login extends JFrame {
 	}
 
 	public void close() {
+		bd.close();
 		System.exit(DISPOSE_ON_CLOSE);
+
 	}
 
 	public void disabled() {
