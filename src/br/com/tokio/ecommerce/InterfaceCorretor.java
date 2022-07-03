@@ -10,7 +10,8 @@ public JButton close;
 	
 	//Painel principal de entrada
 	private JPanel pnMain;
-	private JButton btMainServices, btMyServices, btBuyServices, btHelpServices, btSeeSite, btRelatorios;
+	private JButton btMainServices, btMyServices, btBuyServices, btHelpServices, btRelatorios;
+	private JLabel lbImgUser, lbImgLogo;
 
 	public InterfaceCorretor() {
 		componentes();
@@ -25,11 +26,6 @@ public JButton close;
 
 	public void componentes() {
 		setLayout(null);
-		close = new JButton("X");
-		close.setForeground(Color.WHITE);
-		close.setBounds(645, 11, 45, 23);
-		close.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		close.setBackground(Color.decode("#007256"));
 		
 		pnMain = new JPanel();
 		pnMain.setLayout(null);
@@ -37,9 +33,17 @@ public JButton close;
 		pnMain.setBounds(0,0,175,600);
 		pnMain.setVisible(true);
 		
+		lbImgUser= new JLabel(new ImageIcon("images//user-branco.png"));
+		lbImgUser.setBounds(20,10,135,135);
+		pnMain.add(lbImgUser);
+		
+		lbImgLogo = new JLabel(new ImageIcon("images//logo-tokio-marine-seguradora-branco.png"));
+		lbImgLogo.setBounds(10,550,155,36);
+		pnMain.add(lbImgLogo);
+		
 		btMainServices = new JButton("HOME");
 		btMainServices.setBounds(0,204,175,40);
-		btMainServices.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btMainServices.setFont(new Font("Dialog", Font.PLAIN, 11));
 		btMainServices.setBackground(Color.decode("#007256"));
 		btMainServices.setForeground(Color.WHITE);
 		btMainServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -47,7 +51,7 @@ public JButton close;
 		
 		btMyServices = new JButton("Meus Clientes");
 		btMyServices.setBounds(0,244,175,40);
-		btMyServices.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btMyServices.setFont(new Font("Dialog", Font.PLAIN, 11));
 		btMyServices.setBackground(Color.decode("#007256"));
 		btMyServices.setForeground(Color.WHITE);
 		btMyServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -55,7 +59,7 @@ public JButton close;
 		
 		btBuyServices = new JButton("Ocorrências");
 		btBuyServices.setBounds(0,284,175,40);
-		btBuyServices.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btBuyServices.setFont(new Font("Dialog", Font.PLAIN, 11));
 		btBuyServices.setBackground(Color.decode("#007256"));
 		btBuyServices.setForeground(Color.WHITE);
 		btBuyServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -63,7 +67,7 @@ public JButton close;
 		
 		btHelpServices = new JButton("Finalizar Seguros");
 		btHelpServices.setBounds(0,324,175,40);
-		btHelpServices.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btHelpServices.setFont(new Font("Dialog", Font.PLAIN, 11));
 		btHelpServices.setBackground(Color.decode("#007256"));
 		btHelpServices.setForeground(Color.WHITE);
 		btHelpServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -71,24 +75,23 @@ public JButton close;
 		
 		btRelatorios = new JButton("Relatórios");
 		btRelatorios.setBounds(0,364,175,40);
-		btRelatorios.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btRelatorios.setFont(new Font("Dialog", Font.PLAIN, 11));
 		btRelatorios.setBackground(Color.decode("#007256"));
 		btRelatorios.setForeground(Color.WHITE);
 		btRelatorios.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btRelatorios);
 		
-		btSeeSite = new JButton("Visite o site");
-		btSeeSite.setBounds(0,404,175,40);
-		btSeeSite.setFont(new Font("Dialog", Font.PLAIN, 9));
-		btSeeSite.setBackground(Color.decode("#007256"));
-		btSeeSite.setForeground(Color.WHITE);
-		btSeeSite.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		pnMain.add(btSeeSite);
+		close = new JButton("Sair");
+		close.setForeground(Color.WHITE);
+		close.setBounds(0, 404, 175, 40);
+		close.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		close.setFont(new Font("Dialog", Font.PLAIN, 11));
+		close.setBackground(Color.decode("#007256"));
+		pnMain.add(close);
 		
 		
 		
 		
-		getContentPane().add(close);
 		this.getContentPane().add(pnMain);
 	}
 
@@ -142,60 +145,8 @@ public JButton close;
 			    }
 
 			});
-			btSeeSite.addMouseListener(new java.awt.event.MouseAdapter() {
-			    public void mouseEntered(java.awt.event.MouseEvent evt) {
-			    	btSeeSite.setBackground(Color.decode("#00574f"));
-			    }
-			    public void mouseExited(java.awt.event.MouseEvent evt) {
-			        btSeeSite.setBackground(Color.decode("#007256"));
-			    }
-
-			});
-			//FIM EVENTOS DE HOVER
-			
-			// EVENTOS DE AÃ‡ÃƒO
-			btSeeSite.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent argse) {
-					openURL("https://www.tokiomarine.com.br/");
-
-				}
-			});
 			
 	}
-	   	private String errMsg = "Erro ao tentar abrir o browser";
-	    public void openURL(String url) {
-	        String osName = System.getProperty("os.name");
-	        String browser = null;
-	        try {
-	            if (osName.startsWith("Mac OS")) {
-	                Class fileMgr = Class.forName("com.apple.eio.FileManager");
-	                Method openURL = fileMgr.getDeclaredMethod("openURL",
-	                        new Class[]{String.class});
-	                openURL.invoke(null, new Object[]{url});
-	            } else if (osName.startsWith("Windows")) {
-	                Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-	            } else { //assume Unix or Linux   
-	                String[] browsers = {
-	                    "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape"
-	                };
-	                for (int count = 0; count < browsers.length && browser == null; count++) {
-	                    if (Runtime.getRuntime().exec(
-	                            new String[]{"which", browsers[count]}).waitFor() == 0) {
-	                        browser = browsers[count];
-	                    }
-	                }
-	                JOptionPane.showMessageDialog(null,browser);
-	                if (browser == null) {
-	                    JOptionPane.showMessageDialog(null,"Navegador nÃ£o encontrado!");
-	                } else {
-	                    Runtime.getRuntime().exec(new String[]{browser,url});
-	                }
-	            }
-	        } catch (Exception e) {
-	            JOptionPane.showMessageDialog(null, errMsg + ":\n" + e.getLocalizedMessage());
-	        }
-	    }
-
 	public void close() {
 		this.setVisible(false);
 	}

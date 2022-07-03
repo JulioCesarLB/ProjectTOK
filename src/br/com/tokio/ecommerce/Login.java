@@ -2,13 +2,15 @@ package br.com.tokio.ecommerce;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
+
+import br.com.tokio.connectionFactory.ConnectionFactory;
+
 import java.awt.event.*;
 import java.text.ParseException;
 import java.awt.*;
 
 public class Login extends JFrame {
 
-	BD bd = new BD();
 	// panel principal
 	private JButton btCliente, btCorretor;
 	private JLabel lbHello, lbHelloTwo, imgLogoMain;
@@ -37,7 +39,6 @@ public class Login extends JFrame {
 	public Login() {
 		componentes();
 		eventos();
-		bd.getConnection();
 
 	}
 
@@ -610,7 +611,6 @@ public class Login extends JFrame {
 	}
 
 	public void close() {
-		bd.close();
 		System.exit(DISPOSE_ON_CLOSE);
 
 	}
