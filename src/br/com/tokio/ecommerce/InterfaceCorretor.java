@@ -85,7 +85,7 @@ public JButton close;
 		close.setForeground(Color.WHITE);
 		close.setBounds(0, 404, 175, 40);
 		close.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		close.setFont(new Font("Dialog", Font.PLAIN, 11));
+		close.setFont(new Font("Dialog", Font.PLAIN, 15));
 		close.setBackground(Color.decode("#007256"));
 		pnMain.add(close);
 		
@@ -143,6 +143,16 @@ public JButton close;
 			    public void mouseExited(java.awt.event.MouseEvent evt) {
 			        btRelatorios.setBackground(Color.decode("#007256"));
 			    }
+
+			});
+			close.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseEntered(java.awt.event.MouseEvent evt) {
+					close.setBackground(Color.decode("#00574f"));
+				}
+
+				public void mouseExited(java.awt.event.MouseEvent evt) {
+					close.setBackground(Color.decode("#007256"));
+				}
 
 			});
 			

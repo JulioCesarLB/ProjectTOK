@@ -11,16 +11,43 @@ public class InterfaceCliente extends JFrame {
 	// Painel Lateral
 	private JPanel pnMain;
 	private JButton btMainServices, btMyServices, btHelpServices, btSeeSite;
-	private JLabel lbImgUser, lbImgLogo;
+	private JLabel lbImgUser, lbImgLogo, lbNameCliente;
 
 	// Painel de comprar serviços
 	private JPanel pnMainServices;
 	private JButton btResidencial, btFianca, btImobiliario, btAuto, btVida, btAcidente;
-	private JLabel lbTitleMainServices, lbTitleBuyServices, lbRecomendadosMainServices;
+	private JLabel lbTitleMainServices, lbTitleBuyServices, lbRecomendadosMainServices, lbMainServicesExplicacao;
+
+	// Painel buy
+	private JPanel pnBuy;
+	private JLabel lbBuyTitle, lbBuyRural, lbBuyPortaria, lbBuyAlvenaria, lbBuyEndereco, lbBuyValor;
+	private JRadioButton rbBuyRuralSim, rbBuyPortariaSim, rbBuyAlvenariaSim, rbBuyRuralNao, rbBuyPortariaNao,
+			rbBuyAlvenariaNao;
+	private JTextField txBuyEndereco, txBuyValor;
+	private JButton btBuyCancel, btBuyNext;
+
+	// Painel seguro Residencial
+	private JPanel pnResidencial;
+	private JLabel lbResidencialTitle;
+	private JButton btResidencialVoltar, btResidencialCancel, btResidencialConfirm;
+
+	// Painel seguro fiança
+	private JPanel pnFianca;
+	private JLabel lbFiancaTitle;
+	private JButton btFiancaVoltar, btFiancaCancel, btFiancaConfirm;
+
+	// Painel seguro Imobiliario
+	private JPanel pnImobiliario;
+	private JLabel lbImobiliarioTitle;
+	private JButton btImobiliarioVoltar, btImobiliarioCancel, btImobiliarioConfirm;
+
+	// Painel meus serviços
+	private JPanel pnMyServices;
+	private JLabel lbMyServicesTitle, lbMyServicesExplicacao;
 
 	// Painel Ajuda
 	private JPanel pnHelp;
-	private JLabel lbHelpTitle,lbHelpServicos,lbHelpTextArea, lbHelpExplicacao;
+	private JLabel lbHelpTitle, lbHelpServicos, lbHelpTextArea, lbHelpExplicacao;
 	private JTextArea txaHelpMessage;
 	private JButton btHelpSend;
 	private JComboBox cbHelpServicos;
@@ -38,7 +65,6 @@ public class InterfaceCliente extends JFrame {
 
 	public void componentes() {
 		getContentPane().setLayout(null);
-		
 
 		//////////////////////////////////// PAINEL
 		//////////////////////////////////// LATEAL/////////////////////////////////////
@@ -47,7 +73,7 @@ public class InterfaceCliente extends JFrame {
 		pnMain.setBackground(Color.decode("#007256"));
 		pnMain.setBounds(0, 0, 175, 600);
 		pnMain.setVisible(true);
-		
+
 		btMainServices = new JButton("HOME");
 		btMainServices.setBounds(0, 204, 175, 40);
 		btMainServices.setFont(new Font("Dialog", Font.PLAIN, 11));
@@ -55,14 +81,24 @@ public class InterfaceCliente extends JFrame {
 		btMainServices.setForeground(Color.WHITE);
 		btMainServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btMainServices);
-		
-		lbImgUser= new JLabel(new ImageIcon("images//user-branco.png"));
-		lbImgUser.setBounds(20,10,135,135);
+
+		lbImgUser = new JLabel(new ImageIcon("images//user-branco.png"));
+		lbImgUser.setBounds(20, 10, 135, 135);
 		pnMain.add(lbImgUser);
-		
+
 		lbImgLogo = new JLabel(new ImageIcon("images//logo-tokio-marine-seguradora-branco.png"));
-		lbImgLogo.setBounds(10,550,155,36);
+		lbImgLogo.setBounds(10, 550, 155, 36);
 		pnMain.add(lbImgLogo);
+
+		lbNameCliente = new JLabel(
+				"<html><body><center>Julio Cesar Lopes Batista <br>Corretor: FREDINHO <center></body></html>"); // Colocar
+																												// nome
+																												// do
+																												// cliente
+		lbNameCliente.setBounds(10, 165, 165, 25);
+		lbNameCliente.setFont(new Font("Dialog", Font.BOLD, 12));
+		lbNameCliente.setForeground(Color.WHITE);
+		pnMain.add(lbNameCliente);
 
 		btMyServices = new JButton("Meus Seguros");
 		btMyServices.setBounds(0, 244, 175, 40);
@@ -79,7 +115,7 @@ public class InterfaceCliente extends JFrame {
 		btHelpServices.setForeground(Color.WHITE);
 		btHelpServices.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btHelpServices);
-		
+
 		btSeeSite = new JButton("Visite o site");
 		btSeeSite.setBounds(0, 324, 175, 40);
 		btSeeSite.setFont(new Font("Dialog", Font.PLAIN, 11));
@@ -87,12 +123,12 @@ public class InterfaceCliente extends JFrame {
 		btSeeSite.setForeground(Color.WHITE);
 		btSeeSite.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMain.add(btSeeSite);
-		
+
 		close = new JButton("Sair");
 		close.setForeground(Color.WHITE);
 		close.setBounds(0, 364, 175, 40);
 		close.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		close.setFont(new Font("Dialog", Font.PLAIN, 11));
+		close.setFont(new Font("Dialog", Font.PLAIN, 15));
 		close.setBackground(Color.decode("#007256"));
 		pnMain.add(close);
 		//////////////////////////////////// FIM PAINEL
@@ -111,10 +147,110 @@ public class InterfaceCliente extends JFrame {
 		lbTitleMainServices.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnMainServices.add(lbTitleMainServices);
 
+		lbMainServicesExplicacao = new JLabel(
+				"<html><body><center>Bem vindo a área do cliente!!!<br> Aqui você pode adiquirir, ver serviços e muito mais!!!<br><center></body></html>");
+		lbMainServicesExplicacao.setBounds(106, 93, 312, 60);
+		lbMainServicesExplicacao.setFont(new Font("Dialog", Font.PLAIN, 15));
+		pnMainServices.add(lbMainServicesExplicacao);
+
 		lbTitleBuyServices = new JLabel("ADIQUIRA UM NOVO SEGURO RESIDENCIAL");
 		lbTitleBuyServices.setBounds(48, 185, 430, 20);
 		lbTitleBuyServices.setFont(new Font("Dialog", Font.BOLD, 20));
 		pnMainServices.add(lbTitleBuyServices);
+
+		//////////////////////////////////////////////////////////// Painel
+		//////////////////////////////////////////////////////////// compra//////////////////////////////////////////////////////
+
+		pnBuy = new JPanel();
+		pnBuy.setLayout(null);
+		pnBuy.setVisible(false);
+		pnBuy.setBounds(177, 0, 525, 600);
+
+		lbBuyTitle = new JLabel("Titulo");
+		lbBuyTitle.setBounds(189, 45, 208, 65);
+		lbBuyTitle.setFont(new Font("Dialog", Font.BOLD, 25));
+		pnBuy.add(lbBuyTitle);
+
+		lbBuyEndereco = new JLabel("<html><body>Digite o endereço do imóvel<br> que deseja assegurar: </body></html>");
+		lbBuyEndereco.setFont(new Font("Dialog", Font.BOLD, 14));
+		lbBuyEndereco.setBounds(89, 125, 208, 35);
+		pnBuy.add(lbBuyEndereco);
+
+		lbBuyRural = new JLabel("Sua propriedade é uma propriedade rural?");
+		lbBuyRural.setFont(new Font("Dialog", Font.BOLD, 14));
+		lbBuyRural.setBounds(89, 210, 300, 15);
+		pnBuy.add(lbBuyRural);
+
+		lbBuyPortaria = new JLabel("Sua propriedade possui portaria el\u00E9trica?");
+		lbBuyPortaria.setFont(new Font("Dialog", Font.BOLD, 14));
+		lbBuyPortaria.setBounds(89, 264, 293, 15);
+		pnBuy.add(lbBuyPortaria);
+
+		lbBuyAlvenaria = new JLabel("Sua propriedade possui alvenária?");
+		lbBuyAlvenaria.setFont(new Font("Dialog", Font.BOLD, 14));
+		lbBuyAlvenaria.setBounds(89, 318, 246, 15);
+		pnBuy.add(lbBuyAlvenaria);
+
+		lbBuyValor = new JLabel("Qual o valor da sua propriedade?");
+		lbBuyValor.setFont(new Font("Dialog", Font.BOLD, 14));
+		lbBuyValor.setBounds(89, 370, 242, 15);
+		pnBuy.add(lbBuyValor);
+
+		rbBuyRuralSim = new JRadioButton("Sim");
+		rbBuyRuralSim.setSelected(true);
+		rbBuyRuralSim.setBounds(100, 230, 50, 20);
+		pnBuy.add(rbBuyRuralSim);
+
+		rbBuyRuralNao = new JRadioButton("Não");
+		rbBuyRuralNao.setBounds(160, 230, 50, 20);
+		pnBuy.add(rbBuyRuralNao);
+
+		rbBuyPortariaSim = new JRadioButton("Sim");
+		rbBuyPortariaSim.setSelected(true);
+		rbBuyPortariaSim.setBounds(100, 284, 50, 20);
+		pnBuy.add(rbBuyPortariaSim);
+
+		rbBuyPortariaNao = new JRadioButton("Não");
+		rbBuyPortariaNao.setBounds(160, 284, 50, 20);
+		pnBuy.add(rbBuyPortariaNao);
+
+		rbBuyAlvenariaSim = new JRadioButton("Sim");
+		rbBuyAlvenariaSim.setSelected(true);
+		rbBuyAlvenariaSim.setBounds(100, 338, 50, 20);
+		pnBuy.add(rbBuyAlvenariaSim);
+
+		rbBuyAlvenariaNao = new JRadioButton("Não");
+		rbBuyAlvenariaNao.setBounds(160, 338, 50, 20);
+		pnBuy.add(rbBuyAlvenariaNao);
+
+		txBuyEndereco = new JTextField();
+		txBuyEndereco.setBounds(89, 170, 359, 25);
+		txBuyEndereco.setFont(new Font("Dialog", Font.PLAIN, 15));
+		pnBuy.add(txBuyEndereco);
+
+		txBuyValor = new JTextField();
+		txBuyValor.setFont(new Font("Dialog", Font.PLAIN, 15));
+		txBuyValor.setBounds(89, 396, 145, 25);
+		pnBuy.add(txBuyValor);
+
+		btBuyCancel = new JButton("Cancelar");
+		btBuyCancel.setBounds(89, 455, 165, 65);
+		btBuyCancel.setFont(new Font("", Font.BOLD, 20));
+		btBuyCancel.setBackground(Color.decode("#007256"));
+		btBuyCancel.setForeground(Color.WHITE);
+		btBuyCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnBuy.add(btBuyCancel);
+
+		btBuyNext = new JButton("Próximo");
+		btBuyNext.setBounds(283, 455, 165, 65);
+		btBuyNext.setFont(new Font("", Font.BOLD, 20));
+		btBuyNext.setBackground(Color.decode("#007256"));
+		btBuyNext.setForeground(Color.WHITE);
+		btBuyNext.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnBuy.add(btBuyNext);
+
+		//////////////////////////////////////////////////////////// FIM Painel
+		//////////////////////////////////////////////////////////// compra//////////////////////////////////////////////////////
 
 		btResidencial = new JButton("Residencial Premiado");
 		btResidencial.setBounds(25, 220, 145, 80);
@@ -124,6 +260,44 @@ public class InterfaceCliente extends JFrame {
 		btResidencial.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMainServices.add(btResidencial);
 
+		//////////////////////////////////////////////////////////// Painel compra
+		//////////////////////////////////////////////////////////// Residencial//////////////////////////////////////////////////////
+		pnResidencial = new JPanel();
+		pnResidencial.setLayout(null);
+		pnResidencial.setBounds(176, 0, 525, 600);
+		pnResidencial.setVisible(false);
+
+		lbResidencialTitle = new JLabel("<html><body><center>Residencial <br> Premiado</center></body></html>");
+		lbResidencialTitle.setBounds(189, 45, 208, 65);
+		lbResidencialTitle.setFont(new Font("Dialog", Font.BOLD, 25));
+		pnResidencial.add(lbResidencialTitle);
+
+		btResidencialVoltar = new JButton("Voltar");
+		btResidencialVoltar.setBounds(51, 53, 60, 30);
+		btResidencialVoltar.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btResidencialVoltar.setBackground(Color.decode("#007256"));
+		btResidencialVoltar.setForeground(Color.WHITE);
+		btResidencialVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnResidencial.add(btResidencialVoltar);
+
+		btResidencialCancel = new JButton("Cancelar");
+		btResidencialCancel.setBounds(89, 455, 165, 65);
+		btResidencialCancel.setFont(new Font("", Font.BOLD, 20));
+		btResidencialCancel.setBackground(Color.decode("#007256"));
+		btResidencialCancel.setForeground(Color.WHITE);
+		btResidencialCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnResidencial.add(btResidencialCancel);
+
+		btResidencialConfirm = new JButton("Adiquirir");
+		btResidencialConfirm.setBounds(283, 455, 165, 65);
+		btResidencialConfirm.setFont(new Font("", Font.BOLD, 20));
+		btResidencialConfirm.setBackground(Color.decode("#007256"));
+		btResidencialConfirm.setForeground(Color.WHITE);
+		btResidencialConfirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnResidencial.add(btResidencialConfirm);
+		//////////////////////////////////////////////////////////// FIM Painel compra
+		//////////////////////////////////////////////////////////// Residencial//////////////////////////////////////////////////////
+
 		btFianca = new JButton("Fian\u00E7a Locat\u00EDcia - Aluguel");
 		btFianca.setBounds(188, 220, 147, 80);
 		btFianca.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -132,6 +306,45 @@ public class InterfaceCliente extends JFrame {
 		btFianca.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMainServices.add(btFianca);
 
+		//////////////////////////////////////////////////////////// Painel compra
+		//////////////////////////////////////////////////////////// Aluguel//////////////////////////////////////////////////////
+		pnFianca = new JPanel();
+		pnFianca.setLayout(null);
+		pnFianca.setBounds(176, 0, 525, 600);
+		pnFianca.setVisible(false);
+
+		lbFiancaTitle = new JLabel("<html><body><center>Fiança Locática <br> Aluguel</center></body></html>");
+		lbFiancaTitle.setBounds(189, 45, 208, 65);
+		lbFiancaTitle.setFont(new Font("Dialog", Font.BOLD, 25));
+		pnFianca.add(lbFiancaTitle);
+		
+		btFiancaVoltar = new JButton("Voltar");
+		btFiancaVoltar.setBounds(51, 53, 60, 30);
+		btFiancaVoltar.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btFiancaVoltar.setBackground(Color.decode("#007256"));
+		btFiancaVoltar.setForeground(Color.WHITE);
+		btFiancaVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnFianca.add(btFiancaVoltar);
+
+		btFiancaCancel = new JButton("Cancelar");
+		btFiancaCancel.setBounds(89, 455, 165, 65);
+		btFiancaCancel.setFont(new Font("", Font.BOLD, 20));
+		btFiancaCancel.setBackground(Color.decode("#007256"));
+		btFiancaCancel.setForeground(Color.WHITE);
+		btFiancaCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnFianca.add(btFiancaCancel);
+
+		btFiancaConfirm = new JButton("Adiquirir");
+		btFiancaConfirm.setBounds(283, 455, 165, 65);
+		btFiancaConfirm.setFont(new Font("", Font.BOLD, 20));
+		btFiancaConfirm.setBackground(Color.decode("#007256"));
+		btFiancaConfirm.setForeground(Color.WHITE);
+		btFiancaConfirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnFianca.add(btFiancaConfirm);
+
+		//////////////////////////////////////////////////////////// FIM Painel compra
+		//////////////////////////////////////////////////////////// Aluguel//////////////////////////////////////////////////////
+
 		btImobiliario = new JButton("Imobili\u00E1rio");
 		btImobiliario.setBounds(354, 220, 145, 80);
 		btImobiliario.setFont(new Font("Dialog", Font.PLAIN, 11));
@@ -139,6 +352,45 @@ public class InterfaceCliente extends JFrame {
 		btImobiliario.setForeground(Color.WHITE);
 		btImobiliario.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMainServices.add(btImobiliario);
+
+		//////////////////////////////////////////////////////////// Painel compra
+		//////////////////////////////////////////////////////////// Imobiliario//////////////////////////////////////////////////////
+		pnImobiliario = new JPanel();
+		pnImobiliario.setLayout(null);
+		pnImobiliario.setBounds(176, 0, 525, 600);
+		pnImobiliario.setVisible(false);
+
+		lbImobiliarioTitle = new JLabel("<html><body><center>Imobiliário</center></body></html>");
+		lbImobiliarioTitle.setBounds(189, 45, 208, 65);
+		lbImobiliarioTitle.setFont(new Font("Dialog", Font.BOLD, 25));
+		pnImobiliario.add(lbImobiliarioTitle);
+		
+		
+		btImobiliarioVoltar = new JButton("Voltar");
+		btImobiliarioVoltar.setBounds(51, 53, 60, 30);
+		btImobiliarioVoltar.setFont(new Font("Dialog", Font.PLAIN, 9));
+		btImobiliarioVoltar.setBackground(Color.decode("#007256"));
+		btImobiliarioVoltar.setForeground(Color.WHITE);
+		btImobiliarioVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnImobiliario.add(btImobiliarioVoltar);
+
+		btImobiliarioCancel = new JButton("Cancelar");
+		btImobiliarioCancel.setBounds(89, 455, 165, 65);
+		btImobiliarioCancel.setFont(new Font("", Font.BOLD, 20));
+		btImobiliarioCancel.setBackground(Color.decode("#007256"));
+		btImobiliarioCancel.setForeground(Color.WHITE);
+		btImobiliarioCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnImobiliario.add(btImobiliarioCancel);
+
+		btImobiliarioConfirm = new JButton("Adiquirir");
+		btImobiliarioConfirm.setBounds(283, 455, 165, 65);
+		btImobiliarioConfirm.setFont(new Font("", Font.BOLD, 20));
+		btImobiliarioConfirm.setBackground(Color.decode("#007256"));
+		btImobiliarioConfirm.setForeground(Color.WHITE);
+		btImobiliarioConfirm.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnImobiliario.add(btImobiliarioConfirm);
+		//////////////////////////////////////////////////////////// FIM Painel compra
+		//////////////////////////////////////////////////////////// Imobiliario//////////////////////////////////////////////////////
 
 		lbRecomendadosMainServices = new JLabel("CATEGORIAS RECOMENDADAS");
 		lbRecomendadosMainServices.setBounds(113, 390, 309, 20);
@@ -172,6 +424,28 @@ public class InterfaceCliente extends JFrame {
 		///////////////////////////////////////// FIM PAINEL
 		///////////////////////////////////////// PRINCIPAL////////////////////////////////////////
 
+		/////////////////////////////////////////////////// PN MEUS
+		/////////////////////////////////////////////////// SERVICOS///////////////////////////////////////
+
+		pnMyServices = new JPanel();
+		pnMyServices.setLayout(null);
+		pnMyServices.setBounds(176, 0, 525, 600);
+		pnMyServices.setVisible(false);
+
+		lbMyServicesTitle = new JLabel("MEUS SEGUROS");
+		lbMyServicesTitle.setBounds(175, 45, 189, 25);
+		lbMyServicesTitle.setFont(new Font("Dialog", Font.BOLD, 23));
+		pnMyServices.add(lbMyServicesTitle);
+
+		lbMyServicesExplicacao = new JLabel(
+				"<html><body><center>Visualize todos os seguros que você contratou.<br>Caso tenha alguma dúvida entre em contato com o seu corretor<center></body></html>");
+		lbMyServicesExplicacao.setBounds(106, 93, 312, 60);
+		lbMyServicesExplicacao.setFont(new Font("Dialog", Font.PLAIN, 15));
+		pnMyServices.add(lbMyServicesExplicacao);
+
+		/////////////////////////////////////////////////// FIM PN MEUS
+		/////////////////////////////////////////////////// SERVICOS///////////////////////////////////////
+
 		////////////////////////////////////////////////// PN
 		////////////////////////////////////////////////// HELP////////////////////////////////////////
 		pnHelp = new JPanel();
@@ -183,45 +457,44 @@ public class InterfaceCliente extends JFrame {
 		lbHelpTitle.setBounds(220, 45, 87, 25);
 		lbHelpTitle.setFont(new Font("Dialog", Font.BOLD, 23));
 		pnHelp.add(lbHelpTitle);
-		
-		lbHelpExplicacao = new JLabel("<html><body><center>Envie suas dúvidas direto para o seu corretor,<br> que retornará assim que possível em seu email.<center></body></html>");
+
+		lbHelpExplicacao = new JLabel(
+				"<html><body><center>Envie suas dúvidas direto para o seu corretor,<br> que retornará assim que possível em seu email.<center></body></html>");
 		lbHelpExplicacao.setBounds(106, 93, 312, 43);
 		lbHelpExplicacao.setFont(new Font("Dialog", Font.PLAIN, 15));
 		pnHelp.add(lbHelpExplicacao);
-		
+
 		lbHelpServicos = new JLabel("<html><body>Selecione o serviço <br> que necessita de ajuda:</body></html>");
-		lbHelpServicos.setBounds(36,165,208,43);
+		lbHelpServicos.setBounds(36, 165, 208, 43);
 		lbHelpServicos.setFont(new Font("Dialog", Font.BOLD, 18));
 		pnHelp.add(lbHelpServicos);
-		
+
 		lbHelpTextArea = new JLabel("Escreva abaixo o seu problema/dúvida: ");
-		lbHelpTextArea.setBounds(130,264,265,25);
+		lbHelpTextArea.setBounds(130, 264, 265, 25);
 		lbHelpTextArea.setFont(new Font("Dialog", Font.BOLD, 13));
 		pnHelp.add(lbHelpTextArea);
-		
+
 		txaHelpMessage = new JTextArea();
-		txaHelpMessage.setBounds(36,291,449,143);
+		txaHelpMessage.setBounds(36, 291, 449, 143);
 		pnHelp.add(txaHelpMessage);
-		
+
 		btHelpSend = new JButton("Enviar");
-		btHelpSend.setBounds(161,464,208,70);
+		btHelpSend.setBounds(161, 464, 208, 70);
 		btHelpSend.setFont(new Font("", Font.BOLD, 20));
 		btHelpSend.setBackground(Color.decode("#007256"));
 		btHelpSend.setForeground(Color.WHITE);
 		btHelpSend.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnHelp.add(btHelpSend);
-		
-		cbHelpServicos= new JComboBox(); /// colocar os serviços do user
+
+		cbHelpServicos = new JComboBox(); /// colocar os serviços do user
 		cbHelpServicos.setFont(new Font("Dialog", Font.PLAIN, 13));
 		cbHelpServicos.setForeground(Color.decode("#007256"));
-		cbHelpServicos.setBounds(267,178,218,30);
+		cbHelpServicos.setBounds(267, 178, 218, 30);
 		pnHelp.add(cbHelpServicos);
 		//////////////////////////////////////////////// FIM PN
 		//////////////////////////////////////////////// HELP////////////////////////////////////////////
-		
 
-		
-		getContentPane().add(pnMainServices);
+		getContentPane().add(pnResidencial);
 		this.getContentPane().add(pnMain);
 	}
 
@@ -268,13 +541,28 @@ public class InterfaceCliente extends JFrame {
 			}
 
 		});
+		close.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				close.setBackground(Color.decode("#00574f"));
+			}
+
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				close.setBackground(Color.decode("#007256"));
+			}
+
+		});
+
 		// FIM EVENTOS DE HOVER
 
 		// EVENTOS DE AÃ‡ÃƒO
 		btMainServices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				if(pnHelp.isVisible()) {
+				if (pnHelp.isVisible()) {
 					pnHelp.setVisible(false);
+					pnMainServices.setVisible(true);
+					getContentPane().add(pnMainServices);
+				} else if (pnMyServices.isVisible()) {
+					pnMyServices.setVisible(false);
 					pnMainServices.setVisible(true);
 					getContentPane().add(pnMainServices);
 				}
@@ -283,14 +571,183 @@ public class InterfaceCliente extends JFrame {
 		});
 		btHelpServices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				if(pnMainServices.isVisible()) {
+				if (pnMainServices.isVisible()) {
 					pnMainServices.setVisible(false);
+					pnHelp.setVisible(true);
+					getContentPane().add(pnHelp);
+				} else if (pnMyServices.isVisible()) {
+					pnMyServices.setVisible(false);
 					pnHelp.setVisible(true);
 					getContentPane().add(pnHelp);
 				}
 
 			}
 		});
+		btMyServices.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				if (pnMainServices.isVisible()) {
+					pnMainServices.setVisible(false);
+					pnMyServices.setVisible(true);
+					getContentPane().add(pnMyServices);
+				} else if (pnHelp.isVisible()) {
+					pnHelp.setVisible(false);
+					pnMyServices.setVisible(true);
+					getContentPane().add(pnMyServices);
+				}
+
+			}
+		});
+
+		btImobiliario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				btMyServices.setEnabled(false);
+				btHelpServices.setEnabled(false);
+				btMainServices.setEnabled(false);
+
+				pnMainServices.setVisible(false);
+				pnBuy.setVisible(true);
+				getContentPane().add(pnBuy);
+
+				lbBuyTitle.setText("<html><body><center>Imobiliário</center></body></html>");
+			}
+		});
+
+		btResidencial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				btMyServices.setEnabled(false);
+				btHelpServices.setEnabled(false);
+				btMainServices.setEnabled(false);
+
+				pnMainServices.setVisible(false);
+				pnBuy.setVisible(true);
+				getContentPane().add(pnBuy);
+
+				lbBuyTitle.setText("<html><body><center>Residencial <br> Premiado</center></body></html>");
+			}
+		});
+
+		btFianca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				btMyServices.setEnabled(false);
+				btHelpServices.setEnabled(false);
+				btMainServices.setEnabled(false);
+
+				pnMainServices.setVisible(false);
+				pnBuy.setVisible(true);
+				getContentPane().add(pnBuy);
+
+				lbBuyTitle.setText("<html><body><center>Fiança Locática <br> Aluguel</center></body></html>");
+			}
+		});
+		rbBuyRuralSim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				rbBuyRuralNao.setSelected(false);
+			}
+		});
+		rbBuyRuralNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				rbBuyRuralSim.setSelected(false);
+			}
+		});
+		rbBuyPortariaSim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				rbBuyPortariaNao.setSelected(false);
+			}
+		});
+		rbBuyPortariaNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				rbBuyPortariaSim.setSelected(false);
+			}
+		});
+		rbBuyAlvenariaSim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				rbBuyAlvenariaNao.setSelected(false);
+			}
+		});
+		rbBuyAlvenariaNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				rbBuyAlvenariaSim.setSelected(false);
+			}
+		});
+		btBuyCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+					txBuyEndereco.setText("");
+					txBuyValor.setText("");
+					pnBuy.setVisible(false);
+					pnMainServices.setVisible(true);
+					getContentPane().add(pnMainServices);
+					btMyServices.setEnabled(true);
+					btHelpServices.setEnabled(true);
+					btMainServices.setEnabled(true);
+				
+			}
+		});
+		btBuyNext.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+
+				if (txBuyEndereco.getText().equals("") || txBuyEndereco.getText().length() <= 10) {
+					txBuyEndereco.requestFocus();
+				} else if (txBuyValor.getText().equals("") || txBuyValor.getText().length() <= 4) {
+					txBuyValor.requestFocus();
+				} else {
+					pnBuy.setVisible(false);
+
+					if (lbBuyTitle.getText()
+							.equals("<html><body><center>Fiança Locática <br> Aluguel</center></body></html>")) {
+						pnFianca.setVisible(true);
+						getContentPane().add(pnFianca);
+
+					} else if (lbBuyTitle.getText()
+							.equals("<html><body><center>Residencial <br> Premiado</center></body></html>")) {
+						pnResidencial.setVisible(true);
+						getContentPane().add(pnResidencial);
+
+					} else if (lbBuyTitle.getText().equals("<html><body><center>Imobiliário</center></body></html>")) {
+						pnImobiliario.setVisible(true);
+						getContentPane().add(pnImobiliario);
+					}
+				}
+			}
+		});
+		
+		btResidencialVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				pnResidencial.setVisible(false);
+				pnBuy.setVisible(true);
+				getContentPane().add(pnBuy);
+
+			}
+		});
+		btImobiliarioVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				pnImobiliario.setVisible(false);
+				pnBuy.setVisible(true);
+				getContentPane().add(pnBuy);
+
+			}
+		});
+		btFiancaVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				pnFianca.setVisible(false);
+				pnBuy.setVisible(true);
+				getContentPane().add(pnBuy);
+
+			}
+		});
+		btResidencialCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+					txBuyEndereco.setText("");
+					txBuyValor.setText("");
+					pnResidencial.setVisible(false);
+					pnMainServices.setVisible(true);
+					getContentPane().add(pnMainServices);
+					btMyServices.setEnabled(true);
+					btHelpServices.setEnabled(true);
+					btMainServices.setEnabled(true);
+				
+			}
+		});
+		
 		
 		btSeeSite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
