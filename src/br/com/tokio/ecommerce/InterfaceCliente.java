@@ -21,6 +21,7 @@ public class InterfaceCliente extends JFrame {
 	// Painel buy
 	private JPanel pnBuy;
 	private JLabel lbBuyTitle, lbBuyRural, lbBuyPortaria, lbBuyAlvenaria, lbBuyEndereco, lbBuyValor;
+	private ButtonGroup gpRural, gpPortaria,gpAlvenaria;
 	private JRadioButton rbBuyRuralSim, rbBuyPortariaSim, rbBuyAlvenariaSim, rbBuyRuralNao, rbBuyPortariaNao,
 			rbBuyAlvenariaNao;
 	private JTextField txBuyEndereco, txBuyValor;
@@ -210,6 +211,10 @@ public class InterfaceCliente extends JFrame {
 		rbBuyRuralNao = new JRadioButton("Não");
 		rbBuyRuralNao.setBounds(160, 230, 50, 20);
 		pnBuy.add(rbBuyRuralNao);
+		
+		gpRural = new ButtonGroup();
+		gpRural.add(rbBuyRuralSim);
+		gpRural.add(rbBuyRuralNao);
 
 		rbBuyPortariaSim = new JRadioButton("Sim");
 		rbBuyPortariaSim.setSelected(true);
@@ -220,6 +225,10 @@ public class InterfaceCliente extends JFrame {
 		rbBuyPortariaNao.setBounds(160, 284, 50, 20);
 		pnBuy.add(rbBuyPortariaNao);
 
+		gpPortaria = new ButtonGroup();
+		gpPortaria.add(rbBuyPortariaSim);
+		gpPortaria.add(rbBuyPortariaNao);
+		
 		rbBuyAlvenariaSim = new JRadioButton("Sim");
 		rbBuyAlvenariaSim.setSelected(true);
 		rbBuyAlvenariaSim.setBounds(100, 338, 50, 20);
@@ -228,6 +237,10 @@ public class InterfaceCliente extends JFrame {
 		rbBuyAlvenariaNao = new JRadioButton("Não");
 		rbBuyAlvenariaNao.setBounds(160, 338, 50, 20);
 		pnBuy.add(rbBuyAlvenariaNao);
+		
+		gpAlvenaria = new ButtonGroup();
+		gpAlvenaria.add(rbBuyAlvenariaSim);
+		gpAlvenaria.add(rbBuyAlvenariaNao);
 
 		txBuyEndereco = new JTextField();
 		txBuyEndereco.setBounds(89, 170, 359, 25);
@@ -701,32 +714,60 @@ public class InterfaceCliente extends JFrame {
 		});
 		rbBuyRuralSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				rbBuyRuralNao.setSelected(false);
+				if (rbBuyRuralNao.isSelected()) {
+					rbBuyRuralNao.setSelected(false);
+				} else if (rbBuyRuralSim.isSelected()) {
+					rbBuyRuralSim.setSelected(true);
+
+				}
 			}
 		});
 		rbBuyRuralNao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				rbBuyRuralSim.setSelected(false);
+				if (rbBuyRuralSim.isSelected()) {
+					rbBuyRuralSim.setSelected(false);
+				} else if (rbBuyRuralNao.isSelected()) {
+					rbBuyRuralNao.setSelected(true);
+
+				}
 			}
 		});
 		rbBuyPortariaSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				rbBuyPortariaNao.setSelected(false);
+				if (rbBuyPortariaNao.isSelected()) {
+					rbBuyPortariaNao.setSelected(false);
+				} else if (rbBuyPortariaSim.isSelected()) {
+					rbBuyPortariaSim.setSelected(true);
+
+				}
 			}
 		});
 		rbBuyPortariaNao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				rbBuyPortariaSim.setSelected(false);
+				if (rbBuyPortariaSim.isSelected()) {
+					rbBuyPortariaSim.setSelected(false);
+				} else if (rbBuyPortariaNao.isSelected()) {
+					rbBuyPortariaNao.setSelected(true);
+
+				}
 			}
 		});
 		rbBuyAlvenariaSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				rbBuyAlvenariaNao.setSelected(false);
+				if (rbBuyAlvenariaNao.isSelected()) {
+					rbBuyAlvenariaNao.setSelected(false);
+				} else if (rbBuyPortariaSim.isSelected()) {
+					rbBuyAlvenariaSim.setSelected(true);
+				}
 			}
 		});
 		rbBuyAlvenariaNao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				rbBuyAlvenariaSim.setSelected(false);
+				if (rbBuyAlvenariaSim.isSelected()) {
+					rbBuyAlvenariaSim.setSelected(false);
+				} else if (rbBuyPortariaNao.isSelected()) {
+					rbBuyAlvenariaNao.setSelected(true);
+				}
 			}
 		});
 		btBuyCancel.addActionListener(new ActionListener() {
@@ -843,7 +884,7 @@ public class InterfaceCliente extends JFrame {
 		btResidencialConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				String[] options = { "Sim", "Não" };
-				if (txResidencialTipo.getText().equals("") || txResidencialTipo.getText().length()<5) {
+				if (txResidencialTipo.getText().equals("") || txResidencialTipo.getText().length() < 5) {
 					txResidencialTipo.requestFocus();
 				} else {
 					String endereco = txBuyEndereco.getText();
@@ -883,7 +924,7 @@ public class InterfaceCliente extends JFrame {
 
 						pnResidencial.setVisible(false);
 						pnMainServices.setVisible(true);
-						
+
 						btMyServices.setEnabled(true);
 						btHelpServices.setEnabled(true);
 						btMainServices.setEnabled(true);
@@ -898,12 +939,12 @@ public class InterfaceCliente extends JFrame {
 		btImobiliarioConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				String[] options = { "Sim", "Não" };
-				if (txImobiliarioTipo.getText().equals("") || txImobiliarioTipo.getText().length()<5){
+				if (txImobiliarioTipo.getText().equals("") || txImobiliarioTipo.getText().length() < 5) {
 					txImobiliarioTipo.requestFocus();
-				}else if(txImobiliarioEmpresa.getText().equals("")) {
+				} else if (txImobiliarioEmpresa.getText().equals("")) {
 					txImobiliarioEmpresa.requestFocus();
-				} 
-				
+				}
+
 				else {
 					String endereco = txBuyEndereco.getText();
 					String tipo = txImobiliarioTipo.getText();
@@ -929,10 +970,11 @@ public class InterfaceCliente extends JFrame {
 					}
 
 					if (JOptionPane.showOptionDialog(null,
-							"Confirma essas informações???" + "\n" + "\n Nome da empresa "+nome+"\n Endereço: " + endereco + "\n Segmento da empresa: "
-									+ tipo + "\n Valor do imóvel: " + valorImovel + " R$" + "\n Propriedade rural: "
-									+ rural + "\n Portaria elétrica: " + portaria + "\n Alvenaria: " + alvenaria
-									+ "\n Valor do serviço: " + valorImobiliario,
+							"Confirma essas informações???" + "\n" + "\n Nome da empresa " + nome + "\n Endereço: "
+									+ endereco + "\n Segmento da empresa: " + tipo + "\n Valor do imóvel: "
+									+ valorImovel + " R$" + "\n Propriedade rural: " + rural + "\n Portaria elétrica: "
+									+ portaria + "\n Alvenaria: " + alvenaria + "\n Valor do serviço: "
+									+ valorImobiliario,
 							"Confirma essas informações?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
 							null, options, options[0]) == 0) {
 
@@ -941,10 +983,10 @@ public class InterfaceCliente extends JFrame {
 						txBuyValor.setText("");
 						txImobiliarioTipo.setText("");
 						txImobiliarioEmpresa.setText("");
-						
+
 						pnImobiliario.setVisible(false);
 						pnMainServices.setVisible(true);
-						
+
 						btMyServices.setEnabled(true);
 						btHelpServices.setEnabled(true);
 						btMainServices.setEnabled(true);
@@ -959,11 +1001,11 @@ public class InterfaceCliente extends JFrame {
 		btFiancaConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				String[] options = { "Sim", "Não" };
-				if (txFiancaTipo.getText().equals("") || txFiancaTipo.getText().length()<5) {
+				if (txFiancaTipo.getText().equals("") || txFiancaTipo.getText().length() < 5) {
 					txFiancaTipo.requestFocus();
 				} else {
 					String endereco = txBuyEndereco.getText();
-					String tipo= txFiancaTipo.getText();
+					String tipo = txFiancaTipo.getText();
 					double valorImovel = Double.parseDouble(txBuyValor.getText());
 					String rural, portaria, alvenaria;
 
@@ -999,7 +1041,7 @@ public class InterfaceCliente extends JFrame {
 
 						pnFianca.setVisible(false);
 						pnMainServices.setVisible(true);
-						
+
 						btMyServices.setEnabled(true);
 						btHelpServices.setEnabled(true);
 						btMainServices.setEnabled(true);
