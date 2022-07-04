@@ -28,17 +28,23 @@ public class InterfaceCliente extends JFrame {
 
 	// Painel seguro Residencial
 	private JPanel pnResidencial;
-	private JLabel lbResidencialTitle;
+	private JLabel lbResidencialTitle, lbResidencialTipo, lbResidencialValor;
+	private JTextField txResidencialTipo;
+	private double valorResidencial = 700;
 	private JButton btResidencialVoltar, btResidencialCancel, btResidencialConfirm;
 
 	// Painel seguro fiança
 	private JPanel pnFianca;
-	private JLabel lbFiancaTitle;
+	private JLabel lbFiancaTitle, lbFiancaTipo, lbFiancaValor;
+	private JTextField txFiancaTipo;
+	private double valorFianca = 600;
 	private JButton btFiancaVoltar, btFiancaCancel, btFiancaConfirm;
 
 	// Painel seguro Imobiliario
 	private JPanel pnImobiliario;
-	private JLabel lbImobiliarioTitle;
+	private JLabel lbImobiliarioTitle, lbImobiliarioTipo, lbImobiliarioValor, lbImobiliarioEmpresa;
+	private JTextField txImobiliarioTipo, txImobiliarioEmpresa;
+	private double valorImobiliario = 1000;
 	private JButton btImobiliarioVoltar, btImobiliarioCancel, btImobiliarioConfirm;
 
 	// Painel meus serviços
@@ -280,8 +286,23 @@ public class InterfaceCliente extends JFrame {
 		btResidencialVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnResidencial.add(btResidencialVoltar);
 
+		lbResidencialTipo = new JLabel("Qual o tipo da sua residência?");
+		lbResidencialTipo.setFont(new Font("Dialog", Font.BOLD, 22));
+		lbResidencialTipo.setBounds(111, 179, 307, 37);
+		pnResidencial.add(lbResidencialTipo);
+
+		lbResidencialValor = new JLabel("Valor: " + valorResidencial + " R$/MÊS");
+		lbResidencialValor.setFont(new Font("Dialog", Font.BOLD, 30));
+		lbResidencialValor.setBounds(132, 309, 290, 30);
+		pnResidencial.add(lbResidencialValor);
+
+		txResidencialTipo = new JTextField();
+		txResidencialTipo.setBounds(89, 227, 359, 37);
+		txResidencialTipo.setFont(new Font("Dialog", Font.PLAIN, 18));
+		pnResidencial.add(txResidencialTipo);
+
 		btResidencialCancel = new JButton("Cancelar");
-		btResidencialCancel.setBounds(89, 455, 165, 65);
+		btResidencialCancel.setBounds(89, 400, 165, 65);
 		btResidencialCancel.setFont(new Font("", Font.BOLD, 20));
 		btResidencialCancel.setBackground(Color.decode("#007256"));
 		btResidencialCancel.setForeground(Color.WHITE);
@@ -289,7 +310,7 @@ public class InterfaceCliente extends JFrame {
 		pnResidencial.add(btResidencialCancel);
 
 		btResidencialConfirm = new JButton("Adiquirir");
-		btResidencialConfirm.setBounds(283, 455, 165, 65);
+		btResidencialConfirm.setBounds(283, 400, 165, 65);
 		btResidencialConfirm.setFont(new Font("", Font.BOLD, 20));
 		btResidencialConfirm.setBackground(Color.decode("#007256"));
 		btResidencialConfirm.setForeground(Color.WHITE);
@@ -317,7 +338,7 @@ public class InterfaceCliente extends JFrame {
 		lbFiancaTitle.setBounds(189, 45, 208, 65);
 		lbFiancaTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnFianca.add(lbFiancaTitle);
-		
+
 		btFiancaVoltar = new JButton("Voltar");
 		btFiancaVoltar.setBounds(51, 53, 60, 30);
 		btFiancaVoltar.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -326,8 +347,23 @@ public class InterfaceCliente extends JFrame {
 		btFiancaVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnFianca.add(btFiancaVoltar);
 
+		lbFiancaTipo = new JLabel("Qual o tipo da sua residência?");
+		lbFiancaTipo.setFont(new Font("Dialog", Font.BOLD, 22));
+		lbFiancaTipo.setBounds(111, 179, 307, 37);
+		pnFianca.add(lbFiancaTipo);
+
+		lbFiancaValor = new JLabel("Valor: " + valorFianca + " R$/MÊS");
+		lbFiancaValor.setFont(new Font("Dialog", Font.BOLD, 30));
+		lbFiancaValor.setBounds(132, 309, 290, 30);
+		pnFianca.add(lbFiancaValor);
+
+		txFiancaTipo = new JTextField();
+		txFiancaTipo.setBounds(89, 227, 359, 37);
+		txFiancaTipo.setFont(new Font("Dialog", Font.PLAIN, 18));
+		pnFianca.add(txFiancaTipo);
+
 		btFiancaCancel = new JButton("Cancelar");
-		btFiancaCancel.setBounds(89, 455, 165, 65);
+		btFiancaCancel.setBounds(89, 400, 165, 65);
 		btFiancaCancel.setFont(new Font("", Font.BOLD, 20));
 		btFiancaCancel.setBackground(Color.decode("#007256"));
 		btFiancaCancel.setForeground(Color.WHITE);
@@ -335,7 +371,7 @@ public class InterfaceCliente extends JFrame {
 		pnFianca.add(btFiancaCancel);
 
 		btFiancaConfirm = new JButton("Adiquirir");
-		btFiancaConfirm.setBounds(283, 455, 165, 65);
+		btFiancaConfirm.setBounds(283, 400, 165, 65);
 		btFiancaConfirm.setFont(new Font("", Font.BOLD, 20));
 		btFiancaConfirm.setBackground(Color.decode("#007256"));
 		btFiancaConfirm.setForeground(Color.WHITE);
@@ -364,8 +400,7 @@ public class InterfaceCliente extends JFrame {
 		lbImobiliarioTitle.setBounds(189, 45, 208, 65);
 		lbImobiliarioTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnImobiliario.add(lbImobiliarioTitle);
-		
-		
+
 		btImobiliarioVoltar = new JButton("Voltar");
 		btImobiliarioVoltar.setBounds(51, 53, 60, 30);
 		btImobiliarioVoltar.setFont(new Font("Dialog", Font.PLAIN, 9));
@@ -373,6 +408,31 @@ public class InterfaceCliente extends JFrame {
 		btImobiliarioVoltar.setForeground(Color.WHITE);
 		btImobiliarioVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnImobiliario.add(btImobiliarioVoltar);
+
+		lbImobiliarioTipo = new JLabel("Qual o segmento da sua empresa?");
+		lbImobiliarioTipo.setFont(new Font("Dialog", Font.BOLD, 22));
+		lbImobiliarioTipo.setBounds(89, 281, 359, 37);
+		pnImobiliario.add(lbImobiliarioTipo);
+
+		lbImobiliarioEmpresa = new JLabel("Qual o nome da sua empresa?");
+		lbImobiliarioEmpresa.setFont(new Font("Dialog", Font.BOLD, 22));
+		lbImobiliarioEmpresa.setBounds(110, 179, 310, 37);
+		pnImobiliario.add(lbImobiliarioEmpresa);
+
+		txImobiliarioEmpresa = new JTextField();
+		txImobiliarioEmpresa.setBounds(89, 227, 359, 37);
+		txImobiliarioEmpresa.setFont(new Font("Dialog", Font.PLAIN, 18));
+		pnImobiliario.add(txImobiliarioEmpresa);
+
+		lbImobiliarioValor = new JLabel("Valor: " + valorImobiliario + " R$/MÊS");
+		lbImobiliarioValor.setFont(new Font("Dialog", Font.BOLD, 30));
+		lbImobiliarioValor.setBounds(110, 397, 405, 30);
+		pnImobiliario.add(lbImobiliarioValor);
+
+		txImobiliarioTipo = new JTextField();
+		txImobiliarioTipo.setBounds(89, 329, 359, 37);
+		txImobiliarioTipo.setFont(new Font("Dialog", Font.PLAIN, 18));
+		pnImobiliario.add(txImobiliarioTipo);
 
 		btImobiliarioCancel = new JButton("Cancelar");
 		btImobiliarioCancel.setBounds(89, 455, 165, 65);
@@ -494,7 +554,7 @@ public class InterfaceCliente extends JFrame {
 		//////////////////////////////////////////////// FIM PN
 		//////////////////////////////////////////////// HELP////////////////////////////////////////////
 
-		getContentPane().add(pnResidencial);
+		getContentPane().add(pnMainServices);
 		this.getContentPane().add(pnMain);
 	}
 
@@ -671,15 +731,15 @@ public class InterfaceCliente extends JFrame {
 		});
 		btBuyCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-					txBuyEndereco.setText("");
-					txBuyValor.setText("");
-					pnBuy.setVisible(false);
-					pnMainServices.setVisible(true);
-					getContentPane().add(pnMainServices);
-					btMyServices.setEnabled(true);
-					btHelpServices.setEnabled(true);
-					btMainServices.setEnabled(true);
-				
+				txBuyEndereco.setText("");
+				txBuyValor.setText("");
+				pnBuy.setVisible(false);
+				pnMainServices.setVisible(true);
+				getContentPane().add(pnMainServices);
+				btMyServices.setEnabled(true);
+				btHelpServices.setEnabled(true);
+				btMainServices.setEnabled(true);
+
 			}
 		});
 		btBuyNext.addActionListener(new ActionListener() {
@@ -709,7 +769,7 @@ public class InterfaceCliente extends JFrame {
 				}
 			}
 		});
-		
+
 		btResidencialVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				pnResidencial.setVisible(false);
@@ -736,19 +796,222 @@ public class InterfaceCliente extends JFrame {
 		});
 		btResidencialCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-					txBuyEndereco.setText("");
-					txBuyValor.setText("");
-					pnResidencial.setVisible(false);
-					pnMainServices.setVisible(true);
-					getContentPane().add(pnMainServices);
-					btMyServices.setEnabled(true);
-					btHelpServices.setEnabled(true);
-					btMainServices.setEnabled(true);
-				
+				txBuyEndereco.setText("");
+				txBuyValor.setText("");
+				txResidencialTipo.setText("");
+
+				pnResidencial.setVisible(false);
+				pnMainServices.setVisible(true);
+				getContentPane().add(pnMainServices);
+				btMyServices.setEnabled(true);
+				btHelpServices.setEnabled(true);
+				btMainServices.setEnabled(true);
+
 			}
 		});
-		
-		
+		btImobiliarioCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				txBuyEndereco.setText("");
+				txBuyValor.setText("");
+				txImobiliarioTipo.setText("");
+				txImobiliarioEmpresa.setText("");
+
+				pnImobiliario.setVisible(false);
+				pnMainServices.setVisible(true);
+				getContentPane().add(pnMainServices);
+				btMyServices.setEnabled(true);
+				btHelpServices.setEnabled(true);
+				btMainServices.setEnabled(true);
+
+			}
+		});
+		btFiancaCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				txBuyEndereco.setText("");
+				txBuyValor.setText("");
+				txFiancaTipo.setText("");
+
+				pnFianca.setVisible(false);
+				pnMainServices.setVisible(true);
+				getContentPane().add(pnMainServices);
+				btMyServices.setEnabled(true);
+				btHelpServices.setEnabled(true);
+				btMainServices.setEnabled(true);
+
+			}
+		});
+		btResidencialConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				String[] options = { "Sim", "Não" };
+				if (txResidencialTipo.getText().equals("") || txResidencialTipo.getText().length()<5) {
+					txResidencialTipo.requestFocus();
+				} else {
+					String endereco = txBuyEndereco.getText();
+					String tipo = txResidencialTipo.getText();
+					double valorImovel = Double.parseDouble(txBuyValor.getText());
+					String rural, portaria, alvenaria;
+
+					if (rbBuyRuralSim.isSelected()) {
+						rural = rbBuyRuralSim.getText();
+					} else {
+						rural = rbBuyRuralNao.getText();
+					}
+
+					if (rbBuyPortariaSim.isSelected()) {
+						portaria = rbBuyPortariaSim.getText();
+					} else {
+						portaria = rbBuyPortariaNao.getText();
+					}
+					if (rbBuyAlvenariaSim.isSelected()) {
+						alvenaria = rbBuyAlvenariaSim.getText();
+					} else {
+						alvenaria = rbBuyAlvenariaNao.getText();
+					}
+
+					if (JOptionPane.showOptionDialog(null,
+							"Confirma essas informações???" + "\n" + "\n Endereço: " + endereco + "\n Tipo do imóvel: "
+									+ tipo + "\n Valor do imóvel: " + valorImovel + " R$" + "\n Propriedade rural: "
+									+ rural + "\n Portaria elétrica: " + portaria + "\n Alvenaria: " + alvenaria
+									+ "\n Valor do serviço: " + valorResidencial,
+							"Confirma essas informações?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+							null, options, options[0]) == 0) {
+
+						JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
+						txBuyEndereco.setText("");
+						txBuyValor.setText("");
+						txResidencialTipo.setText("");
+
+						pnResidencial.setVisible(false);
+						pnMainServices.setVisible(true);
+						
+						btMyServices.setEnabled(true);
+						btHelpServices.setEnabled(true);
+						btMainServices.setEnabled(true);
+						getContentPane().add(pnMainServices);
+
+					} else {
+
+					}
+				}
+			}
+		});
+		btImobiliarioConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				String[] options = { "Sim", "Não" };
+				if (txImobiliarioTipo.getText().equals("") || txImobiliarioTipo.getText().length()<5){
+					txImobiliarioTipo.requestFocus();
+				}else if(txImobiliarioEmpresa.getText().equals("")) {
+					txImobiliarioEmpresa.requestFocus();
+				} 
+				
+				else {
+					String endereco = txBuyEndereco.getText();
+					String tipo = txImobiliarioTipo.getText();
+					String nome = txImobiliarioEmpresa.getText();
+					double valorImovel = Double.parseDouble(txBuyValor.getText());
+					String rural, portaria, alvenaria;
+
+					if (rbBuyRuralSim.isSelected()) {
+						rural = rbBuyRuralSim.getText();
+					} else {
+						rural = rbBuyRuralNao.getText();
+					}
+
+					if (rbBuyPortariaSim.isSelected()) {
+						portaria = rbBuyPortariaSim.getText();
+					} else {
+						portaria = rbBuyPortariaNao.getText();
+					}
+					if (rbBuyAlvenariaSim.isSelected()) {
+						alvenaria = rbBuyAlvenariaSim.getText();
+					} else {
+						alvenaria = rbBuyAlvenariaNao.getText();
+					}
+
+					if (JOptionPane.showOptionDialog(null,
+							"Confirma essas informações???" + "\n" + "\n Nome da empresa "+nome+"\n Endereço: " + endereco + "\n Segmento da empresa: "
+									+ tipo + "\n Valor do imóvel: " + valorImovel + " R$" + "\n Propriedade rural: "
+									+ rural + "\n Portaria elétrica: " + portaria + "\n Alvenaria: " + alvenaria
+									+ "\n Valor do serviço: " + valorImobiliario,
+							"Confirma essas informações?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+							null, options, options[0]) == 0) {
+
+						JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
+						txBuyEndereco.setText("");
+						txBuyValor.setText("");
+						txImobiliarioTipo.setText("");
+						txImobiliarioEmpresa.setText("");
+						
+						pnImobiliario.setVisible(false);
+						pnMainServices.setVisible(true);
+						
+						btMyServices.setEnabled(true);
+						btHelpServices.setEnabled(true);
+						btMainServices.setEnabled(true);
+						getContentPane().add(pnMainServices);
+
+					} else {
+
+					}
+				}
+			}
+		});
+		btFiancaConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				String[] options = { "Sim", "Não" };
+				if (txFiancaTipo.getText().equals("") || txFiancaTipo.getText().length()<5) {
+					txFiancaTipo.requestFocus();
+				} else {
+					String endereco = txBuyEndereco.getText();
+					String tipo= txFiancaTipo.getText();
+					double valorImovel = Double.parseDouble(txBuyValor.getText());
+					String rural, portaria, alvenaria;
+
+					if (rbBuyRuralSim.isSelected()) {
+						rural = rbBuyRuralSim.getText();
+					} else {
+						rural = rbBuyRuralNao.getText();
+					}
+
+					if (rbBuyPortariaSim.isSelected()) {
+						portaria = rbBuyPortariaSim.getText();
+					} else {
+						portaria = rbBuyPortariaNao.getText();
+					}
+					if (rbBuyAlvenariaSim.isSelected()) {
+						alvenaria = rbBuyAlvenariaSim.getText();
+					} else {
+						alvenaria = rbBuyAlvenariaNao.getText();
+					}
+
+					if (JOptionPane.showOptionDialog(null,
+							"Confirma essas informações???" + "\n" + "\n Endereço: " + endereco + "\n Tipo do imóvel: "
+									+ tipo + "\n Valor do imóvel: " + valorImovel + " R$" + "\n Propriedade rural: "
+									+ rural + "\n Portaria elétrica: " + portaria + "\n Alvenaria: " + alvenaria
+									+ "\n Valor do serviço: " + valorFianca,
+							"Confirma essas informações?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+							null, options, options[0]) == 0) {
+
+						JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
+						txBuyEndereco.setText("");
+						txBuyValor.setText("");
+						txFiancaTipo.setText("");
+
+						pnFianca.setVisible(false);
+						pnMainServices.setVisible(true);
+						
+						btMyServices.setEnabled(true);
+						btHelpServices.setEnabled(true);
+						btMainServices.setEnabled(true);
+						getContentPane().add(pnMainServices);
+
+					} else {
+
+					}
+				}
+			}
+		});
+
 		btSeeSite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				OpenURL.open("https://www.tokiomarine.com.br/");
