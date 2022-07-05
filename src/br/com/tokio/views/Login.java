@@ -1,4 +1,4 @@
-package br.com.tokio.ecommerce;
+package br.com.tokio.views;
 
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
