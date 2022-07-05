@@ -5,7 +5,7 @@ import java.sql.*;
 public class ConnectionFactory {
 	private String driver = "oracle.jdbc.OracleDriver";
 	private String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-	private String user = "TM_ARTHUR_BARROCO";
+	private String user = "tm_arthur_barroco";
 	private String senha = "210904";
 
 	public Connection getConnection() {

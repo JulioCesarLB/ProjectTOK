@@ -1,11 +1,16 @@
 package br.com.tokio.views;
 
 import javax.swing.*;
+
+import br.com.tokio.model.Corretor;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Method;
 
-public class InterfaceCorretor extends JFrame {
+public class InterfaceCorretor extends JFrame{
+	Corretor corretor = new Corretor();
+	
 	public JButton close;
 
 	// Painel Lateral
@@ -19,11 +24,17 @@ public class InterfaceCorretor extends JFrame {
 
 	// Painel MyClientes
 	private JPanel pnMyClientes;
-	private JLabel lbMyClientesTitle;
+	private JLabel lbMyClientesTitle,lbMyClientesNome;
+	private JTextField txMyClientesNome;
+	private JRadioButton rbMyClientesServi,rbMyClientesLocal,rbMyClientesIdade,rbMyClientesTodos;
+	private ButtonGroup gpMyClientesTwo;
+	private JButton btMyClientesBusca;
 
 	// Painel de ocorrências
 	private JPanel pnOcorrencias;
 	private JLabel lbOcorrenciasTitle;
+	private ButtonGroup gpOcorrencias;
+	private JRadioButton rbOcorrenciasNome, rbOcorrenciasTodos;
 
 	// Painel cancelar serviços
 	private JPanel pnCancel;
@@ -38,9 +49,15 @@ public class InterfaceCorretor extends JFrame {
 
 	// Painel Relatorios
 	private JPanel pnRelatorios;
-	private JLabel lbRelatoriosTitle;
+	private JLabel lbRelatoriosTitle, lbOcorrenciasNome;
+	private JTextField txOcorrenciasNome;
+	private JButton btOcorrenciasBusca;
 
-	public InterfaceCorretor() {
+	public InterfaceCorretor(Corretor corretor) {
+		this.corretor.setId_corretor(corretor.getId_corretor());
+		this.corretor.setNm_corretor(corretor.getNm_corretor());   
+		this.corretor.setOb_email_corretor(corretor.getOb_email_corretor()); 
+		this.corretor.setOb_senha_corretor(corretor.getOb_senha_corretor());
 		componentes();
 		eventos();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +66,8 @@ public class InterfaceCorretor extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setIconImage(new ImageIcon("images//icon.png").getImage());
+		
+		System.out.println(corretor.getNm_corretor());
 	}
 
 	public void componentes() {
@@ -68,7 +87,7 @@ public class InterfaceCorretor extends JFrame {
 		lbImgLogo.setBounds(10, 550, 155, 36);
 		pnMain.add(lbImgLogo);
 
-		lbNameCorretor = new JLabel("<html><body><center>Julio Cesar Lopes Batista</body></html>"); // Colocar nome do
+		lbNameCorretor = new JLabel("<html><body><center>"+this.corretor.getNm_corretor()+"</body></html>"); // Colocar nome do
 																									// corretor
 		lbNameCorretor.setBounds(10, 171, 165, 25);
 		lbNameCorretor.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -127,7 +146,7 @@ public class InterfaceCorretor extends JFrame {
 		///////////////////////////////////////////////// HOME//////////////////////////////////////////////////
 		pnMainServices = new JPanel();
 		pnMainServices.setLayout(null);
-		pnMainServices.setVisible(true);
+		pnMainServices.setVisible(false);
 		pnMainServices.setBounds(177, 0, 525, 600);
 
 		pnMainServicesTitle = new JLabel("HOME");
@@ -149,6 +168,52 @@ public class InterfaceCorretor extends JFrame {
 		lbMyClientesTitle.setBounds(170, 45, 175, 20);
 		lbMyClientesTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnMyClientes.add(lbMyClientesTitle);
+		
+		
+		
+		rbMyClientesIdade = new JRadioButton("Ordenar por idade");
+		rbMyClientesIdade.setSelected(true);
+		rbMyClientesIdade.setBounds(20, 107, 140, 18);
+		pnMyClientes.add(rbMyClientesIdade);
+
+		rbMyClientesTodos = new JRadioButton("Mostrar todos");
+		rbMyClientesTodos.setBounds(185, 85, 165, 18);
+		pnMyClientes.add(rbMyClientesTodos);
+		
+		rbMyClientesLocal = new JRadioButton("Ordenar por localização");
+		rbMyClientesLocal.setBounds(160, 107, 165, 18);
+		pnMyClientes.add(rbMyClientesLocal);
+
+		rbMyClientesServi = new JRadioButton("Ordenar por val .do serviço");
+		rbMyClientesServi.setBounds(325, 107, 185, 18);
+		pnMyClientes.add(rbMyClientesServi);
+
+		gpMyClientesTwo = new ButtonGroup();
+		gpMyClientesTwo.add(rbMyClientesIdade);
+		gpMyClientesTwo.add(rbMyClientesLocal);
+		gpMyClientesTwo.add(rbMyClientesServi);
+		gpMyClientesTwo.add(rbMyClientesTodos);
+		
+		lbMyClientesNome = new JLabel(
+				"<html> <body> <center>Busque o cliente pelo <br> nome </center> </body></html>");
+		lbMyClientesNome.setFont(new Font("Dialog", Font.BOLD, 13));
+		lbMyClientesNome.setBounds(50, 144, 158, 36);
+		pnMyClientes.add(lbMyClientesNome);
+		
+		txMyClientesNome = new JTextField();
+		txMyClientesNome.setBounds(210, 150, 152, 30);
+		txMyClientesNome.setFont(new Font("Dialog", Font.PLAIN, 20));
+		pnMyClientes.add(txMyClientesNome);
+		
+		btMyClientesBusca = new JButton("Buscar");
+		btMyClientesBusca.setBounds(372, 150, 90, 30);
+		btMyClientesBusca.setFont(new Font("Dialog", Font.BOLD, 15));
+		btMyClientesBusca.setBackground(Color.decode("#007256"));
+		btMyClientesBusca.setForeground(Color.WHITE);
+		btMyClientesBusca.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnMyClientes.add(btMyClientesBusca);
+		
+		
 
 		///////////////////////////////////////////////// FIM PAINEL
 		///////////////////////////////////////////////// MYCLIENTES//////////////////////////////////////////////////
@@ -157,13 +222,45 @@ public class InterfaceCorretor extends JFrame {
 		///////////////////////////////////////////////// OCORRENCIAS//////////////////////////////////////////////////
 		pnOcorrencias = new JPanel();
 		pnOcorrencias.setLayout(null);
-		pnOcorrencias.setVisible(false);
+		pnOcorrencias.setVisible(true);
 		pnOcorrencias.setBounds(177, 0, 525, 600);
 
 		lbOcorrenciasTitle = new JLabel("Ocorrências");
 		lbOcorrenciasTitle.setBounds(170, 45, 175, 20);
 		lbOcorrenciasTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnOcorrencias.add(lbOcorrenciasTitle);
+		
+		rbOcorrenciasTodos = new JRadioButton("Todos");
+		rbOcorrenciasTodos.setSelected(true);
+		rbOcorrenciasTodos.setBounds(120, 87, 150, 18);
+		pnOcorrencias.add(rbOcorrenciasTodos);
+
+		rbOcorrenciasNome = new JRadioButton("Por nome");
+		rbOcorrenciasNome.setBounds(280, 87, 175, 18);
+		pnOcorrencias.add(rbOcorrenciasNome);
+		
+		gpOcorrencias = new ButtonGroup();
+		gpOcorrencias.add(rbOcorrenciasNome);
+		gpOcorrencias.add(rbOcorrenciasTodos);
+		
+		lbOcorrenciasNome = new JLabel(
+				"<html> <body> <center>Busque o cliente pelo <br> nome </center> </body></html>");
+		lbOcorrenciasNome.setFont(new Font("Dialog", Font.BOLD, 13));
+		lbOcorrenciasNome.setBounds(40, 114, 158, 36);
+		pnOcorrencias.add(lbOcorrenciasNome);
+		
+		txOcorrenciasNome = new JTextField();
+		txOcorrenciasNome.setBounds(200, 120, 152, 30);
+		txOcorrenciasNome.setFont(new Font("Dialog", Font.PLAIN, 20));
+		pnOcorrencias.add(txOcorrenciasNome);
+		
+		btOcorrenciasBusca = new JButton("Buscar");
+		btOcorrenciasBusca.setBounds(362, 120, 90, 30);
+		btOcorrenciasBusca.setFont(new Font("Dialog", Font.BOLD, 15));
+		btOcorrenciasBusca.setBackground(Color.decode("#007256"));
+		btOcorrenciasBusca.setForeground(Color.WHITE);
+		btOcorrenciasBusca.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnOcorrencias.add(btOcorrenciasBusca);
 
 		///////////////////////////////////////////////// FIM PAINEL
 		///////////////////////////////////////////////// OCORRENCIAS//////////////////////////////////////////////////
@@ -185,8 +282,8 @@ public class InterfaceCorretor extends JFrame {
 		///////////////////////////////////////////////// SERVIÇOS////////////////////////////////////
 		pnCancel = new JPanel();
 		pnCancel.setLayout(null);
-		pnCancel.setVisible(false);
 		pnCancel.setBounds(177, 0, 525, 600);
+		pnCancel.setVisible(false);
 
 		lbCancelTitle = new JLabel("Cancelar Serviços");
 		lbCancelTitle.setBounds(165, 45, 208, 25);
@@ -342,7 +439,6 @@ public class InterfaceCorretor extends JFrame {
 		btCancelarDelete.setBackground(Color.decode("#007256"));
 		btCancelarDelete.setForeground(Color.WHITE);
 		btCancelarDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		;
 		btCancelarDelete.setEnabled(false);
 		pnCancel.add(btCancelarDelete);
 
@@ -354,7 +450,7 @@ public class InterfaceCorretor extends JFrame {
 		btCancelCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnCancel.add(btCancelCancelar);
 
-		getContentPane().add(pnMainServices);
+		getContentPane().add(pnOcorrencias);
 		this.getContentPane().add(pnMain);
 	}
 
@@ -549,6 +645,28 @@ public class InterfaceCorretor extends JFrame {
 					pnCancel.setVisible(true);
 					getContentPane().add(pnCancel);
 				}
+
+			}
+		});
+		rbOcorrenciasTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				txOcorrenciasNome.setVisible(false);
+				lbOcorrenciasNome.setVisible(false);
+				btOcorrenciasBusca.setVisible(false);
+
+
+			
+
+			}
+		});
+		rbOcorrenciasNome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				txOcorrenciasNome.setVisible(true);
+				txOcorrenciasNome.setText("");
+				lbOcorrenciasNome.setVisible(true);
+				btOcorrenciasBusca.setVisible(true);
+				
+			
 
 			}
 		});

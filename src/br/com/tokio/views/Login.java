@@ -4,13 +4,16 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 
 import br.com.tokio.connectionFactory.ConnectionFactory;
+import br.com.tokio.model.Corretor;
+import br.com.tokio.repository.CorretorDAO;
 
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.awt.*;
 
 public class Login extends JFrame {
-
+	
 	// panel principal
 	private JButton btCliente, btCorretor;
 	private JLabel lbHello, lbHelloTwo, imgLogoMain;
@@ -39,7 +42,6 @@ public class Login extends JFrame {
 	public Login() {
 		componentes();
 		eventos();
-
 	}
 
 	public void componentes() {
@@ -583,24 +585,37 @@ public class Login extends JFrame {
 
 					login = txLoginCorretor.getText();
 					passworld = txPassworldCorretor.getText();
-
-					if (login.equals("julio.lifeintech@gmail.com") && passworld.equals("senha")) { // fazer busca no
+					
+					
+					CorretorDAO corretor = new CorretorDAO();
+					
+					Corretor corret = new Corretor();
+					try {
+						corret = corretor.login(login,passworld);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+								
+					if (corret==null) { // fazer busca no
 																									// banco de dados
-						disabled();
-						InterfaceCorretor corretor = new InterfaceCorretor();
-						corretor.setEnabled(true);
+						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
+								JOptionPane.ERROR_MESSAGE);
 
-						corretor.close.addActionListener(new ActionListener() {
+					} else {
+						disabled();
+						InterfaceCorretor corretos = new InterfaceCorretor(corret);
+						corretos.setEnabled(true);
+
+						corretos.close.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent argse) {
-								corretor.close();
+								corretos.close();
 								enabled();
+						
 
 							}
 						});
-
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
-								JOptionPane.ERROR_MESSAGE);
+						
 					}
 
 				}
