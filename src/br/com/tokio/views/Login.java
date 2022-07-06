@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 
 import br.com.tokio.connectionFactory.ConnectionFactory;
+import br.com.tokio.controller.CorretorController;
 import br.com.tokio.model.Corretor;
 import br.com.tokio.repository.CorretorDAO;
 
@@ -587,16 +588,10 @@ public class Login extends JFrame {
 					passworld = txPassworldCorretor.getText();
 					
 					
-					CorretorDAO corretor = new CorretorDAO();
+					CorretorController corretor = new CorretorController(); 
 					
-					Corretor corret = new Corretor();
-					try {
-						corret = corretor.login(login,passworld);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-								
+					Corretor corret = corretor.login(login,passworld);
+						
 					if (corret==null) { // fazer busca no
 																									// banco de dados
 						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
@@ -646,6 +641,7 @@ public class Login extends JFrame {
 		frame.setBounds(0, 0, 450, 600);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.setResizable(false);
 		frame.setIconImage(new ImageIcon("images//icon.png").getImage());
 	}
 

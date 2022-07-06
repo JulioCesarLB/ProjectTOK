@@ -1,7 +1,10 @@
 package br.com.tokio.model;
 
+import java.util.List;
+
 public class Corretor {
 	
+	private List<Cliente> listaDeClientes;
 	private String id_corretor;
 	private String nm_corretor;
 	private String ob_email_corretor;
@@ -42,6 +45,14 @@ public class Corretor {
 
 	public void setOb_senha_corretor(String ob_senha_corretor) {
 		this.ob_senha_corretor = ob_senha_corretor;
+	}
+
+	public List<Cliente> getListaDeClientes() {
+		return listaDeClientes;
+	}
+
+	public void setListaDeClientes(List<Cliente> listaDeClientes) {
+		this.listaDeClientes = listaDeClientes;
 	}
 	
 	

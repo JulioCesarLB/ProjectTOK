@@ -2,15 +2,17 @@ package br.com.tokio.views;
 
 import javax.swing.*;
 
+import br.com.tokio.controller.CorretorController;
 import br.com.tokio.model.Corretor;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Method;
+import javax.swing.border.LineBorder;
 
-public class InterfaceCorretor extends JFrame{
+public class InterfaceCorretor extends JFrame {
 	Corretor corretor = new Corretor();
-	
+	CorretorController controller = new CorretorController();
 	public JButton close;
 
 	// Painel Lateral
@@ -24,11 +26,13 @@ public class InterfaceCorretor extends JFrame{
 
 	// Painel MyClientes
 	private JPanel pnMyClientes;
-	private JLabel lbMyClientesTitle,lbMyClientesNome;
+	private JLabel lbMyClientesTitle, lbMyClientesNome;
 	private JTextField txMyClientesNome;
-	private JRadioButton rbMyClientesServi,rbMyClientesLocal,rbMyClientesIdade,rbMyClientesTodos;
-	private ButtonGroup gpMyClientesTwo;
+	private JRadioButton rbMyClientesRenda, rbMyClientesSexo, rbMyClientesIdade, rbMyClientesTodos, rbMyClientesNome;
+	private ButtonGroup gpMyClientesTwo, gpMyClientes;
 	private JButton btMyClientesBusca;
+	private JTable tbMyClientes;
+	 JScrollPane scrollPane;
 
 	// Painel de ocorrências
 	private JPanel pnOcorrencias;
@@ -55,19 +59,19 @@ public class InterfaceCorretor extends JFrame{
 
 	public InterfaceCorretor(Corretor corretor) {
 		this.corretor.setId_corretor(corretor.getId_corretor());
-		this.corretor.setNm_corretor(corretor.getNm_corretor());   
-		this.corretor.setOb_email_corretor(corretor.getOb_email_corretor()); 
+		this.corretor.setNm_corretor(corretor.getNm_corretor());
+		this.corretor.setOb_email_corretor(corretor.getOb_email_corretor());
 		this.corretor.setOb_senha_corretor(corretor.getOb_senha_corretor());
-		componentes();
-		eventos();
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setBounds(0, 0, 700, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setIconImage(new ImageIcon("images//icon.png").getImage());
-		
-		System.out.println(corretor.getNm_corretor());
+		componentes();
+		eventos();
+
 	}
 
 	public void componentes() {
@@ -87,8 +91,10 @@ public class InterfaceCorretor extends JFrame{
 		lbImgLogo.setBounds(10, 550, 155, 36);
 		pnMain.add(lbImgLogo);
 
-		lbNameCorretor = new JLabel("<html><body><center>"+this.corretor.getNm_corretor()+"</body></html>"); // Colocar nome do
-																									// corretor
+		lbNameCorretor = new JLabel("<html><body><center>" + this.corretor.getNm_corretor() + "</body></html>"); // Colocar
+																													// nome
+																													// do
+		// corretor
 		lbNameCorretor.setBounds(10, 171, 165, 25);
 		lbNameCorretor.setFont(new Font("Dialog", Font.BOLD, 12));
 		lbNameCorretor.setForeground(Color.WHITE);
@@ -168,53 +174,70 @@ public class InterfaceCorretor extends JFrame{
 		lbMyClientesTitle.setBounds(170, 45, 175, 20);
 		lbMyClientesTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnMyClientes.add(lbMyClientesTitle);
-		
-		
-		
+
+		rbMyClientesNome = new JRadioButton("Buscar por nome");
+		rbMyClientesNome.setBounds(285, 85, 165, 18);
+		pnMyClientes.add(rbMyClientesNome);
+
+		rbMyClientesTodos = new JRadioButton("Buscar todos");
+		rbMyClientesTodos.setBounds(120, 85, 125, 18);
+		pnMyClientes.add(rbMyClientesTodos);
+
+		gpMyClientes = new ButtonGroup();
+		gpMyClientes.add(rbMyClientesNome);
+		gpMyClientes.add(rbMyClientesTodos);
+
 		rbMyClientesIdade = new JRadioButton("Ordenar por idade");
 		rbMyClientesIdade.setSelected(true);
 		rbMyClientesIdade.setBounds(20, 107, 140, 18);
 		pnMyClientes.add(rbMyClientesIdade);
 
-		rbMyClientesTodos = new JRadioButton("Mostrar todos");
-		rbMyClientesTodos.setBounds(185, 85, 165, 18);
-		pnMyClientes.add(rbMyClientesTodos);
-		
-		rbMyClientesLocal = new JRadioButton("Ordenar por localização");
-		rbMyClientesLocal.setBounds(160, 107, 165, 18);
-		pnMyClientes.add(rbMyClientesLocal);
+		rbMyClientesSexo = new JRadioButton("Buscar pelo sexo ");
+		rbMyClientesSexo.setBounds(160, 107, 165, 18);
+		pnMyClientes.add(rbMyClientesSexo);
 
-		rbMyClientesServi = new JRadioButton("Ordenar por val .do serviço");
-		rbMyClientesServi.setBounds(325, 107, 185, 18);
-		pnMyClientes.add(rbMyClientesServi);
+		rbMyClientesRenda = new JRadioButton("Ordenar por val .da renda");
+		rbMyClientesRenda.setBounds(325, 107, 185, 18);
+		pnMyClientes.add(rbMyClientesRenda);
 
 		gpMyClientesTwo = new ButtonGroup();
 		gpMyClientesTwo.add(rbMyClientesIdade);
-		gpMyClientesTwo.add(rbMyClientesLocal);
-		gpMyClientesTwo.add(rbMyClientesServi);
-		gpMyClientesTwo.add(rbMyClientesTodos);
-		
-		lbMyClientesNome = new JLabel(
-				"<html> <body> <center>Busque o cliente pelo <br> nome </center> </body></html>");
+		gpMyClientesTwo.add(rbMyClientesSexo);
+		gpMyClientesTwo.add(rbMyClientesRenda);
+
+		lbMyClientesNome = new JLabel("<html> <body> <center>Busque o cliente pelo <br> nome </center> </body></html>");
 		lbMyClientesNome.setFont(new Font("Dialog", Font.BOLD, 13));
 		lbMyClientesNome.setBounds(50, 144, 158, 36);
+		lbMyClientesNome.setVisible(false);
 		pnMyClientes.add(lbMyClientesNome);
-		
+
 		txMyClientesNome = new JTextField();
 		txMyClientesNome.setBounds(210, 150, 152, 30);
 		txMyClientesNome.setFont(new Font("Dialog", Font.PLAIN, 20));
+		txMyClientesNome.setVisible(false);
 		pnMyClientes.add(txMyClientesNome);
-		
+
 		btMyClientesBusca = new JButton("Buscar");
 		btMyClientesBusca.setBounds(372, 150, 90, 30);
+		btMyClientesBusca.setVisible(false);
 		btMyClientesBusca.setFont(new Font("Dialog", Font.BOLD, 15));
 		btMyClientesBusca.setBackground(Color.decode("#007256"));
 		btMyClientesBusca.setForeground(Color.WHITE);
 		btMyClientesBusca.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMyClientes.add(btMyClientesBusca);
 		
+		tbMyClientes = new JTable();
+		tbMyClientes.setBorder(new LineBorder(Color.BLACK));
+		tbMyClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tbMyClientes.setPreferredScrollableViewportSize(new Dimension(300,100));//barra de rolagem
+		tbMyClientes.setFillsViewportHeight(true);
 		
-
+		scrollPane=new JScrollPane(tbMyClientes);
+		scrollPane.setBounds(0, 230, 520, 350);
+		pnMyClientes.add(scrollPane); 
+                //adicionando a tabela em uma barra de rolagem, ficará envolta , pela mesma 
+       
+		
 		///////////////////////////////////////////////// FIM PAINEL
 		///////////////////////////////////////////////// MYCLIENTES//////////////////////////////////////////////////
 
@@ -229,7 +252,7 @@ public class InterfaceCorretor extends JFrame{
 		lbOcorrenciasTitle.setBounds(170, 45, 175, 20);
 		lbOcorrenciasTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnOcorrencias.add(lbOcorrenciasTitle);
-		
+
 		rbOcorrenciasTodos = new JRadioButton("Todos");
 		rbOcorrenciasTodos.setSelected(true);
 		rbOcorrenciasTodos.setBounds(120, 87, 150, 18);
@@ -238,27 +261,30 @@ public class InterfaceCorretor extends JFrame{
 		rbOcorrenciasNome = new JRadioButton("Por nome");
 		rbOcorrenciasNome.setBounds(280, 87, 175, 18);
 		pnOcorrencias.add(rbOcorrenciasNome);
-		
+
 		gpOcorrencias = new ButtonGroup();
 		gpOcorrencias.add(rbOcorrenciasNome);
 		gpOcorrencias.add(rbOcorrenciasTodos);
-		
+
 		lbOcorrenciasNome = new JLabel(
 				"<html> <body> <center>Busque o cliente pelo <br> nome </center> </body></html>");
 		lbOcorrenciasNome.setFont(new Font("Dialog", Font.BOLD, 13));
 		lbOcorrenciasNome.setBounds(40, 114, 158, 36);
+		lbOcorrenciasNome.setVisible(false);
 		pnOcorrencias.add(lbOcorrenciasNome);
-		
+
 		txOcorrenciasNome = new JTextField();
 		txOcorrenciasNome.setBounds(200, 120, 152, 30);
 		txOcorrenciasNome.setFont(new Font("Dialog", Font.PLAIN, 20));
+		txOcorrenciasNome.setVisible(false);
 		pnOcorrencias.add(txOcorrenciasNome);
-		
+
 		btOcorrenciasBusca = new JButton("Buscar");
 		btOcorrenciasBusca.setBounds(362, 120, 90, 30);
 		btOcorrenciasBusca.setFont(new Font("Dialog", Font.BOLD, 15));
 		btOcorrenciasBusca.setBackground(Color.decode("#007256"));
 		btOcorrenciasBusca.setForeground(Color.WHITE);
+		btOcorrenciasBusca.setVisible(false);
 		btOcorrenciasBusca.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnOcorrencias.add(btOcorrenciasBusca);
 
@@ -450,7 +476,9 @@ public class InterfaceCorretor extends JFrame{
 		btCancelCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnCancel.add(btCancelCancelar);
 
-		getContentPane().add(pnOcorrencias);
+		getContentPane().add(pnMyClientes);
+		
+	
 		this.getContentPane().add(pnMain);
 	}
 
@@ -654,9 +682,6 @@ public class InterfaceCorretor extends JFrame{
 				lbOcorrenciasNome.setVisible(false);
 				btOcorrenciasBusca.setVisible(false);
 
-
-			
-
 			}
 		});
 		rbOcorrenciasNome.addActionListener(new ActionListener() {
@@ -665,8 +690,25 @@ public class InterfaceCorretor extends JFrame{
 				txOcorrenciasNome.setText("");
 				lbOcorrenciasNome.setVisible(true);
 				btOcorrenciasBusca.setVisible(true);
+
+			}
+		});
+		rbMyClientesNome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				txMyClientesNome.setVisible(true);
+				txMyClientesNome.setText("");
+				lbMyClientesNome.setVisible(true);
+				btMyClientesBusca.setVisible(true);
+
+			}
+		});
+		rbMyClientesTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				txMyClientesNome.setVisible(false);
+				lbMyClientesNome.setVisible(false);
+				btMyClientesBusca.setVisible(false);
 				
-			
+				tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=?"));
 
 			}
 		});
