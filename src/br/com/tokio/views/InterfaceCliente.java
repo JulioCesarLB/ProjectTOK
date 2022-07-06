@@ -160,7 +160,7 @@ public class InterfaceCliente extends JFrame {
 		lbMainServicesExplicacao.setFont(new Font("Dialog", Font.PLAIN, 15));
 		pnMainServices.add(lbMainServicesExplicacao);
 
-		lbTitleBuyServices = new JLabel("ADIQUIRA UM NOVO SEGURO RESIDENCIAL");
+		lbTitleBuyServices = new JLabel("ADQUIRA UM NOVO SEGURO RESIDENCIAL");
 		lbTitleBuyServices.setBounds(48, 185, 430, 20);
 		lbTitleBuyServices.setFont(new Font("Dialog", Font.BOLD, 20));
 		pnMainServices.add(lbTitleBuyServices);
@@ -322,7 +322,7 @@ public class InterfaceCliente extends JFrame {
 		btResidencialCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnResidencial.add(btResidencialCancel);
 
-		btResidencialConfirm = new JButton("Adiquirir");
+		btResidencialConfirm = new JButton("Adquirir");
 		btResidencialConfirm.setBounds(283, 400, 165, 65);
 		btResidencialConfirm.setFont(new Font("", Font.BOLD, 20));
 		btResidencialConfirm.setBackground(Color.decode("#007256"));

@@ -46,7 +46,6 @@ public class CorretorDAO {
 	}
 
 	public List<Cliente> selectClientes(String idCorretor, String sql) throws SQLException {
-		//String sql = "SELECT * FROM tb_tok_cliente WHERE id_corretor=?";
 		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setString(1, idCorretor);
 		ResultSet rs = stmt.executeQuery();

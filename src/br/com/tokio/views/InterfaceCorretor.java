@@ -55,7 +55,7 @@ public class InterfaceCorretor extends JFrame {
 
 	// Painel Relatorios
 	private JPanel pnRelatorios;
-	private JLabel lbRelatoriosTitle, lbOcorrenciasNome;
+	private JLabel lbRelatoriosTitle;
 
 	public InterfaceCorretor(Corretor corretor) {
 		this.corretor.setId_corretor(corretor.getId_corretor());
