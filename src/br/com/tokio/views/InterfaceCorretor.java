@@ -28,17 +28,19 @@ public class InterfaceCorretor extends JFrame {
 	private JPanel pnMyClientes;
 	private JLabel lbMyClientesTitle, lbMyClientesNome;
 	private JTextField txMyClientesNome;
-	private JRadioButton rbMyClientesRenda, rbMyClientesSexo, rbMyClientesAlfabetica, rbMyClientesTodos, rbMyClientesNome, rbMyClientesM,rbMyClientesF,rbMyClientesO,rbMyClientesSemOrdem;
+	private JRadioButton rbMyClientesRenda, rbMyClientesSexo, rbMyClientesAlfabetica, rbMyClientesTodos,
+			rbMyClientesNome, rbMyClientesM, rbMyClientesF, rbMyClientesO, rbMyClientesSemOrdem;
 	private ButtonGroup gpMyClientesTwo, gpMyClientes, gpMyClientesThree;
 	private JButton btMyClientesBuscaNome, btMyClientesBusca;
 	private JTable tbMyClientes;
-	 JScrollPane scrollPane;
+	JScrollPane scrollPane;
 
 	// Painel de ocorrências
 	private JPanel pnOcorrencias;
 	private JLabel lbOcorrenciasTitle;
-	private ButtonGroup gpOcorrencias;
-	private JRadioButton rbOcorrenciasNome, rbOcorrenciasTodos;
+	private JButton btOcorrenciasBusca;
+	private JTable tbOcorrencias;
+	JScrollPane scrollPaneOcorrencias;
 
 	// Painel cancelar serviços
 	private JPanel pnCancel;
@@ -54,15 +56,13 @@ public class InterfaceCorretor extends JFrame {
 	// Painel Relatorios
 	private JPanel pnRelatorios;
 	private JLabel lbRelatoriosTitle, lbOcorrenciasNome;
-	private JTextField txOcorrenciasNome;
-	private JButton btOcorrenciasBusca;
 
 	public InterfaceCorretor(Corretor corretor) {
 		this.corretor.setId_corretor(corretor.getId_corretor());
 		this.corretor.setNm_corretor(corretor.getNm_corretor());
 		this.corretor.setOb_email_corretor(corretor.getOb_email_corretor());
 		this.corretor.setOb_senha_corretor(corretor.getOb_senha_corretor());
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setBounds(0, 0, 700, 600);
@@ -152,7 +152,7 @@ public class InterfaceCorretor extends JFrame {
 		///////////////////////////////////////////////// HOME//////////////////////////////////////////////////
 		pnMainServices = new JPanel();
 		pnMainServices.setLayout(null);
-		pnMainServices.setVisible(false);
+		pnMainServices.setVisible(true);
 		pnMainServices.setBounds(177, 0, 525, 600);
 
 		pnMainServicesTitle = new JLabel("HOME");
@@ -183,7 +183,7 @@ public class InterfaceCorretor extends JFrame {
 		rbMyClientesTodos.setSelected(true);
 		rbMyClientesTodos.setBounds(60, 85, 110, 18);
 		pnMyClientes.add(rbMyClientesTodos);
-		
+
 		rbMyClientesSexo = new JRadioButton("Buscar pelo sexo ");
 		rbMyClientesSexo.setBounds(180, 85, 135, 18);
 		pnMyClientes.add(rbMyClientesSexo);
@@ -192,39 +192,37 @@ public class InterfaceCorretor extends JFrame {
 		gpMyClientes.add(rbMyClientesNome);
 		gpMyClientes.add(rbMyClientesTodos);
 		gpMyClientes.add(rbMyClientesSexo);
-		
-	
+
 		rbMyClientesM = new JRadioButton("Masculino");
 		rbMyClientesM.setVisible(false);
 		rbMyClientesM.setSelected(true);
 		rbMyClientesM.setBounds(100, 110, 100, 18);
 		pnMyClientes.add(rbMyClientesM);
-		
+
 		rbMyClientesF = new JRadioButton("Feminino");
 		rbMyClientesF.setVisible(false);
 		rbMyClientesF.setBounds(220, 110, 100, 18);
 		pnMyClientes.add(rbMyClientesF);
-		
+
 		rbMyClientesO = new JRadioButton("Outro");
 		rbMyClientesO.setVisible(false);
 		rbMyClientesO.setBounds(320, 110, 100, 18);
 		pnMyClientes.add(rbMyClientesO);
-		
+
 		gpMyClientesThree = new ButtonGroup();
 		gpMyClientesThree.add(rbMyClientesM);
 		gpMyClientesThree.add(rbMyClientesF);
 		gpMyClientesThree.add(rbMyClientesO);
-		
+
 		rbMyClientesSemOrdem = new JRadioButton("Não ordenar");
 		rbMyClientesSemOrdem.setBounds(25, 137, 100, 18);
 		rbMyClientesSemOrdem.setSelected(true);
 		pnMyClientes.add(rbMyClientesSemOrdem);
-		
+
 		rbMyClientesAlfabetica = new JRadioButton("Ordenar por ordem alfabét.");
 		rbMyClientesAlfabetica.setBounds(135, 137, 185, 18);
-		rbMyClientesAlfabetica.setSelected(true);
 		pnMyClientes.add(rbMyClientesAlfabetica);
-		
+
 		rbMyClientesRenda = new JRadioButton("Ordenar por val .da renda");
 		rbMyClientesRenda.setBounds(325, 137, 185, 18);
 		pnMyClientes.add(rbMyClientesRenda);
@@ -253,7 +251,7 @@ public class InterfaceCorretor extends JFrame {
 		btMyClientesBuscaNome.setForeground(Color.WHITE);
 		btMyClientesBuscaNome.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMyClientes.add(btMyClientesBuscaNome);
-		
+
 		btMyClientesBusca = new JButton("Buscar");
 		btMyClientesBusca.setBounds(200, 180, 90, 30);
 		btMyClientesBusca.setFont(new Font("Dialog", Font.BOLD, 15));
@@ -261,19 +259,18 @@ public class InterfaceCorretor extends JFrame {
 		btMyClientesBusca.setForeground(Color.WHITE);
 		btMyClientesBusca.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnMyClientes.add(btMyClientesBusca);
-		
+
 		tbMyClientes = new JTable();
 		tbMyClientes.setBorder(new LineBorder(Color.BLACK));
 		tbMyClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tbMyClientes.setPreferredScrollableViewportSize(new Dimension(300,100));//barra de rolagem
-		tbMyClientes.setFillsViewportHeight(true);
-		
-		scrollPane=new JScrollPane(tbMyClientes);
+		tbMyClientes.setPreferredScrollableViewportSize(new Dimension(300, 100));// barra de rolagem
+		// tbMyClientes.setFillsViewportHeight(true);
+
+		scrollPane = new JScrollPane(tbMyClientes);
 		scrollPane.setBounds(0, 230, 520, 350);
-		pnMyClientes.add(scrollPane); 
-                //adicionando a tabela em uma barra de rolagem, ficará envolta , pela mesma 
-       
-		
+		pnMyClientes.add(scrollPane);
+		// adicionando a tabela em uma barra de rolagem, ficará envolta , pela mesma
+
 		///////////////////////////////////////////////// FIM PAINEL
 		///////////////////////////////////////////////// MYCLIENTES//////////////////////////////////////////////////
 
@@ -289,40 +286,23 @@ public class InterfaceCorretor extends JFrame {
 		lbOcorrenciasTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnOcorrencias.add(lbOcorrenciasTitle);
 
-		rbOcorrenciasTodos = new JRadioButton("Todos");
-		rbOcorrenciasTodos.setSelected(true);
-		rbOcorrenciasTodos.setBounds(120, 87, 150, 18);
-		pnOcorrencias.add(rbOcorrenciasTodos);
-
-		rbOcorrenciasNome = new JRadioButton("Por nome");
-		rbOcorrenciasNome.setBounds(280, 87, 175, 18);
-		pnOcorrencias.add(rbOcorrenciasNome);
-
-		gpOcorrencias = new ButtonGroup();
-		gpOcorrencias.add(rbOcorrenciasNome);
-		gpOcorrencias.add(rbOcorrenciasTodos);
-
-		lbOcorrenciasNome = new JLabel(
-				"<html> <body> <center>Busque o cliente pelo <br> nome </center> </body></html>");
-		lbOcorrenciasNome.setFont(new Font("Dialog", Font.BOLD, 13));
-		lbOcorrenciasNome.setBounds(40, 114, 158, 36);
-		lbOcorrenciasNome.setVisible(false);
-		pnOcorrencias.add(lbOcorrenciasNome);
-
-		txOcorrenciasNome = new JTextField();
-		txOcorrenciasNome.setBounds(200, 120, 152, 30);
-		txOcorrenciasNome.setFont(new Font("Dialog", Font.PLAIN, 20));
-		txOcorrenciasNome.setVisible(false);
-		pnOcorrencias.add(txOcorrenciasNome);
-
 		btOcorrenciasBusca = new JButton("Buscar");
-		btOcorrenciasBusca.setBounds(362, 120, 90, 30);
+		btOcorrenciasBusca.setBounds(200, 100, 90, 30);
 		btOcorrenciasBusca.setFont(new Font("Dialog", Font.BOLD, 15));
 		btOcorrenciasBusca.setBackground(Color.decode("#007256"));
 		btOcorrenciasBusca.setForeground(Color.WHITE);
-		btOcorrenciasBusca.setVisible(false);
 		btOcorrenciasBusca.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnOcorrencias.add(btOcorrenciasBusca);
+
+		tbOcorrencias = new JTable();
+		tbOcorrencias.setBorder(new LineBorder(Color.BLACK));
+		tbOcorrencias.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tbOcorrencias.setPreferredScrollableViewportSize(new Dimension(300, 100));// barra de rolagem
+		// tbMyClientes.setFillsViewportHeight(true);
+
+		scrollPaneOcorrencias = new JScrollPane(tbOcorrencias);
+		scrollPaneOcorrencias.setBounds(0, 170, 520, 400);
+		pnOcorrencias.add(scrollPaneOcorrencias);
 
 		///////////////////////////////////////////////// FIM PAINEL
 		///////////////////////////////////////////////// OCORRENCIAS//////////////////////////////////////////////////
@@ -512,9 +492,8 @@ public class InterfaceCorretor extends JFrame {
 		btCancelCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnCancel.add(btCancelCancelar);
 
-		getContentPane().add(pnMyClientes);
-		
-	
+		getContentPane().add(pnMainServices);
+
 		this.getContentPane().add(pnMain);
 	}
 
@@ -712,25 +691,17 @@ public class InterfaceCorretor extends JFrame {
 
 			}
 		});
-		rbOcorrenciasTodos.addActionListener(new ActionListener() {
+
+		btOcorrenciasBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				txOcorrenciasNome.setVisible(false);
-				lbOcorrenciasNome.setVisible(false);
-				btOcorrenciasBusca.setVisible(false);
-				
 
-
+				/*
+				 * tbOcorrencias.setModel(controller.selectClientes(corretor.getId_corretor(),
+				 * "SELECT * FROM tb_tok_ajuda_cliente WHERE id_corretor=?"));
+				 */
 			}
 		});
-		rbOcorrenciasNome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent argse) {
-				txOcorrenciasNome.setVisible(true);
-				txOcorrenciasNome.setText("");
-				lbOcorrenciasNome.setVisible(true);
-				btOcorrenciasBusca.setVisible(true);
 
-			}
-		});
 		rbMyClientesNome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				txMyClientesNome.setVisible(true);
@@ -739,7 +710,7 @@ public class InterfaceCorretor extends JFrame {
 				btMyClientesBusca.setVisible(false);
 
 				btMyClientesBuscaNome.setVisible(true);
-				
+
 				rbMyClientesM.setVisible(false);
 				rbMyClientesF.setVisible(false);
 				rbMyClientesO.setVisible(false);
@@ -753,12 +724,12 @@ public class InterfaceCorretor extends JFrame {
 				btMyClientesBusca.setVisible(true);
 				btMyClientesBuscaNome.setVisible(false);
 
-				
 				rbMyClientesM.setVisible(false);
 				rbMyClientesF.setVisible(false);
 				rbMyClientesO.setVisible(false);
-				
-				//tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=?"));
+
+				// tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT
+				// * FROM tb_tok_cliente WHERE id_corretor=?"));
 
 			}
 		});
@@ -768,53 +739,116 @@ public class InterfaceCorretor extends JFrame {
 				lbMyClientesNome.setVisible(false);
 				btMyClientesBusca.setVisible(true);
 				btMyClientesBuscaNome.setVisible(false);
-				
+
 				rbMyClientesM.setVisible(true);
 				rbMyClientesF.setVisible(true);
 				rbMyClientesO.setVisible(true);
-				
-				//tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente="));
+
+				// tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT
+				// * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente="));
 
 			}
 		});
 		btMyClientesBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				if(rbMyClientesTodos.isSelected() && rbMyClientesSemOrdem.isSelected() ) {
-					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=?"));
+				if (rbMyClientesTodos.isSelected() && rbMyClientesSemOrdem.isSelected()) {
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=?"));
 
-				}else if(rbMyClientesTodos.isSelected() && rbMyClientesAlfabetica.isSelected() ) {
-					//todos e ordem alfabética
-				}else if(rbMyClientesTodos.isSelected() && rbMyClientesRenda.isSelected() ) {
-					//todos e ordem de renda
-					
-					
-				}else if(rbMyClientesSexo.isSelected() && rbMyClientesM.isSelected() && rbMyClientesSemOrdem.isSelected() ) {
-					//Masculino sem ordem
+				} else if (rbMyClientesTodos.isSelected() && rbMyClientesAlfabetica.isSelected()) {
+					// todos e ordem alfabética
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? ORDER BY nm_cliente ASC"));
 
-				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesM.isSelected() && rbMyClientesAlfabetica.isSelected() ) {
-					//Masculino e ordem alfabética
-				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesM.isSelected() && rbMyClientesRenda.isSelected() ) {
-					//masculino e ordem de renda
-				
+				} else if (rbMyClientesTodos.isSelected() && rbMyClientesRenda.isSelected()) {
+					// todos e ordem de renda
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? ORDER BY vl_renda_mensal DESC"));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesM.isSelected()
+						&& rbMyClientesSemOrdem.isSelected()) {
+					// Masculino sem ordem
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='M'"));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesM.isSelected()
+						&& rbMyClientesAlfabetica.isSelected()) {
+					// Masculino e ordem alfabética
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='M' ORDER BY nm_cliente ASC"));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesM.isSelected()
+						&& rbMyClientesRenda.isSelected()) {
+					// masculino e ordem de renda
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='M' ORDER BY vl_renda_mensal DESC"));
+
 				}
-				
-				else if(rbMyClientesSexo.isSelected() && rbMyClientesF.isSelected() && rbMyClientesSemOrdem.isSelected() ) {
-					//Feminino sem ordem
 
-				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesF.isSelected() && rbMyClientesAlfabetica.isSelected() ) {
-					//Feminino e ordem alfabética
-				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesF.isSelected() && rbMyClientesRenda.isSelected() ) {
-					//Feminino e ordem de renda
-				
+				else if (rbMyClientesSexo.isSelected() && rbMyClientesF.isSelected()
+						&& rbMyClientesSemOrdem.isSelected()) {
+					// Feminino sem ordem
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='F' "));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesF.isSelected()
+						&& rbMyClientesAlfabetica.isSelected()) {
+					// Feminino e ordem alfabética
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='F' ORDER BY nm_cliente ASC"));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesF.isSelected()
+						&& rbMyClientesRenda.isSelected()) {
+					// Feminino e ordem de renda
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='F' ORDER BY vl_renda_mensal DESC"));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesO.isSelected()
+						&& rbMyClientesSemOrdem.isSelected()) {
+					// Feminino sem ordem
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='O' "));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesO.isSelected()
+						&& rbMyClientesAlfabetica.isSelected()) {
+					// Feminino e ordem alfabética
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='O' ORDER BY nm_cliente ASC"));
+
+				} else if (rbMyClientesSexo.isSelected() && rbMyClientesO.isSelected()
+						&& rbMyClientesRenda.isSelected()) {
+					// Feminino e ordem de renda
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+							"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente='O' ORDER BY vl_renda_mensal DESC"));
+
 				}
+
 			}
 		});
 		btMyClientesBuscaNome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				
-				
-				//tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente="));
 
+				if (txMyClientesNome.getText().equals("")) {
+					txMyClientesNome.requestFocus();
+				} else {
+					if (rbMyClientesSemOrdem.isSelected()) {
+						tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+								"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND  nm_cliente LIKE '"
+										+ txMyClientesNome.getText() + "%'"));
+
+					} else if (rbMyClientesAlfabetica.isSelected()) {
+						// nome e com ordem alfabetica
+						tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+								"SELECT * FROM tb_tok_cliente WHERE id_corretor=?AND  nm_cliente LIKE '"
+										+ txMyClientesNome.getText() + "%' ORDER BY nm_cliente ASC"));
+					} else if (rbMyClientesRenda.isSelected()) {
+						// nome e com ordem por renda
+						tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),
+								"SELECT * FROM tb_tok_cliente WHERE id_corretor=?AND  nm_cliente LIKE '"
+										+ txMyClientesNome.getText() + "%' ORDER BY vl_renda_mensal DESC"));
+
+					}
+				}
 			}
 		});
 
@@ -886,14 +920,18 @@ public class InterfaceCorretor extends JFrame {
 					if (rbCancelResidencial.isSelected()) {
 
 						/// Fazer a busca na tabela residencial e colocar nos textfields
-						txCancelNome.setText("Julinho");
-						txCancelEndereco.setText("RUAZINHA");
-						txCancelRural.setText("Sim");
-						txCancelPortaria.setText("Nao");
-						txCancelAlvenaria.setText("Sim");
-						txCancelValorServico.setText("700");
-						txCancelValorImovel.setText("700000");
-						txCancelTipo.setText("apartamento");
+						String sql = "select cli.nm_cliente, ecli.ob_endereco, ecli.ob_local_rural, ecli.ob_portaria_eletr, ecli.ob_habitacao_alvenaria, ecli.vl_imovel, crp.ob_tipo_habitacao, crp.vl_servico from tb_tok_endereco_cliente ecli left join tb_tok_cliente cli on (ecli.id_cliente  = cli.id_cliente) inner join tb_tok_corretagem_rp crp on (ecli.id_endereco = crp.id_endereco) inner join tb_tok_servicos ser on crp.cd_servico = ser.cd_servico where cd_consulta=?";
+						System.out.print("aq funciona");
+						Object[] objeto = controller.selectServicos(txCancelApolice.getText(), sql);
+
+						txCancelNome.setText((String) objeto[0]);
+						txCancelEndereco.setText((String) objeto[1]);
+						txCancelRural.setText((String) objeto[2]);
+						txCancelPortaria.setText((String) objeto[3]);
+						txCancelAlvenaria.setText((String) objeto[4]);
+						txCancelValorServico.setText((String) objeto[5]);
+						txCancelValorImovel.setText((String) objeto[6]);
+						txCancelTipo.setText((String) objeto[7]);
 
 					} else if (rbCancelImobiliario.isSelected()) {
 
@@ -930,7 +968,44 @@ public class InterfaceCorretor extends JFrame {
 		});
 		btCancelarDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
+				String sql = "";
+				if (rbCancelResidencial.isSelected()) {
+					sql = "DELETE from tb_tok_corretagem_rp where cd_consulta=?";
+					if(controller.delete(txCancelApolice.getText(), sql)) {
+						JOptionPane.showMessageDialog(null, "Deletado com sucesso");
+						btCancelarDelete.setEnabled(false);
+						txCancelApolice.setText("");
+						txCancelNome.setText("");
+						txCancelEndereco.setText("");
+						txCancelRural.setText("");
+						txCancelPortaria.setText("");
+						txCancelAlvenaria.setText("");
+						txCancelValorServico.setText("");
+						txCancelNomeEmpresa.setText("");
+						txCancelValorImovel.setText("");
+						txCancelTipo.setText("");
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Erro ao deletar");
+						btCancelarDelete.setEnabled(false);
+						txCancelApolice.setText("");
+						txCancelNome.setText("");
+						txCancelEndereco.setText("");
+						txCancelRural.setText("");
+						txCancelPortaria.setText("");
+						txCancelAlvenaria.setText("");
+						txCancelValorServico.setText("");
+						txCancelNomeEmpresa.setText("");
+						txCancelValorImovel.setText("");
+						txCancelTipo.setText("");
+					}
 
+				} else if (rbCancelImobiliario.isSelected()) {
+
+				} else {
+
+					
+				}
 			}
 		});
 		btCancelCancelar.addActionListener(new ActionListener() {

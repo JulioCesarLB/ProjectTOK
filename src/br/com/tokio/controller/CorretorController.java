@@ -63,4 +63,26 @@ public class CorretorController {
 			return modelo;
 		}
 	}
+	public Object[] selectServicos(String apolice,String sql) {
+		try {
+			return corretor.selectServicos(apolice,sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	public boolean delete(String apolice, String sql) {
+		try {
+			return corretor.delete(apolice,sql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+	
 }
