@@ -28,9 +28,9 @@ public class InterfaceCorretor extends JFrame {
 	private JPanel pnMyClientes;
 	private JLabel lbMyClientesTitle, lbMyClientesNome;
 	private JTextField txMyClientesNome;
-	private JRadioButton rbMyClientesRenda, rbMyClientesSexo, rbMyClientesIdade, rbMyClientesTodos, rbMyClientesNome;
-	private ButtonGroup gpMyClientesTwo, gpMyClientes;
-	private JButton btMyClientesBusca;
+	private JRadioButton rbMyClientesRenda, rbMyClientesSexo, rbMyClientesAlfabetica, rbMyClientesTodos, rbMyClientesNome, rbMyClientesM,rbMyClientesF,rbMyClientesO,rbMyClientesSemOrdem;
+	private ButtonGroup gpMyClientesTwo, gpMyClientes, gpMyClientesThree;
+	private JButton btMyClientesBuscaNome, btMyClientesBusca;
 	private JTable tbMyClientes;
 	 JScrollPane scrollPane;
 
@@ -176,50 +176,86 @@ public class InterfaceCorretor extends JFrame {
 		pnMyClientes.add(lbMyClientesTitle);
 
 		rbMyClientesNome = new JRadioButton("Buscar por nome");
-		rbMyClientesNome.setBounds(285, 85, 165, 18);
+		rbMyClientesNome.setBounds(325, 85, 145, 18);
 		pnMyClientes.add(rbMyClientesNome);
 
 		rbMyClientesTodos = new JRadioButton("Buscar todos");
-		rbMyClientesTodos.setBounds(120, 85, 125, 18);
+		rbMyClientesTodos.setSelected(true);
+		rbMyClientesTodos.setBounds(60, 85, 110, 18);
 		pnMyClientes.add(rbMyClientesTodos);
+		
+		rbMyClientesSexo = new JRadioButton("Buscar pelo sexo ");
+		rbMyClientesSexo.setBounds(180, 85, 135, 18);
+		pnMyClientes.add(rbMyClientesSexo);
 
 		gpMyClientes = new ButtonGroup();
 		gpMyClientes.add(rbMyClientesNome);
 		gpMyClientes.add(rbMyClientesTodos);
-
-		rbMyClientesIdade = new JRadioButton("Ordenar por idade");
-		rbMyClientesIdade.setSelected(true);
-		rbMyClientesIdade.setBounds(20, 107, 140, 18);
-		pnMyClientes.add(rbMyClientesIdade);
-
-		rbMyClientesSexo = new JRadioButton("Buscar pelo sexo ");
-		rbMyClientesSexo.setBounds(160, 107, 165, 18);
-		pnMyClientes.add(rbMyClientesSexo);
-
+		gpMyClientes.add(rbMyClientesSexo);
+		
+	
+		rbMyClientesM = new JRadioButton("Masculino");
+		rbMyClientesM.setVisible(false);
+		rbMyClientesM.setSelected(true);
+		rbMyClientesM.setBounds(100, 110, 100, 18);
+		pnMyClientes.add(rbMyClientesM);
+		
+		rbMyClientesF = new JRadioButton("Feminino");
+		rbMyClientesF.setVisible(false);
+		rbMyClientesF.setBounds(220, 110, 100, 18);
+		pnMyClientes.add(rbMyClientesF);
+		
+		rbMyClientesO = new JRadioButton("Outro");
+		rbMyClientesO.setVisible(false);
+		rbMyClientesO.setBounds(320, 110, 100, 18);
+		pnMyClientes.add(rbMyClientesO);
+		
+		gpMyClientesThree = new ButtonGroup();
+		gpMyClientesThree.add(rbMyClientesM);
+		gpMyClientesThree.add(rbMyClientesF);
+		gpMyClientesThree.add(rbMyClientesO);
+		
+		rbMyClientesSemOrdem = new JRadioButton("Não ordenar");
+		rbMyClientesSemOrdem.setBounds(25, 137, 100, 18);
+		rbMyClientesSemOrdem.setSelected(true);
+		pnMyClientes.add(rbMyClientesSemOrdem);
+		
+		rbMyClientesAlfabetica = new JRadioButton("Ordenar por ordem alfabét.");
+		rbMyClientesAlfabetica.setBounds(135, 137, 185, 18);
+		rbMyClientesAlfabetica.setSelected(true);
+		pnMyClientes.add(rbMyClientesAlfabetica);
+		
 		rbMyClientesRenda = new JRadioButton("Ordenar por val .da renda");
-		rbMyClientesRenda.setBounds(325, 107, 185, 18);
+		rbMyClientesRenda.setBounds(325, 137, 185, 18);
 		pnMyClientes.add(rbMyClientesRenda);
 
 		gpMyClientesTwo = new ButtonGroup();
-		gpMyClientesTwo.add(rbMyClientesIdade);
-		gpMyClientesTwo.add(rbMyClientesSexo);
+		gpMyClientesTwo.add(rbMyClientesAlfabetica);
 		gpMyClientesTwo.add(rbMyClientesRenda);
-
+		gpMyClientesTwo.add(rbMyClientesSemOrdem);
 		lbMyClientesNome = new JLabel("<html> <body> <center>Busque o cliente pelo <br> nome </center> </body></html>");
 		lbMyClientesNome.setFont(new Font("Dialog", Font.BOLD, 13));
-		lbMyClientesNome.setBounds(50, 144, 158, 36);
+		lbMyClientesNome.setBounds(50, 174, 158, 36);
 		lbMyClientesNome.setVisible(false);
 		pnMyClientes.add(lbMyClientesNome);
 
 		txMyClientesNome = new JTextField();
-		txMyClientesNome.setBounds(210, 150, 152, 30);
+		txMyClientesNome.setBounds(210, 180, 152, 30);
 		txMyClientesNome.setFont(new Font("Dialog", Font.PLAIN, 20));
 		txMyClientesNome.setVisible(false);
 		pnMyClientes.add(txMyClientesNome);
 
+		btMyClientesBuscaNome = new JButton("Buscar");
+		btMyClientesBuscaNome.setBounds(372, 180, 90, 30);
+		btMyClientesBuscaNome.setVisible(false);
+		btMyClientesBuscaNome.setFont(new Font("Dialog", Font.BOLD, 15));
+		btMyClientesBuscaNome.setBackground(Color.decode("#007256"));
+		btMyClientesBuscaNome.setForeground(Color.WHITE);
+		btMyClientesBuscaNome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnMyClientes.add(btMyClientesBuscaNome);
+		
 		btMyClientesBusca = new JButton("Buscar");
-		btMyClientesBusca.setBounds(372, 150, 90, 30);
-		btMyClientesBusca.setVisible(false);
+		btMyClientesBusca.setBounds(200, 180, 90, 30);
 		btMyClientesBusca.setFont(new Font("Dialog", Font.BOLD, 15));
 		btMyClientesBusca.setBackground(Color.decode("#007256"));
 		btMyClientesBusca.setForeground(Color.WHITE);
@@ -681,6 +717,8 @@ public class InterfaceCorretor extends JFrame {
 				txOcorrenciasNome.setVisible(false);
 				lbOcorrenciasNome.setVisible(false);
 				btOcorrenciasBusca.setVisible(false);
+				
+
 
 			}
 		});
@@ -698,7 +736,13 @@ public class InterfaceCorretor extends JFrame {
 				txMyClientesNome.setVisible(true);
 				txMyClientesNome.setText("");
 				lbMyClientesNome.setVisible(true);
-				btMyClientesBusca.setVisible(true);
+				btMyClientesBusca.setVisible(false);
+
+				btMyClientesBuscaNome.setVisible(true);
+				
+				rbMyClientesM.setVisible(false);
+				rbMyClientesF.setVisible(false);
+				rbMyClientesO.setVisible(false);
 
 			}
 		});
@@ -706,9 +750,70 @@ public class InterfaceCorretor extends JFrame {
 			public void actionPerformed(ActionEvent argse) {
 				txMyClientesNome.setVisible(false);
 				lbMyClientesNome.setVisible(false);
-				btMyClientesBusca.setVisible(false);
+				btMyClientesBusca.setVisible(true);
+				btMyClientesBuscaNome.setVisible(false);
+
 				
-				tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=?"));
+				rbMyClientesM.setVisible(false);
+				rbMyClientesF.setVisible(false);
+				rbMyClientesO.setVisible(false);
+				
+				//tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=?"));
+
+			}
+		});
+		rbMyClientesSexo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				txMyClientesNome.setVisible(false);
+				lbMyClientesNome.setVisible(false);
+				btMyClientesBusca.setVisible(true);
+				btMyClientesBuscaNome.setVisible(false);
+				
+				rbMyClientesM.setVisible(true);
+				rbMyClientesF.setVisible(true);
+				rbMyClientesO.setVisible(true);
+				
+				//tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente="));
+
+			}
+		});
+		btMyClientesBusca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				if(rbMyClientesTodos.isSelected() && rbMyClientesSemOrdem.isSelected() ) {
+					tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=?"));
+
+				}else if(rbMyClientesTodos.isSelected() && rbMyClientesAlfabetica.isSelected() ) {
+					//todos e ordem alfabética
+				}else if(rbMyClientesTodos.isSelected() && rbMyClientesRenda.isSelected() ) {
+					//todos e ordem de renda
+					
+					
+				}else if(rbMyClientesSexo.isSelected() && rbMyClientesM.isSelected() && rbMyClientesSemOrdem.isSelected() ) {
+					//Masculino sem ordem
+
+				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesM.isSelected() && rbMyClientesAlfabetica.isSelected() ) {
+					//Masculino e ordem alfabética
+				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesM.isSelected() && rbMyClientesRenda.isSelected() ) {
+					//masculino e ordem de renda
+				
+				}
+				
+				else if(rbMyClientesSexo.isSelected() && rbMyClientesF.isSelected() && rbMyClientesSemOrdem.isSelected() ) {
+					//Feminino sem ordem
+
+				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesF.isSelected() && rbMyClientesAlfabetica.isSelected() ) {
+					//Feminino e ordem alfabética
+				}else if(rbMyClientesTodos.isSelected()&& rbMyClientesF.isSelected() && rbMyClientesRenda.isSelected() ) {
+					//Feminino e ordem de renda
+				
+				}
+			}
+		});
+		btMyClientesBuscaNome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				
+				
+				//tbMyClientes.setModel(controller.selectClientes(corretor.getId_corretor(),"SELECT * FROM tb_tok_cliente WHERE id_corretor=? AND ob_sexo_cliente="));
 
 			}
 		});
