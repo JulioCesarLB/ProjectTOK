@@ -299,10 +299,10 @@ public class ClienteDAO {
 					+ rs.getString("vl_servico");
 			lista.add(valores);
 		}
-		
+
 		stmt.close();
 		rs.close();
-		
+
 		String[] retorno = new String[lista.size()];
 		int apoio = 0;
 		for (String var : lista) {
@@ -311,27 +311,29 @@ public class ClienteDAO {
 		}
 		return retorno;
 	}
-	public void insertHelp(String tipo, String message, String idCliente, String idCorretor) throws SQLException  {
-		String sql="insert into tb_tok_ajuda_cliente (tx_ajuda_cliente,ds_status,id_cliente,id_corretor) VALUES (?,?,?,?)";
+
+	public void insertHelp(String tipo, String message, String idCliente, String idCorretor) throws SQLException {
+		String sql = "insert into tb_tok_ajuda_cliente (tx_ajuda_cliente,ds_status,id_cliente,id_corretor) VALUES (?,?,?,?)";
 		PreparedStatement stmt = conexao.prepareStatement(sql);
-		stmt.setString(1, tipo+"  "+message);
+		stmt.setString(1, tipo + "  " + message);
 		stmt.setString(2, "Pendente");
 		stmt.setString(3, idCliente);
 		stmt.setString(4, idCorretor);
-		
+
 		stmt.execute();
 		stmt.close();
 	}
+
 	public Object[] selectMyServicos(String idCliente, String sql) throws SQLException {
 		System.out.println("Funfa");
 		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setString(1, idCliente);
 		System.out.println("Funcionouuuuuuuuuu");
 		ResultSet rs = stmt.executeQuery();
-		
+
 		System.out.println("Funcionou");
-		Object[] objeto= new Object[10];
-		
+		Object[] objeto = new Object[10];
+
 		while (rs.next()) {
 			if (rs.getRow() == 0) {
 				System.out.println(rs.getRow());
@@ -342,16 +344,16 @@ public class ClienteDAO {
 			} else {
 				System.out.println(rs.getRow());
 				System.out.println("achou");
-			
-				objeto[0]=rs.getString("nm_servico"); 
-				objeto[1]=rs.getString("vl_servico");
-				objeto[2]=rs.getString("ob_endereco");
-		
+
+				objeto[0] = rs.getString("nm_servico");
+				objeto[1] = rs.getString("vl_servico");
+				objeto[2] = rs.getString("ob_endereco");
+
 			}
 		}
 		rs.close();
 		stmt.close();
 		return objeto;
-		
+
 	}
 }

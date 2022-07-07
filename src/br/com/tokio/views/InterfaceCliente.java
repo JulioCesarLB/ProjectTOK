@@ -58,7 +58,7 @@ public class InterfaceCliente extends JFrame {
 	// Painel meus serviços
 	private JPanel pnMyServices;
 	private JLabel lbMyServicesTitle, lbMyServicesExplicacao;
-	private JRadioButton rbMyServicesResidencial,rbMyServicesFianca, rbMyServicesImobiliario;
+	private JRadioButton rbMyServicesResidencial, rbMyServicesFianca, rbMyServicesImobiliario;
 	private ButtonGroup gpMyServices;
 	JTable tbMyServices;
 	JScrollPane scrollPane;
@@ -540,7 +540,7 @@ public class InterfaceCliente extends JFrame {
 		lbMyServicesExplicacao.setBounds(106, 93, 312, 60);
 		lbMyServicesExplicacao.setFont(new Font("Dialog", Font.PLAIN, 15));
 		pnMyServices.add(lbMyServicesExplicacao);
-		
+
 		rbMyServicesResidencial = new JRadioButton("Residencial Premiado");
 		rbMyServicesResidencial.setBounds(50, 190, 150, 18);
 		pnMyServices.add(rbMyServicesResidencial);
@@ -611,14 +611,6 @@ public class InterfaceCliente extends JFrame {
 		btHelpSend.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnHelp.add(btHelpSend);
 
-		cbHelpServicos = new JComboBox(controller.allServices(String.valueOf(cliente.getId_cliente()))); /// colocar os
-																											/// ///
-																											/// serviços
-																											/// do user
-		cbHelpServicos.setFont(new Font("Dialog", Font.PLAIN, 13));
-		cbHelpServicos.setForeground(Color.decode("#007256"));
-		cbHelpServicos.setBounds(267, 178, 218, 30);
-		pnHelp.add(cbHelpServicos);
 		//////////////////////////////////////////////// FIM PN
 		//////////////////////////////////////////////// HELP////////////////////////////////////////////
 
@@ -699,14 +691,15 @@ public class InterfaceCliente extends JFrame {
 		});
 		btHelpServices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				cbHelpServicos = new JComboBox(controller.allServices(String.valueOf(cliente.getId_cliente()))); /// colocar os
+				cbHelpServicos = new JComboBox(controller.allServices(String.valueOf(cliente.getId_cliente()))); /// colocar
+																													/// os
 				/// ///
 				/// serviços
 				/// do user
-cbHelpServicos.setFont(new Font("Dialog", Font.PLAIN, 13));
-cbHelpServicos.setForeground(Color.decode("#007256"));
-cbHelpServicos.setBounds(267, 178, 218, 30);
-pnHelp.add(cbHelpServicos);
+				cbHelpServicos.setFont(new Font("Dialog", Font.PLAIN, 13));
+				cbHelpServicos.setForeground(Color.decode("#007256"));
+				cbHelpServicos.setBounds(267, 178, 218, 30);
+				pnHelp.add(cbHelpServicos);
 				if (pnMainServices.isVisible()) {
 					pnMainServices.setVisible(false);
 					pnHelp.setVisible(true);
@@ -735,19 +728,22 @@ pnHelp.add(cbHelpServicos);
 		});
 		rbMyServicesResidencial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				tbMyServices.setModel(controller.selectMyServices( String.valueOf(cliente.getId_cliente()),"select crp.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_rp crp left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = crp.id_endereco) inner join tb_tok_servicos ser on(crp.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
+				tbMyServices.setModel(controller.selectMyServices(String.valueOf(cliente.getId_cliente()),
+						"select crp.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_rp crp left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = crp.id_endereco) inner join tb_tok_servicos ser on(crp.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
 
 			}
 		});
 		rbMyServicesImobiliario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				tbMyServices.setModel(controller.selectMyServices( String.valueOf(cliente.getId_cliente()),"select ci.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_i ci left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = ci.id_endereco) inner join tb_tok_servicos ser on(ci.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
+				tbMyServices.setModel(controller.selectMyServices(String.valueOf(cliente.getId_cliente()),
+						"select ci.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_i ci left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = ci.id_endereco) inner join tb_tok_servicos ser on(ci.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
 
 			}
 		});
 		rbMyServicesFianca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
-				tbMyServices.setModel(controller.selectMyServices( String.valueOf(cliente.getId_cliente()),"select ca.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_a ca left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = ca.id_endereco) inner join tb_tok_servicos ser on(ca.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
+				tbMyServices.setModel(controller.selectMyServices(String.valueOf(cliente.getId_cliente()),
+						"select ca.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_a ca left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = ca.id_endereco) inner join tb_tok_servicos ser on(ca.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
 
 			}
 		});
@@ -1156,8 +1152,7 @@ pnHelp.add(cbHelpServicos);
 				} else {
 					if (controller.insertHelp((String) cbHelpServicos.getSelectedItem(), txaHelpMessage.getText(),
 							String.valueOf(cliente.getId_cliente()), cliente.getId_corretor())) {
-						JOptionPane.showMessageDialog(null,
-								"Menssagem enviada ao corretor!" + "\n Aguarde o retorno");
+						JOptionPane.showMessageDialog(null, "Menssagem enviada ao corretor!" + "\n Aguarde o retorno");
 						txaHelpMessage.setText("");
 					} else {
 						JOptionPane.showMessageDialog(null, "Menssagem não enviada");

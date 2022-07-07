@@ -18,6 +18,7 @@ public class CorretorController {
 	public CorretorController() {
 		this.corretor = new CorretorDAO(conexao);
 	}
+
 	public Corretor login(String email, String senha) {
 		try {
 			return corretor.login(email, senha);
@@ -31,7 +32,7 @@ public class CorretorController {
 	public DefaultTableModel selectClientes(String idCorretor, String sql) {
 		List<Cliente> lista = null;
 		try {
-			lista = corretor.selectClientes(idCorretor,sql);
+			lista = corretor.selectClientes(idCorretor, sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,18 +56,18 @@ public class CorretorController {
 			for (Cliente cliente : lista) {
 
 				modelo.addRow(new Object[] { cliente.getNm_cliente(), cliente.getNr_cpf_cliente(),
-						cliente.getDt_nasc_cliente(), cliente.getOb_sexo_cliente(),
-						cliente.getNr_rg_cliente(), cliente.getNr_cep_cliente(), cliente.getNr_tel_cliente(),
-						cliente.getOb_profissao_cliente(), cliente.getVl_renda_mensal(),
-						cliente.getOb_email_cliente() });
+						cliente.getDt_nasc_cliente(), cliente.getOb_sexo_cliente(), cliente.getNr_rg_cliente(),
+						cliente.getNr_cep_cliente(), cliente.getNr_tel_cliente(), cliente.getOb_profissao_cliente(),
+						cliente.getVl_renda_mensal(), cliente.getOb_email_cliente() });
 			}
 			return modelo;
 		}
 	}
+
 	public DefaultTableModel selectOcorrencias(String idCorretor, String sql) {
-		Object[] objeto=null;
+		Object[] objeto = null;
 		try {
-			objeto = corretor.selectOcorrencias(idCorretor,sql);
+			objeto = corretor.selectOcorrencias(idCorretor, sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,40 +77,40 @@ public class CorretorController {
 		modelo.addColumn("Nome do Cliente");
 		modelo.addColumn("Texto da ocorrência");
 		modelo.addColumn("Status da ocorrencia");
-	
 
 		if (objeto == null) {
 			return null;
 		} else {
-			
+
 			modelo.addRow(objeto);
 			return modelo;
 		}
 	}
-	
-	
-	public Object[] selectServicos(String apolice,String sql) {
+
+	public Object[] selectServicos(String apolice, String sql) {
 		try {
-			return corretor.selectServicos(apolice,sql);
+			return corretor.selectServicos(apolice, sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
-	public Object[] selectServicosImobiliario(String apolice,String sql){
+
+	public Object[] selectServicosImobiliario(String apolice, String sql) {
 		try {
-			return corretor.selectServicosImobiliario(apolice,sql);
+			return corretor.selectServicosImobiliario(apolice, sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	public boolean delete(String apolice, String sql) {
 		try {
-			return corretor.delete(apolice,sql);
-			
+			return corretor.delete(apolice, sql);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,5 +118,5 @@ public class CorretorController {
 		}
 
 	}
-	
+
 }

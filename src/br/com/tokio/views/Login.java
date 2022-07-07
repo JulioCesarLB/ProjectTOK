@@ -499,39 +499,39 @@ public class Login extends JFrame {
 								"Confirma essas informações?", JOptionPane.DEFAULT_OPTION,
 								JOptionPane.INFORMATION_MESSAGE, null, options, options[0]) == 0) {
 
-							if (controller.selectByCPF(cpf)==false) { // verificar se não existe ninguém cadastrado
-								if(controller.selectByEmail(email)==false) {
-								// cadastrar no banco de dados
+							if (controller.selectByCPF(cpf) == false) { // verificar se não existe ninguém cadastrado
+								if (controller.selectByEmail(email) == false) {
+									// cadastrar no banco de dados
 									Random random = new Random();
 									String num = String.valueOf(random.nextInt(controller.numCorretores()) + 1);
 									System.out.println(num);
-									controller.register( num, name,cpf, dtNasc, String.valueOf(sexo.charAt(0)),rg ,cep, tel, job, Float.parseFloat(renda), email, senha);
-									
+									controller.register(num, name, cpf, dtNasc, String.valueOf(sexo.charAt(0)), rg, cep,
+											tel, job, Float.parseFloat(renda), email, senha);
 
-								JOptionPane.showMessageDialog(null,
-										"Parabéns, " + name + "! \nVocê foi cadastrado com sucesso ",
-										"Cadastrad0 com sucesso!!!!", JOptionPane.INFORMATION_MESSAGE);
-								txName.setText("");
-								txDtNasc.setText("");
-								txCpf.setText("");
-								txRg.setText("");
-								txCep.setText("");
-								txTel.setText("");
-								txJob.setText("");
-								txRenda.setText("");
-								txEmail.setText("");
-								txPassworldRegister.setText("");
-								txPassworldConfirm.setText("");
+									JOptionPane.showMessageDialog(null,
+											"Parabéns, " + name + "! \nVocê foi cadastrado com sucesso ",
+											"Cadastrad0 com sucesso!!!!", JOptionPane.INFORMATION_MESSAGE);
+									txName.setText("");
+									txDtNasc.setText("");
+									txCpf.setText("");
+									txRg.setText("");
+									txCep.setText("");
+									txTel.setText("");
+									txJob.setText("");
+									txRenda.setText("");
+									txEmail.setText("");
+									txPassworldRegister.setText("");
+									txPassworldConfirm.setText("");
 
-								txLogin.setText("");
-								txPassworld.setText("");
+									txLogin.setText("");
+									txPassworld.setText("");
 
-								pnRegister.setVisible(false);
-								pnLoginCliente.setVisible(true);
-								getContentPane().add(pnLoginCliente);
-								}else {
-									JOptionPane.showMessageDialog(null, "Este email já foi usado",
-											"Inválido", JOptionPane.ERROR_MESSAGE);
+									pnRegister.setVisible(false);
+									pnLoginCliente.setVisible(true);
+									getContentPane().add(pnLoginCliente);
+								} else {
+									JOptionPane.showMessageDialog(null, "Este email já foi usado", "Inválido",
+											JOptionPane.ERROR_MESSAGE);
 								}
 
 							} else {
@@ -600,7 +600,6 @@ public class Login extends JFrame {
 					login = txLoginCorretor.getText();
 					passworld = txPassworldCorretor.getText();
 
-					
 					CorretorController corretor = new CorretorController();
 					Corretor corret = corretor.login(login, passworld);
 

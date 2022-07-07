@@ -130,9 +130,10 @@ public class ClienteController {
 			return null;
 		}
 	}
+
 	public boolean insertHelp(String tipo, String message, String idCliente, String idCorretor) {
 		try {
-			cliente.insertHelp(tipo, message,idCliente,  idCorretor);
+			cliente.insertHelp(tipo, message, idCliente, idCorretor);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -140,11 +141,11 @@ public class ClienteController {
 			return false;
 		}
 	}
-	
-	public DefaultTableModel selectMyServices(String idCliente,String sql) {
-		Object[]lista = null;
+
+	public DefaultTableModel selectMyServices(String idCliente, String sql) {
+		Object[] lista = null;
 		try {
-			lista = cliente.selectMyServicos(idCliente,sql);
+			lista = cliente.selectMyServicos(idCliente, sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -154,7 +155,7 @@ public class ClienteController {
 		modelo.addColumn("Nome do Servico");
 		modelo.addColumn("Valor do Servico");
 		modelo.addColumn("Endereco assegurado");
-	
+
 		if (lista == null) {
 			return null;
 		} else {

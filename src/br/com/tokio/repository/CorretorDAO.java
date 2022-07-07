@@ -35,7 +35,7 @@ public class CorretorDAO {
 				corretor.setNm_corretor(rs.getString("nm_corretor"));
 				corretor.setOb_email_corretor(rs.getString("ob_email_corretor"));
 				corretor.setOb_senha_corretor(rs.getString("ob_senha_corretor"));
-				
+
 				rs.close();
 				stmt.close();
 				return corretor;
@@ -74,7 +74,7 @@ public class CorretorDAO {
 				cliente.setOb_email_cliente(rs.getString("ob_email_cliente"));
 
 				clientes.add(cliente);
-				
+
 			}
 		}
 		rs.close();
@@ -82,16 +82,17 @@ public class CorretorDAO {
 		return clientes;
 
 	}
-	public Object[] selectServicos(String apolice,String sql) throws SQLException {
+
+	public Object[] selectServicos(String apolice, String sql) throws SQLException {
 		System.out.println("Funfa");
 		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setString(1, apolice);
 		System.out.println("Funcionouuuuuuuuuu");
 		ResultSet rs = stmt.executeQuery();
-		
+
 		System.out.println("Funcionou");
-		Object[] objeto= new Object[10];
-		
+		Object[] objeto = new Object[10];
+
 		while (rs.next()) {
 			if (rs.getRow() == 0) {
 				System.out.println(rs.getRow());
@@ -102,80 +103,82 @@ public class CorretorDAO {
 			} else {
 				System.out.println(rs.getRow());
 				System.out.println("achou");
-				
-				
-				objeto[0]=rs.getString("nm_cliente"); //////cliente
-				objeto[1]=rs.getString("ob_endereco");
-				objeto[2]=rs.getString("ob_local_rural");
-				objeto[3]=rs.getString("ob_portaria_eletr");
-				objeto[4]=rs.getString("ob_habitacao_alvenaria");
-				objeto[5]=rs.getString("vl_imovel");
-				objeto[6]=rs.getString("ob_tipo_habitacao");////servico 
-				objeto[7]=rs.getString("vl_servico");  /////////servico
+
+				objeto[0] = rs.getString("nm_cliente"); ////// cliente
+				objeto[1] = rs.getString("ob_endereco");
+				objeto[2] = rs.getString("ob_local_rural");
+				objeto[3] = rs.getString("ob_portaria_eletr");
+				objeto[4] = rs.getString("ob_habitacao_alvenaria");
+				objeto[5] = rs.getString("vl_imovel");
+				objeto[6] = rs.getString("ob_tipo_habitacao");//// servico
+				objeto[7] = rs.getString("vl_servico"); ///////// servico
 
 			}
 		}
 		rs.close();
 		stmt.close();
 		return objeto;
-		
-	}	public Object[] selectServicosImobiliario(String apolice,String sql) throws SQLException {
-		System.out.println("Funfa");
-		PreparedStatement stmt = conexao.prepareStatement(sql);
-		stmt.setString(1, apolice);
-		System.out.println("Funcionouuuuuuuuuu");
-		ResultSet rs = stmt.executeQuery();
-		
-		System.out.println("Funcionou");
-		Object[] objeto= new Object[10];
-		
-		while (rs.next()) {
-			if (rs.getRow() == 0) {
-				System.out.println(rs.getRow());
-				System.out.println("não achou");
-				rs.close();
-				stmt.close();
-				return null;
-			} else {
-				System.out.println(rs.getRow());
-				System.out.println("achou");
-				
-				
-				objeto[0]=rs.getString("nm_cliente"); //////cliente
-				objeto[1]=rs.getString("ob_endereco");
-				objeto[2]=rs.getString("ob_local_rural");
-				objeto[3]=rs.getString("ob_portaria_eletr");
-				objeto[4]=rs.getString("ob_habitacao_alvenaria");
-				objeto[5]=rs.getString("vl_imovel");
-				objeto[6]=rs.getString("ob_tipo_seguimento");////servico 
-				objeto[7]=rs.getString("vl_servico");
-				objeto[8]=rs.getString("nm_empresa_cliente");/////////servico
 
-			}
-		}
-		rs.close();
-		stmt.close();
-		return objeto;
-		
 	}
-	public boolean delete(String apolice, String sql)throws SQLException {
+
+	public Object[] selectServicosImobiliario(String apolice, String sql) throws SQLException {
+		System.out.println("Funfa");
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, apolice);
+		System.out.println("Funcionouuuuuuuuuu");
+		ResultSet rs = stmt.executeQuery();
+
+		System.out.println("Funcionou");
+		Object[] objeto = new Object[10];
+
+		while (rs.next()) {
+			if (rs.getRow() == 0) {
+				System.out.println(rs.getRow());
+				System.out.println("não achou");
+				rs.close();
+				stmt.close();
+				return null;
+			} else {
+				System.out.println(rs.getRow());
+				System.out.println("achou");
+
+				objeto[0] = rs.getString("nm_cliente"); ////// cliente
+				objeto[1] = rs.getString("ob_endereco");
+				objeto[2] = rs.getString("ob_local_rural");
+				objeto[3] = rs.getString("ob_portaria_eletr");
+				objeto[4] = rs.getString("ob_habitacao_alvenaria");
+				objeto[5] = rs.getString("vl_imovel");
+				objeto[6] = rs.getString("ob_tipo_seguimento");//// servico
+				objeto[7] = rs.getString("vl_servico");
+				objeto[8] = rs.getString("nm_empresa_cliente");///////// servico
+
+			}
+		}
+		rs.close();
+		stmt.close();
+		return objeto;
+
+	}
+
+	public boolean delete(String apolice, String sql) throws SQLException {
 		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setString(1, apolice);
 		stmt.execute();
 		stmt.close();
 		return true;
-		
+
 	}
+
 	public Object[] selectOcorrencias(String idCorretor, String sql) throws SQLException {
 		System.out.println("Funfa");
 		PreparedStatement stmt = conexao.prepareStatement(sql);
 		stmt.setString(1, idCorretor);
 		System.out.println("Funcionouuuuuuuuuu");
 		ResultSet rs = stmt.executeQuery();
-		
+
 		System.out.println("Funcionou");
-		Object[] objeto= new Object[10];
-		
+		Object[] objeto = new Object[10];
+
 		while (rs.next()) {
 			if (rs.getRow() == 0) {
 				System.out.println(rs.getRow());
@@ -186,24 +189,19 @@ public class CorretorDAO {
 			} else {
 				System.out.println(rs.getRow());
 				System.out.println("achou");
-				
-		
-				//valorservico,nomeempresa
 
-				
-				objeto[0]=rs.getString("nm_cliente"); //////cliente
-				objeto[1]=rs.getString("tx_ajuda_cliente");
-				objeto[2]=rs.getString("ds_status");
-				
-				
-				
+				// valorservico,nomeempresa
+
+				objeto[0] = rs.getString("nm_cliente"); ////// cliente
+				objeto[1] = rs.getString("tx_ajuda_cliente");
+				objeto[2] = rs.getString("ds_status");
+
 			}
 		}
 		rs.close();
 		stmt.close();
 		return objeto;
-		
+
 	}
 
-	
 }

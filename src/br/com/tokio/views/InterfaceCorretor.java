@@ -2,7 +2,7 @@ package br.com.tokio.views;
 
 import javax.swing.*;
 
-
+import br.com.tokio.charts.GraficoPizza;
 import br.com.tokio.controller.CorretorController;
 import br.com.tokio.model.Corretor;
 import java.awt.*;
@@ -56,6 +56,7 @@ public class InterfaceCorretor extends JFrame {
 	// Painel Relatorios
 	private JPanel pnRelatorios;
 	private JLabel lbRelatoriosTitle;
+	private JButton btRelatoriosChart;
 
 	public InterfaceCorretor(Corretor corretor) {
 		this.corretor.setId_corretor(corretor.getId_corretor());
@@ -159,13 +160,14 @@ public class InterfaceCorretor extends JFrame {
 		pnMainServicesTitle.setBounds(217, 45, 75, 20);
 		pnMainServicesTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnMainServices.add(pnMainServicesTitle);
-		
-		pnMainServicesSubTitle= new JLabel("SEJA BEM VINDO, CORRETOR");
+
+		pnMainServicesSubTitle = new JLabel("SEJA BEM VINDO, CORRETOR");
 		pnMainServicesSubTitle.setBounds(80, 200, 380, 20);
 		pnMainServicesSubTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnMainServices.add(pnMainServicesSubTitle);
-		
-		pnMainServicesText= new JLabel("<html><body><center>Através dessa INTERFACE você poderá facilitar alguns processos do seu trabalho,<br> como: CONSULTAR SEUS CLIENTE, VIZUALIZAR OCORRÊNCIAS, CANCELAR SERVIÇOS E MUITO MAIS</center></body></center>");
+
+		pnMainServicesText = new JLabel(
+				"<html><body><center>Através dessa INTERFACE você poderá facilitar alguns processos do seu trabalho,<br> como: CONSULTAR SEUS CLIENTE, VIZUALIZAR OCORRÊNCIAS, CANCELAR SERVIÇOS E MUITO MAIS</center></body></center>");
 		pnMainServicesText.setBounds(90, 240, 360, 200);
 		pnMainServicesText.setFont(new Font("Dialog", Font.PLAIN, 22));
 		pnMainServices.add(pnMainServicesText);
@@ -327,6 +329,14 @@ public class InterfaceCorretor extends JFrame {
 		lbRelatoriosTitle.setBounds(170, 45, 175, 20);
 		lbRelatoriosTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnRelatorios.add(lbRelatoriosTitle);
+
+		btRelatoriosChart = new JButton("???");
+		btRelatoriosChart.setBounds(100, 200, 320, 100);
+		btRelatoriosChart.setFont(new Font("Dialog", Font.BOLD, 25));
+		btRelatoriosChart.setBackground(Color.decode("#007256"));
+		btRelatoriosChart.setForeground(Color.WHITE);
+		btRelatoriosChart.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		pnRelatorios.add(btRelatoriosChart);
 
 /////////////////////////////////////////////////FIM PAINEL RELATORIOS//////////////////////////////////////////////////
 
@@ -701,15 +711,18 @@ public class InterfaceCorretor extends JFrame {
 
 			}
 		});
+		btRelatoriosChart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				GraficoPizza grafico = new GraficoPizza();
 
+			}
+		});
 		btOcorrenciasBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 
-				
-				  tbOcorrencias.setModel(controller.selectOcorrencias(corretor.getId_corretor(),
-				  "select cli.nm_cliente, aju.tx_ajuda_cliente, aju.ds_status from tb_tok_ajuda_cliente aju inner join tb_tok_cliente cli on  aju.id_cliente = cli.id_cliente where cli.id_corretor=?"
-				  ));
-				 
+				tbOcorrencias.setModel(controller.selectOcorrencias(corretor.getId_corretor(),
+						"select cli.nm_cliente, aju.tx_ajuda_cliente, aju.ds_status from tb_tok_ajuda_cliente aju inner join tb_tok_cliente cli on  aju.id_cliente = cli.id_cliente where cli.id_corretor=?"));
+
 			}
 		});
 
@@ -943,16 +956,15 @@ public class InterfaceCorretor extends JFrame {
 						txCancelValorServico.setText((String) objeto[7]);
 						txCancelValorImovel.setText((String) objeto[5]);
 						txCancelTipo.setText((String) objeto[6]);
-						
 
 					} else if (rbCancelImobiliario.isSelected()) {
 
 						/// Fazer a busca na tabela imobliario e colocar nos textfields
 						String sql = "select cli.nm_cliente, ecli.ob_endereco, ecli.ob_local_rural, ecli.ob_portaria_eletr, ecli.ob_habitacao_alvenaria, ecli.vl_imovel, ci.vl_servico, ci.ob_tipo_seguimento, ci.nm_empresa_cliente, ser.cd_servico from tb_tok_endereco_cliente ecli left join tb_tok_cliente cli on (ecli.id_cliente  = cli.id_cliente) inner join tb_tok_corretagem_i ci on (ecli.id_endereco = ci.id_endereco) inner join tb_tok_servicos ser on ci.cd_servico = ser.cd_servico where cd_consulta=?";
-		
+
 						System.out.print("aq funciona");
 						Object[] objeto = controller.selectServicosImobiliario(txCancelApolice.getText(), sql);
-						
+
 						txCancelNome.setText((String) objeto[0]);
 						txCancelEndereco.setText((String) objeto[1]);
 						txCancelRural.setText((String) objeto[2]);
@@ -962,8 +974,6 @@ public class InterfaceCorretor extends JFrame {
 						txCancelValorImovel.setText((String) objeto[5]);
 						txCancelTipo.setText((String) objeto[6]);
 						txCancelNomeEmpresa.setText((String) objeto[8]);
-
-						
 
 					} else {
 						/// Fazer a busca na tabela Fianca aluguel e colocar nos textfields
@@ -990,7 +1000,7 @@ public class InterfaceCorretor extends JFrame {
 				String sql = "";
 				if (rbCancelResidencial.isSelected()) {
 					sql = "DELETE from tb_tok_corretagem_rp where cd_consulta=?";
-					if(controller.delete(txCancelApolice.getText(), sql)) {
+					if (controller.delete(txCancelApolice.getText(), sql)) {
 						JOptionPane.showMessageDialog(null, "Deletado com sucesso");
 						btCancelarDelete.setEnabled(false);
 						txCancelApolice.setText("");
@@ -1003,8 +1013,8 @@ public class InterfaceCorretor extends JFrame {
 						txCancelNomeEmpresa.setText("");
 						txCancelValorImovel.setText("");
 						txCancelTipo.setText("");
-						
-					}else {
+
+					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao deletar");
 						btCancelarDelete.setEnabled(false);
 						txCancelApolice.setText("");
@@ -1021,7 +1031,7 @@ public class InterfaceCorretor extends JFrame {
 
 				} else if (rbCancelImobiliario.isSelected()) {
 					sql = "DELETE from tb_tok_corretagem_i where cd_consulta=?";
-					if(controller.delete(txCancelApolice.getText(), sql)) {
+					if (controller.delete(txCancelApolice.getText(), sql)) {
 						JOptionPane.showMessageDialog(null, "Deletado com sucesso");
 						btCancelarDelete.setEnabled(false);
 						txCancelApolice.setText("");
@@ -1034,8 +1044,8 @@ public class InterfaceCorretor extends JFrame {
 						txCancelNomeEmpresa.setText("");
 						txCancelValorImovel.setText("");
 						txCancelTipo.setText("");
-						
-					}else {
+
+					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao deletar");
 						btCancelarDelete.setEnabled(false);
 						txCancelApolice.setText("");
@@ -1048,9 +1058,10 @@ public class InterfaceCorretor extends JFrame {
 						txCancelNomeEmpresa.setText("");
 						txCancelValorImovel.setText("");
 						txCancelTipo.setText("");
-				} }else {
+					}
+				} else {
 					sql = "DELETE from tb_tok_corretagem_a where cd_consulta=?";
-					if(controller.delete(txCancelApolice.getText(), sql)) {
+					if (controller.delete(txCancelApolice.getText(), sql)) {
 						JOptionPane.showMessageDialog(null, "Deletado com sucesso");
 						btCancelarDelete.setEnabled(false);
 						txCancelApolice.setText("");
@@ -1063,8 +1074,8 @@ public class InterfaceCorretor extends JFrame {
 						txCancelNomeEmpresa.setText("");
 						txCancelValorImovel.setText("");
 						txCancelTipo.setText("");
-						
-					}else {
+
+					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao deletar");
 						btCancelarDelete.setEnabled(false);
 						txCancelApolice.setText("");
@@ -1077,10 +1088,10 @@ public class InterfaceCorretor extends JFrame {
 						txCancelNomeEmpresa.setText("");
 						txCancelValorImovel.setText("");
 						txCancelTipo.setText("");
-					
+
+					}
 				}
 			}
-		}
 		});
 		btCancelCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
