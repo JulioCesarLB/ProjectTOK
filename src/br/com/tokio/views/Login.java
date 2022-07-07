@@ -4,17 +4,20 @@ import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 
 import br.com.tokio.connectionFactory.ConnectionFactory;
+import br.com.tokio.controller.ClienteController;
 import br.com.tokio.controller.CorretorController;
+import br.com.tokio.model.Cliente;
 import br.com.tokio.model.Corretor;
 import br.com.tokio.repository.CorretorDAO;
 
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Random;
 import java.awt.*;
 
 public class Login extends JFrame {
-	
+	ClienteController controller = new ClienteController();
 	// panel principal
 	private JButton btCliente, btCorretor;
 	private JLabel lbHello, lbHelloTwo, imgLogoMain;
@@ -496,9 +499,14 @@ public class Login extends JFrame {
 								"Confirma essas informações?", JOptionPane.DEFAULT_OPTION,
 								JOptionPane.INFORMATION_MESSAGE, null, options, options[0]) == 0) {
 
-							if (cpf.equals("451.161.738-44")) { // verificar se não existe ninguém cadastrado
-
+							if (controller.selectByCPF(cpf)==false) { // verificar se não existe ninguém cadastrado
+								if(controller.selectByEmail(email)==false) {
 								// cadastrar no banco de dados
+									Random random = new Random();
+									String num = String.valueOf(random.nextInt(controller.numCorretores()) + 1);
+									System.out.println(num);
+									controller.register( num, name,cpf, dtNasc, String.valueOf(sexo.charAt(0)),rg ,cep, tel, job, Float.parseFloat(renda), email, senha);
+									
 
 								JOptionPane.showMessageDialog(null,
 										"Parabéns, " + name + "! \nVocê foi cadastrado com sucesso ",
@@ -521,6 +529,10 @@ public class Login extends JFrame {
 								pnRegister.setVisible(false);
 								pnLoginCliente.setVisible(true);
 								getContentPane().add(pnLoginCliente);
+								}else {
+									JOptionPane.showMessageDialog(null, "Este email já foi usado",
+											"Inválido", JOptionPane.ERROR_MESSAGE);
+								}
 
 							} else {
 								JOptionPane.showMessageDialog(null, "Já existe alguém cadastrado com esse CPF",
@@ -553,22 +565,23 @@ public class Login extends JFrame {
 					login = txLogin.getText();
 					passworld = txPassworld.getText();
 
-					if (login.equals("451.161.738-44") && passworld.equals("senha")) { // fazer busca no banco de dados
+					Cliente cliente = controller.login(login, passworld);
 
+					if (cliente == null) { // fazer busca no banco de dados
+						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
+								JOptionPane.ERROR_MESSAGE);
+
+					} else {
 						disabled();
-						InterfaceCliente cliente = new InterfaceCliente();
-						cliente.setEnabled(true);
+						InterfaceCliente client = new InterfaceCliente(cliente);
+						client.setEnabled(true);
 
-						cliente.close.addActionListener(new ActionListener() {
+						client.close.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent argse) {
-								cliente.close();
+								client.close();
 								enabled();
 							}
 						});
-
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
-								JOptionPane.ERROR_MESSAGE);
 					}
 
 				}
@@ -586,14 +599,13 @@ public class Login extends JFrame {
 
 					login = txLoginCorretor.getText();
 					passworld = txPassworldCorretor.getText();
+
 					
-					
-					CorretorController corretor = new CorretorController(); 
-					
-					Corretor corret = corretor.login(login,passworld);
-						
-					if (corret==null) { // fazer busca no
-																									// banco de dados
+					CorretorController corretor = new CorretorController();
+					Corretor corret = corretor.login(login, passworld);
+
+					if (corret == null) { // fazer busca no
+											// banco de dados
 						JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Inválido",
 								JOptionPane.ERROR_MESSAGE);
 
@@ -606,11 +618,10 @@ public class Login extends JFrame {
 							public void actionPerformed(ActionEvent argse) {
 								corretos.close();
 								enabled();
-						
 
 							}
 						});
-						
+
 					}
 
 				}

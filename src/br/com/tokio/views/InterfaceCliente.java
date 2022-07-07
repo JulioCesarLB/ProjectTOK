@@ -1,11 +1,18 @@
 package br.com.tokio.views;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
+import br.com.tokio.controller.ClienteController;
+import br.com.tokio.model.Cliente;
+
 import java.lang.reflect.Method;
 import java.awt.*;
 import java.awt.event.*;
 
 public class InterfaceCliente extends JFrame {
+	private Cliente cliente = new Cliente();
+	private ClienteController controller = new ClienteController();
 	public JButton close;
 
 	// Painel Lateral
@@ -21,7 +28,7 @@ public class InterfaceCliente extends JFrame {
 	// Painel buy
 	private JPanel pnBuy;
 	private JLabel lbBuyTitle, lbBuyRural, lbBuyPortaria, lbBuyAlvenaria, lbBuyEndereco, lbBuyValor;
-	private ButtonGroup gpRural, gpPortaria,gpAlvenaria;
+	private ButtonGroup gpRural, gpPortaria, gpAlvenaria;
 	private JRadioButton rbBuyRuralSim, rbBuyPortariaSim, rbBuyAlvenariaSim, rbBuyRuralNao, rbBuyPortariaNao,
 			rbBuyAlvenariaNao;
 	private JTextField txBuyEndereco, txBuyValor;
@@ -31,26 +38,30 @@ public class InterfaceCliente extends JFrame {
 	private JPanel pnResidencial;
 	private JLabel lbResidencialTitle, lbResidencialTipo, lbResidencialValor;
 	private JTextField txResidencialTipo;
-	private double valorResidencial = 700;
+	private String valorResidencial = "700";
 	private JButton btResidencialVoltar, btResidencialCancel, btResidencialConfirm;
 
 	// Painel seguro fiança
 	private JPanel pnFianca;
 	private JLabel lbFiancaTitle, lbFiancaTipo, lbFiancaValor;
 	private JTextField txFiancaTipo;
-	private double valorFianca = 600;
+	private String valorFianca = "600";
 	private JButton btFiancaVoltar, btFiancaCancel, btFiancaConfirm;
 
 	// Painel seguro Imobiliario
 	private JPanel pnImobiliario;
 	private JLabel lbImobiliarioTitle, lbImobiliarioTipo, lbImobiliarioValor, lbImobiliarioEmpresa;
 	private JTextField txImobiliarioTipo, txImobiliarioEmpresa;
-	private double valorImobiliario = 1000;
+	private String valorImobiliario = "1000";
 	private JButton btImobiliarioVoltar, btImobiliarioCancel, btImobiliarioConfirm;
 
 	// Painel meus serviços
 	private JPanel pnMyServices;
 	private JLabel lbMyServicesTitle, lbMyServicesExplicacao;
+	private JRadioButton rbMyServicesResidencial,rbMyServicesFianca, rbMyServicesImobiliario;
+	private ButtonGroup gpMyServices;
+	JTable tbMyServices;
+	JScrollPane scrollPane;
 
 	// Painel Ajuda
 	private JPanel pnHelp;
@@ -59,7 +70,21 @@ public class InterfaceCliente extends JFrame {
 	private JButton btHelpSend;
 	private JComboBox cbHelpServicos;
 
-	public InterfaceCliente() {
+	public InterfaceCliente(Cliente cliente) {
+		this.cliente.setDs_senha_cliente(cliente.getDs_senha_cliente());
+		this.cliente.setDt_nasc_cliente(cliente.getDt_nasc_cliente());
+		this.cliente.setId_cliente(cliente.getId_cliente());
+		this.cliente.setId_corretor(cliente.getId_corretor());
+		this.cliente.setNm_cliente(cliente.getNm_cliente());
+		this.cliente.setNr_cep_cliente(cliente.getNr_cep_cliente());
+		this.cliente.setNr_cpf_cliente(cliente.getNr_cpf_cliente());
+		this.cliente.setNr_rg_cliente(cliente.getNr_rg_cliente());
+		this.cliente.setNr_tel_cliente(cliente.getNr_tel_cliente());
+		this.cliente.setOb_email_cliente(cliente.getOb_email_cliente());
+		this.cliente.setOb_profissao_cliente(cliente.getOb_profissao_cliente());
+		this.cliente.setOb_sexo_cliente(cliente.getOb_sexo_cliente());
+		this.cliente.setVl_renda_mensal(cliente.getVl_renda_mensal());
+
 		componentes();
 		eventos();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,12 +122,12 @@ public class InterfaceCliente extends JFrame {
 		lbImgLogo.setBounds(10, 550, 155, 36);
 		pnMain.add(lbImgLogo);
 
-		lbNameCliente = new JLabel(
-				"<html><body><center>Julio Cesar Lopes Batista <br>Corretor: FREDINHO <center></body></html>"); // Colocar
-																												// nome
-																												// do
-																												// cliente
-		lbNameCliente.setBounds(10, 165, 165, 25);
+		lbNameCliente = new JLabel("<html><body><center>" + cliente.getNm_cliente() + "<br>Corretor:"
+				+ controller.getNomeCorretor(cliente.getId_corretor()) + " <center></body></html>"); // Colocar
+		// nome
+		// do
+		// cliente
+		lbNameCliente.setBounds(10, 150, 165, 45);
 		lbNameCliente.setFont(new Font("Dialog", Font.BOLD, 12));
 		lbNameCliente.setForeground(Color.WHITE);
 		pnMain.add(lbNameCliente);
@@ -211,7 +236,7 @@ public class InterfaceCliente extends JFrame {
 		rbBuyRuralNao = new JRadioButton("Não");
 		rbBuyRuralNao.setBounds(160, 230, 50, 20);
 		pnBuy.add(rbBuyRuralNao);
-		
+
 		gpRural = new ButtonGroup();
 		gpRural.add(rbBuyRuralSim);
 		gpRural.add(rbBuyRuralNao);
@@ -228,7 +253,7 @@ public class InterfaceCliente extends JFrame {
 		gpPortaria = new ButtonGroup();
 		gpPortaria.add(rbBuyPortariaSim);
 		gpPortaria.add(rbBuyPortariaNao);
-		
+
 		rbBuyAlvenariaSim = new JRadioButton("Sim");
 		rbBuyAlvenariaSim.setSelected(true);
 		rbBuyAlvenariaSim.setBounds(100, 338, 50, 20);
@@ -237,7 +262,7 @@ public class InterfaceCliente extends JFrame {
 		rbBuyAlvenariaNao = new JRadioButton("Não");
 		rbBuyAlvenariaNao.setBounds(160, 338, 50, 20);
 		pnBuy.add(rbBuyAlvenariaNao);
-		
+
 		gpAlvenaria = new ButtonGroup();
 		gpAlvenaria.add(rbBuyAlvenariaSim);
 		gpAlvenaria.add(rbBuyAlvenariaNao);
@@ -515,6 +540,33 @@ public class InterfaceCliente extends JFrame {
 		lbMyServicesExplicacao.setBounds(106, 93, 312, 60);
 		lbMyServicesExplicacao.setFont(new Font("Dialog", Font.PLAIN, 15));
 		pnMyServices.add(lbMyServicesExplicacao);
+		
+		rbMyServicesResidencial = new JRadioButton("Residencial Premiado");
+		rbMyServicesResidencial.setBounds(50, 190, 150, 18);
+		pnMyServices.add(rbMyServicesResidencial);
+
+		rbMyServicesFianca = new JRadioButton("Fiança Locatícia - Aluguel");
+		rbMyServicesFianca.setBounds(200, 190, 175, 18);
+		pnMyServices.add(rbMyServicesFianca);
+
+		rbMyServicesImobiliario = new JRadioButton("Imobiliario");
+		rbMyServicesImobiliario.setBounds(375, 190, 90, 18);
+		pnMyServices.add(rbMyServicesImobiliario);
+
+		gpMyServices = new ButtonGroup();
+		gpMyServices.add(rbMyServicesResidencial);
+		gpMyServices.add(rbMyServicesFianca);
+		gpMyServices.add(rbMyServicesImobiliario);
+
+		tbMyServices = new JTable();
+		tbMyServices.setBorder(new LineBorder(Color.BLACK));
+		tbMyServices.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tbMyServices.setPreferredScrollableViewportSize(new Dimension(300, 100));// barra de rolagem
+		// tbMyClientes.setFillsViewportHeight(true);
+
+		scrollPane = new JScrollPane(tbMyServices);
+		scrollPane.setBounds(0, 230, 520, 350);
+		pnMyServices.add(scrollPane);
 
 		/////////////////////////////////////////////////// FIM PN MEUS
 		/////////////////////////////////////////////////// SERVICOS///////////////////////////////////////
@@ -559,7 +611,10 @@ public class InterfaceCliente extends JFrame {
 		btHelpSend.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		pnHelp.add(btHelpSend);
 
-		cbHelpServicos = new JComboBox(); /// colocar os serviços do user
+		cbHelpServicos = new JComboBox(controller.allServices(String.valueOf(cliente.getId_cliente()))); /// colocar os
+																											/// ///
+																											/// serviços
+																											/// do user
 		cbHelpServicos.setFont(new Font("Dialog", Font.PLAIN, 13));
 		cbHelpServicos.setForeground(Color.decode("#007256"));
 		cbHelpServicos.setBounds(267, 178, 218, 30);
@@ -644,6 +699,14 @@ public class InterfaceCliente extends JFrame {
 		});
 		btHelpServices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
+				cbHelpServicos = new JComboBox(controller.allServices(String.valueOf(cliente.getId_cliente()))); /// colocar os
+				/// ///
+				/// serviços
+				/// do user
+cbHelpServicos.setFont(new Font("Dialog", Font.PLAIN, 13));
+cbHelpServicos.setForeground(Color.decode("#007256"));
+cbHelpServicos.setBounds(267, 178, 218, 30);
+pnHelp.add(cbHelpServicos);
 				if (pnMainServices.isVisible()) {
 					pnMainServices.setVisible(false);
 					pnHelp.setVisible(true);
@@ -667,6 +730,24 @@ public class InterfaceCliente extends JFrame {
 					pnMyServices.setVisible(true);
 					getContentPane().add(pnMyServices);
 				}
+
+			}
+		});
+		rbMyServicesResidencial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				tbMyServices.setModel(controller.selectMyServices( String.valueOf(cliente.getId_cliente()),"select crp.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_rp crp left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = crp.id_endereco) inner join tb_tok_servicos ser on(crp.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
+
+			}
+		});
+		rbMyServicesImobiliario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				tbMyServices.setModel(controller.selectMyServices( String.valueOf(cliente.getId_cliente()),"select ci.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_i ci left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = ci.id_endereco) inner join tb_tok_servicos ser on(ci.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
+
+			}
+		});
+		rbMyServicesFianca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				tbMyServices.setModel(controller.selectMyServices( String.valueOf(cliente.getId_cliente()),"select ca.vl_servico, ser.nm_servico,  ecli.ob_endereco from tb_tok_corretagem_a ca left join tb_tok_endereco_cliente ecli on(ecli.id_endereco = ca.id_endereco) inner join tb_tok_servicos ser on(ca.cd_servico = ser.cd_servico) inner join tb_tok_cliente cli on cli.id_cliente = ecli.id_cliente where cli.id_cliente=?"));
 
 			}
 		});
@@ -884,29 +965,29 @@ public class InterfaceCliente extends JFrame {
 		btResidencialConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				String[] options = { "Sim", "Não" };
-				if (txResidencialTipo.getText().equals("") || txResidencialTipo.getText().length() < 5) {
+				if (txResidencialTipo.getText().equals("") || txResidencialTipo.getText().length() < 2) {
 					txResidencialTipo.requestFocus();
 				} else {
 					String endereco = txBuyEndereco.getText();
-					String tipo = txResidencialTipo.getText();
-					double valorImovel = Double.parseDouble(txBuyValor.getText());
+					String tipo = txResidencialTipo.getText().charAt(0) + "" + txResidencialTipo.getText().charAt(1);
+					String valorImovel = txBuyValor.getText();
 					String rural, portaria, alvenaria;
 
 					if (rbBuyRuralSim.isSelected()) {
-						rural = rbBuyRuralSim.getText();
+						rural = String.valueOf(rbBuyRuralSim.getText().charAt(0));
 					} else {
-						rural = rbBuyRuralNao.getText();
+						rural = String.valueOf(rbBuyRuralNao.getText().charAt(0));
 					}
 
 					if (rbBuyPortariaSim.isSelected()) {
-						portaria = rbBuyPortariaSim.getText();
+						portaria = String.valueOf(rbBuyPortariaSim.getText().charAt(0));
 					} else {
-						portaria = rbBuyPortariaNao.getText();
+						portaria = String.valueOf(rbBuyPortariaNao.getText().charAt(0));
 					}
 					if (rbBuyAlvenariaSim.isSelected()) {
-						alvenaria = rbBuyAlvenariaSim.getText();
+						alvenaria = String.valueOf(rbBuyAlvenariaSim.getText().charAt(0));
 					} else {
-						alvenaria = rbBuyAlvenariaNao.getText();
+						alvenaria = String.valueOf(rbBuyAlvenariaNao.getText().charAt(0));
 					}
 
 					if (JOptionPane.showOptionDialog(null,
@@ -917,19 +998,24 @@ public class InterfaceCliente extends JFrame {
 							"Confirma essas informações?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
 							null, options, options[0]) == 0) {
 
-						JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
-						txBuyEndereco.setText("");
-						txBuyValor.setText("");
-						txResidencialTipo.setText("");
+						if (controller.insertResidencial(cliente.getId_corretor(), endereco, rural, portaria, alvenaria,
+								valorImovel, tipo, valorResidencial)) {
 
-						pnResidencial.setVisible(false);
-						pnMainServices.setVisible(true);
+							JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
+							txBuyEndereco.setText("");
+							txBuyValor.setText("");
+							txResidencialTipo.setText("");
 
-						btMyServices.setEnabled(true);
-						btHelpServices.setEnabled(true);
-						btMainServices.setEnabled(true);
-						getContentPane().add(pnMainServices);
+							pnResidencial.setVisible(false);
+							pnMainServices.setVisible(true);
 
+							btMyServices.setEnabled(true);
+							btHelpServices.setEnabled(true);
+							btMainServices.setEnabled(true);
+							getContentPane().add(pnMainServices);
+						} else {
+							System.out.print("erro pra comprar");
+						}
 					} else {
 
 					}
@@ -939,7 +1025,7 @@ public class InterfaceCliente extends JFrame {
 		btImobiliarioConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				String[] options = { "Sim", "Não" };
-				if (txImobiliarioTipo.getText().equals("") || txImobiliarioTipo.getText().length() < 5) {
+				if (txImobiliarioTipo.getText().equals("") || txImobiliarioTipo.getText().length() < 2) {
 					txImobiliarioTipo.requestFocus();
 				} else if (txImobiliarioEmpresa.getText().equals("")) {
 					txImobiliarioEmpresa.requestFocus();
@@ -949,24 +1035,24 @@ public class InterfaceCliente extends JFrame {
 					String endereco = txBuyEndereco.getText();
 					String tipo = txImobiliarioTipo.getText();
 					String nome = txImobiliarioEmpresa.getText();
-					double valorImovel = Double.parseDouble(txBuyValor.getText());
+					String valorImovel = txBuyValor.getText();
 					String rural, portaria, alvenaria;
 
 					if (rbBuyRuralSim.isSelected()) {
-						rural = rbBuyRuralSim.getText();
+						rural = String.valueOf(rbBuyRuralSim.getText().charAt(0));
 					} else {
-						rural = rbBuyRuralNao.getText();
+						rural = String.valueOf(rbBuyRuralNao.getText().charAt(0));
 					}
 
 					if (rbBuyPortariaSim.isSelected()) {
-						portaria = rbBuyPortariaSim.getText();
+						portaria = String.valueOf(rbBuyPortariaSim.getText().charAt(0));
 					} else {
-						portaria = rbBuyPortariaNao.getText();
+						portaria = String.valueOf(rbBuyPortariaNao.getText().charAt(0));
 					}
 					if (rbBuyAlvenariaSim.isSelected()) {
-						alvenaria = rbBuyAlvenariaSim.getText();
+						alvenaria = String.valueOf(rbBuyAlvenariaSim.getText().charAt(0));
 					} else {
-						alvenaria = rbBuyAlvenariaNao.getText();
+						alvenaria = String.valueOf(rbBuyAlvenariaNao.getText().charAt(0));
 					}
 
 					if (JOptionPane.showOptionDialog(null,
@@ -978,20 +1064,25 @@ public class InterfaceCliente extends JFrame {
 							"Confirma essas informações?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
 							null, options, options[0]) == 0) {
 
-						JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
-						txBuyEndereco.setText("");
-						txBuyValor.setText("");
-						txImobiliarioTipo.setText("");
-						txImobiliarioEmpresa.setText("");
+						if (controller.insertImobiliario(cliente.getId_corretor(), endereco, rural, portaria, alvenaria,
+								valorImovel, tipo, nome, valorResidencial)) {
 
-						pnImobiliario.setVisible(false);
-						pnMainServices.setVisible(true);
+							JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
+							txBuyEndereco.setText("");
+							txBuyValor.setText("");
+							txImobiliarioTipo.setText("");
+							txImobiliarioEmpresa.setText("");
 
-						btMyServices.setEnabled(true);
-						btHelpServices.setEnabled(true);
-						btMainServices.setEnabled(true);
-						getContentPane().add(pnMainServices);
+							pnImobiliario.setVisible(false);
+							pnMainServices.setVisible(true);
 
+							btMyServices.setEnabled(true);
+							btHelpServices.setEnabled(true);
+							btMainServices.setEnabled(true);
+							getContentPane().add(pnMainServices);
+						} else {
+
+						}
 					} else {
 
 					}
@@ -1001,31 +1092,31 @@ public class InterfaceCliente extends JFrame {
 		btFiancaConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 				String[] options = { "Sim", "Não" };
-				if (txFiancaTipo.getText().equals("") || txFiancaTipo.getText().length() < 5) {
+				if (txFiancaTipo.getText().equals("") || txFiancaTipo.getText().length() < 2) {
 					txFiancaTipo.requestFocus();
 				} else {
 					String endereco = txBuyEndereco.getText();
-					String tipo = txFiancaTipo.getText();
-					double valorImovel = Double.parseDouble(txBuyValor.getText());
+					String tipo = String.valueOf(txFiancaTipo.getText().charAt(0))
+							+ String.valueOf(txFiancaTipo.getText().charAt(1));
+					String valorImovel = txBuyValor.getText();
 					String rural, portaria, alvenaria;
 
 					if (rbBuyRuralSim.isSelected()) {
-						rural = rbBuyRuralSim.getText();
+						rural = String.valueOf(rbBuyRuralSim.getText().charAt(0));
 					} else {
-						rural = rbBuyRuralNao.getText();
+						rural = String.valueOf(rbBuyRuralNao.getText().charAt(0));
 					}
 
 					if (rbBuyPortariaSim.isSelected()) {
-						portaria = rbBuyPortariaSim.getText();
+						portaria = String.valueOf(rbBuyPortariaSim.getText().charAt(0));
 					} else {
-						portaria = rbBuyPortariaNao.getText();
+						portaria = String.valueOf(rbBuyPortariaNao.getText().charAt(0));
 					}
 					if (rbBuyAlvenariaSim.isSelected()) {
-						alvenaria = rbBuyAlvenariaSim.getText();
+						alvenaria = String.valueOf(rbBuyAlvenariaSim.getText().charAt(0));
 					} else {
-						alvenaria = rbBuyAlvenariaNao.getText();
+						alvenaria = String.valueOf(rbBuyAlvenariaNao.getText().charAt(0));
 					}
-
 					if (JOptionPane.showOptionDialog(null,
 							"Confirma essas informações???" + "\n" + "\n Endereço: " + endereco + "\n Tipo do imóvel: "
 									+ tipo + "\n Valor do imóvel: " + valorImovel + " R$" + "\n Propriedade rural: "
@@ -1034,23 +1125,45 @@ public class InterfaceCliente extends JFrame {
 							"Confirma essas informações?", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
 							null, options, options[0]) == 0) {
 
-						JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
-						txBuyEndereco.setText("");
-						txBuyValor.setText("");
-						txFiancaTipo.setText("");
+						if (controller.insertFianca(cliente.getId_corretor(), endereco, rural, portaria, alvenaria,
+								valorImovel, tipo, valorFianca)) {
+							JOptionPane.showMessageDialog(null, "Serviço contratado com sucesso");
+							txBuyEndereco.setText("");
+							txBuyValor.setText("");
+							txFiancaTipo.setText("");
 
-						pnFianca.setVisible(false);
-						pnMainServices.setVisible(true);
+							pnFianca.setVisible(false);
+							pnMainServices.setVisible(true);
 
-						btMyServices.setEnabled(true);
-						btHelpServices.setEnabled(true);
-						btMainServices.setEnabled(true);
-						getContentPane().add(pnMainServices);
+							btMyServices.setEnabled(true);
+							btHelpServices.setEnabled(true);
+							btMainServices.setEnabled(true);
+							getContentPane().add(pnMainServices);
+						} else {
 
+						}
 					} else {
 
 					}
 				}
+			}
+		});
+
+		btHelpSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent argse) {
+				if (txaHelpMessage.getText().equals("")) {
+					txaHelpMessage.requestFocus();
+				} else {
+					if (controller.insertHelp((String) cbHelpServicos.getSelectedItem(), txaHelpMessage.getText(),
+							String.valueOf(cliente.getId_cliente()), cliente.getId_corretor())) {
+						JOptionPane.showMessageDialog(null,
+								"Menssagem enviada ao corretor!" + "\n Aguarde o retorno");
+						txaHelpMessage.setText("");
+					} else {
+						JOptionPane.showMessageDialog(null, "Menssagem não enviada");
+					}
+				}
+
 			}
 		});
 

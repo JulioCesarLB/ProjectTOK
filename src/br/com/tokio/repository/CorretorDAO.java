@@ -103,9 +103,6 @@ public class CorretorDAO {
 				System.out.println(rs.getRow());
 				System.out.println("achou");
 				
-		
-				//valorservico,nomeempresa
-
 				
 				objeto[0]=rs.getString("nm_cliente"); //////cliente
 				objeto[1]=rs.getString("ob_endereco");
@@ -116,8 +113,44 @@ public class CorretorDAO {
 				objeto[6]=rs.getString("ob_tipo_habitacao");////servico 
 				objeto[7]=rs.getString("vl_servico");  /////////servico
 
-				//clientes.add(cliente);
+			}
+		}
+		rs.close();
+		stmt.close();
+		return objeto;
+		
+	}	public Object[] selectServicosImobiliario(String apolice,String sql) throws SQLException {
+		System.out.println("Funfa");
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, apolice);
+		System.out.println("Funcionouuuuuuuuuu");
+		ResultSet rs = stmt.executeQuery();
+		
+		System.out.println("Funcionou");
+		Object[] objeto= new Object[10];
+		
+		while (rs.next()) {
+			if (rs.getRow() == 0) {
+				System.out.println(rs.getRow());
+				System.out.println("não achou");
+				rs.close();
+				stmt.close();
+				return null;
+			} else {
+				System.out.println(rs.getRow());
+				System.out.println("achou");
 				
+				
+				objeto[0]=rs.getString("nm_cliente"); //////cliente
+				objeto[1]=rs.getString("ob_endereco");
+				objeto[2]=rs.getString("ob_local_rural");
+				objeto[3]=rs.getString("ob_portaria_eletr");
+				objeto[4]=rs.getString("ob_habitacao_alvenaria");
+				objeto[5]=rs.getString("vl_imovel");
+				objeto[6]=rs.getString("ob_tipo_seguimento");////servico 
+				objeto[7]=rs.getString("vl_servico");
+				objeto[8]=rs.getString("nm_empresa_cliente");/////////servico
+
 			}
 		}
 		rs.close();
@@ -132,7 +165,43 @@ public class CorretorDAO {
 		stmt.close();
 		return true;
 		
+	}
+	public Object[] selectOcorrencias(String idCorretor, String sql) throws SQLException {
+		System.out.println("Funfa");
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, idCorretor);
+		System.out.println("Funcionouuuuuuuuuu");
+		ResultSet rs = stmt.executeQuery();
 		
+		System.out.println("Funcionou");
+		Object[] objeto= new Object[10];
+		
+		while (rs.next()) {
+			if (rs.getRow() == 0) {
+				System.out.println(rs.getRow());
+				System.out.println("não achou");
+				rs.close();
+				stmt.close();
+				return null;
+			} else {
+				System.out.println(rs.getRow());
+				System.out.println("achou");
+				
+		
+				//valorservico,nomeempresa
+
+				
+				objeto[0]=rs.getString("nm_cliente"); //////cliente
+				objeto[1]=rs.getString("tx_ajuda_cliente");
+				objeto[2]=rs.getString("ds_status");
+				
+				
+				
+			}
+		}
+		rs.close();
+		stmt.close();
+		return objeto;
 		
 	}
 

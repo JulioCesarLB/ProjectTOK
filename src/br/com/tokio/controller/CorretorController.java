@@ -63,6 +63,31 @@ public class CorretorController {
 			return modelo;
 		}
 	}
+	public DefaultTableModel selectOcorrencias(String idCorretor, String sql) {
+		Object[] objeto=null;
+		try {
+			objeto = corretor.selectOcorrencias(idCorretor,sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DefaultTableModel modelo = new DefaultTableModel();
+
+		modelo.addColumn("Nome do Cliente");
+		modelo.addColumn("Texto da ocorrência");
+		modelo.addColumn("Status da ocorrencia");
+	
+
+		if (objeto == null) {
+			return null;
+		} else {
+			
+			modelo.addRow(objeto);
+			return modelo;
+		}
+	}
+	
+	
 	public Object[] selectServicos(String apolice,String sql) {
 		try {
 			return corretor.selectServicos(apolice,sql);
@@ -71,7 +96,15 @@ public class CorretorController {
 			e.printStackTrace();
 		}
 		return null;
-		
+	}
+	public Object[] selectServicosImobiliario(String apolice,String sql){
+		try {
+			return corretor.selectServicosImobiliario(apolice,sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	public boolean delete(String apolice, String sql) {
 		try {

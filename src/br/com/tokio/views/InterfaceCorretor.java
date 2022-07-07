@@ -2,9 +2,9 @@ package br.com.tokio.views;
 
 import javax.swing.*;
 
+
 import br.com.tokio.controller.CorretorController;
 import br.com.tokio.model.Corretor;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Method;
@@ -22,7 +22,7 @@ public class InterfaceCorretor extends JFrame {
 
 	// Painel Principal
 	private JPanel pnMainServices;
-	private JLabel pnMainServicesTitle;
+	private JLabel pnMainServicesTitle, pnMainServicesSubTitle, pnMainServicesText;
 
 	// Painel MyClientes
 	private JPanel pnMyClientes;
@@ -159,6 +159,16 @@ public class InterfaceCorretor extends JFrame {
 		pnMainServicesTitle.setBounds(217, 45, 75, 20);
 		pnMainServicesTitle.setFont(new Font("Dialog", Font.BOLD, 25));
 		pnMainServices.add(pnMainServicesTitle);
+		
+		pnMainServicesSubTitle= new JLabel("SEJA BEM VINDO, CORRETOR");
+		pnMainServicesSubTitle.setBounds(80, 200, 380, 20);
+		pnMainServicesSubTitle.setFont(new Font("Dialog", Font.BOLD, 25));
+		pnMainServices.add(pnMainServicesSubTitle);
+		
+		pnMainServicesText= new JLabel("<html><body><center>Através dessa INTERFACE você poderá facilitar alguns processos do seu trabalho,<br> como: CONSULTAR SEUS CLIENTE, VIZUALIZAR OCORRÊNCIAS, CANCELAR SERVIÇOS E MUITO MAIS</center></body></center>");
+		pnMainServicesText.setBounds(90, 240, 360, 200);
+		pnMainServicesText.setFont(new Font("Dialog", Font.PLAIN, 22));
+		pnMainServices.add(pnMainServicesText);
 
 		///////////////////////////////////////////////// FIM PAINEL
 		///////////////////////////////////////////////// HOME//////////////////////////////////////////////////
@@ -278,7 +288,7 @@ public class InterfaceCorretor extends JFrame {
 		///////////////////////////////////////////////// OCORRENCIAS//////////////////////////////////////////////////
 		pnOcorrencias = new JPanel();
 		pnOcorrencias.setLayout(null);
-		pnOcorrencias.setVisible(true);
+		pnOcorrencias.setVisible(false);
 		pnOcorrencias.setBounds(177, 0, 525, 600);
 
 		lbOcorrenciasTitle = new JLabel("Ocorrências");
@@ -695,10 +705,11 @@ public class InterfaceCorretor extends JFrame {
 		btOcorrenciasBusca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
 
-				/*
-				 * tbOcorrencias.setModel(controller.selectClientes(corretor.getId_corretor(),
-				 * "SELECT * FROM tb_tok_ajuda_cliente WHERE id_corretor=?"));
-				 */
+				
+				  tbOcorrencias.setModel(controller.selectOcorrencias(corretor.getId_corretor(),
+				  "select cli.nm_cliente, aju.tx_ajuda_cliente, aju.ds_status from tb_tok_ajuda_cliente aju inner join tb_tok_cliente cli on  aju.id_cliente = cli.id_cliente where cli.id_corretor=?"
+				  ));
+				 
 			}
 		});
 
@@ -929,37 +940,45 @@ public class InterfaceCorretor extends JFrame {
 						txCancelRural.setText((String) objeto[2]);
 						txCancelPortaria.setText((String) objeto[3]);
 						txCancelAlvenaria.setText((String) objeto[4]);
-						txCancelValorServico.setText((String) objeto[5]);
-						txCancelValorImovel.setText((String) objeto[6]);
-						txCancelTipo.setText((String) objeto[7]);
+						txCancelValorServico.setText((String) objeto[7]);
+						txCancelValorImovel.setText((String) objeto[5]);
+						txCancelTipo.setText((String) objeto[6]);
+						
 
 					} else if (rbCancelImobiliario.isSelected()) {
 
 						/// Fazer a busca na tabela imobliario e colocar nos textfields
-						txCancelNome.setText("Guedes");
-						txCancelEndereco.setText("ONDE JUDAS PERDEU AS BOTAS");
-						txCancelRural.setText("Nao");
-						txCancelPortaria.setText("Nao");
-						txCancelAlvenaria.setText("Nao");
-						txCancelValorServico.setText("2000");
-						txCancelNomeEmpresa.setText("SLA");
-						txCancelValorImovel.setText("1000000");
-						txCancelTipo.setText("SAL");
+						String sql = "select cli.nm_cliente, ecli.ob_endereco, ecli.ob_local_rural, ecli.ob_portaria_eletr, ecli.ob_habitacao_alvenaria, ecli.vl_imovel, ci.vl_servico, ci.ob_tipo_seguimento, ci.nm_empresa_cliente, ser.cd_servico from tb_tok_endereco_cliente ecli left join tb_tok_cliente cli on (ecli.id_cliente  = cli.id_cliente) inner join tb_tok_corretagem_i ci on (ecli.id_endereco = ci.id_endereco) inner join tb_tok_servicos ser on ci.cd_servico = ser.cd_servico where cd_consulta=?";
+		
+						System.out.print("aq funciona");
+						Object[] objeto = controller.selectServicosImobiliario(txCancelApolice.getText(), sql);
+						
+						txCancelNome.setText((String) objeto[0]);
+						txCancelEndereco.setText((String) objeto[1]);
+						txCancelRural.setText((String) objeto[2]);
+						txCancelPortaria.setText((String) objeto[3]);
+						txCancelAlvenaria.setText((String) objeto[4]);
+						txCancelValorServico.setText((String) objeto[7]);
+						txCancelValorImovel.setText((String) objeto[5]);
+						txCancelTipo.setText((String) objeto[6]);
+						txCancelNomeEmpresa.setText((String) objeto[8]);
 
-						btCancelarDelete.setEnabled(true);
+						
 
 					} else {
 						/// Fazer a busca na tabela Fianca aluguel e colocar nos textfields
-						txCancelNome.setText("LUIzao");
-						txCancelEndereco.setText("RUAona");
-						txCancelRural.setText("Sim");
-						txCancelPortaria.setText("Sim");
-						txCancelAlvenaria.setText("Sim");
-						txCancelValorServico.setText("1000");
-						txCancelValorImovel.setText("750000");
-						txCancelTipo.setText("apartamentao");
+						String sql = "select cli.nm_cliente, ecli.ob_endereco, ecli.ob_local_rural, ecli.ob_portaria_eletr, ecli.ob_habitacao_alvenaria, ecli.vl_imovel, ca.ob_tipo_habitacao, ca.vl_servico, ser.cd_servico from tb_tok_endereco_cliente ecli left join tb_tok_cliente cli on (ecli.id_cliente  = cli.id_cliente) inner join tb_tok_corretagem_a ca on (ecli.id_endereco = ca.id_endereco) inner join tb_tok_servicos ser on ca.cd_servico = ser.cd_servico where cd_consulta=?";
+						System.out.print("aq funciona");
+						Object[] objeto = controller.selectServicos(txCancelApolice.getText(), sql);
 
-						btCancelarDelete.setEnabled(true);
+						txCancelNome.setText((String) objeto[0]);
+						txCancelEndereco.setText((String) objeto[1]);
+						txCancelRural.setText((String) objeto[2]);
+						txCancelPortaria.setText((String) objeto[3]);
+						txCancelAlvenaria.setText((String) objeto[4]);
+						txCancelValorServico.setText((String) objeto[7]);
+						txCancelValorImovel.setText((String) objeto[5]);
+						txCancelTipo.setText((String) objeto[6]);
 
 					}
 				}
@@ -1001,12 +1020,67 @@ public class InterfaceCorretor extends JFrame {
 					}
 
 				} else if (rbCancelImobiliario.isSelected()) {
-
-				} else {
-
+					sql = "DELETE from tb_tok_corretagem_i where cd_consulta=?";
+					if(controller.delete(txCancelApolice.getText(), sql)) {
+						JOptionPane.showMessageDialog(null, "Deletado com sucesso");
+						btCancelarDelete.setEnabled(false);
+						txCancelApolice.setText("");
+						txCancelNome.setText("");
+						txCancelEndereco.setText("");
+						txCancelRural.setText("");
+						txCancelPortaria.setText("");
+						txCancelAlvenaria.setText("");
+						txCancelValorServico.setText("");
+						txCancelNomeEmpresa.setText("");
+						txCancelValorImovel.setText("");
+						txCancelTipo.setText("");
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Erro ao deletar");
+						btCancelarDelete.setEnabled(false);
+						txCancelApolice.setText("");
+						txCancelNome.setText("");
+						txCancelEndereco.setText("");
+						txCancelRural.setText("");
+						txCancelPortaria.setText("");
+						txCancelAlvenaria.setText("");
+						txCancelValorServico.setText("");
+						txCancelNomeEmpresa.setText("");
+						txCancelValorImovel.setText("");
+						txCancelTipo.setText("");
+				} }else {
+					sql = "DELETE from tb_tok_corretagem_a where cd_consulta=?";
+					if(controller.delete(txCancelApolice.getText(), sql)) {
+						JOptionPane.showMessageDialog(null, "Deletado com sucesso");
+						btCancelarDelete.setEnabled(false);
+						txCancelApolice.setText("");
+						txCancelNome.setText("");
+						txCancelEndereco.setText("");
+						txCancelRural.setText("");
+						txCancelPortaria.setText("");
+						txCancelAlvenaria.setText("");
+						txCancelValorServico.setText("");
+						txCancelNomeEmpresa.setText("");
+						txCancelValorImovel.setText("");
+						txCancelTipo.setText("");
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Erro ao deletar");
+						btCancelarDelete.setEnabled(false);
+						txCancelApolice.setText("");
+						txCancelNome.setText("");
+						txCancelEndereco.setText("");
+						txCancelRural.setText("");
+						txCancelPortaria.setText("");
+						txCancelAlvenaria.setText("");
+						txCancelValorServico.setText("");
+						txCancelNomeEmpresa.setText("");
+						txCancelValorImovel.setText("");
+						txCancelTipo.setText("");
 					
 				}
 			}
+		}
 		});
 		btCancelCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent argse) {
